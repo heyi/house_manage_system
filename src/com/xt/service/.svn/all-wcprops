@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/twzg/!svn/ver/1499/trunk/fw/src/com/xt/service
+END
+DictService.java
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/twzg/!svn/ver/1439/trunk/fw/src/com/xt/service/DictService.java
+END
+InfomationService.java
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/twzg/!svn/ver/1469/trunk/fw/src/com/xt/service/InfomationService.java
+END
+SectorService.java
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/twzg/!svn/ver/1499/trunk/fw/src/com/xt/service/SectorService.java
+END
+LandService.java
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/twzg/!svn/ver/1370/trunk/fw/src/com/xt/service/LandService.java
+END
+AccountService.java
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/twzg/!svn/ver/1496/trunk/fw/src/com/xt/service/AccountService.java
+END
+BuildingsService.java
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/twzg/!svn/ver/1478/trunk/fw/src/com/xt/service/BuildingsService.java
+END
+HouseService.java
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/twzg/!svn/ver/1437/trunk/fw/src/com/xt/service/HouseService.java
+END

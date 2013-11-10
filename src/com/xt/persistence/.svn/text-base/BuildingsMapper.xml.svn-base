@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.xt.persistence.BuildingsMapper">
+
+	<select id="getBuildingsByKeywords" parameterType="map" resultType="Buildings">
+		<![CDATA[
+	    SELECT
+		 buildings_id         as buildingsId,
+   		 buildings_name       as buildingsName,
+         city_no              as cityNo,
+         sector_id            as sectorId,
+         pinyin               as pinyin,
+         pinyin_letter        as pinyinLetter,
+         building_address     as buildingsAddress
+		FROM tb_building_dict 
+		where 1=1
+		]]>
+		<if test="buildingsName != null and buildingsName != ''">
+		    <![CDATA[
+		    and buildings_name = #{buildingsName}
+		    ]]>
+		</if>
+		<if test="cityNo != null and cityNo != ''">
+		    <![CDATA[
+		    and city_no = #{cityNo}
+		    ]]>
+		</if>
+		 <![CDATA[
+		    order by buildings_id 
+		 ]]>
+	</select>
+	<select id="getBuildingsCountByKeywords" parameterType="map" resultType="int">
+		<![CDATA[
+	    SELECT
+		 count(1)
+		FROM tb_building_dict 
+		where 1=1
+		]]>
+		<if test="buildingsName != null and buildingsName != ''">
+		    <![CDATA[
+		    and buildings_name = #{buildingsName}
+		    ]]>
+		</if>
+		<if test="cityNo != null and cityNo != ''">
+		    <![CDATA[
+		    and city_no = #{cityNo}
+		    ]]>
+		</if>
+		 <![CDATA[
+		    order by buildings_id 
+		 ]]>
+	</select>
+
+	<insert id="insertBuildings" parameterType="Buildings">
+		INSERT INTO
+		tb_building_dict (buildings_name, city_no, sector_id,
+		pinyin,pinyin_letter,building_address)
+		VALUES (#{buildingsName},
+		#{cityNo}, #{sectorId}, 
+		#{pinyin},#{pinyinLetter},#{buildingsAddress})
+	</insert>
+
+	<update id="updateBuildingsById" parameterType="map">
+		UPDATE
+		tb_building_dict SET
+		 buildings_name       = #{buildingsName},
+         city_no              = #{cityNo},
+         sector_id            = #{sectorId},
+         pinyin               = #{pinyin},
+         pinyin_letter        = #{pinyinLetter},
+         building_address     = #{buildingsAddress}
+		WHERE buildings_id = #{buildingsId}
+	</update>
+
+	<delete id="deleteBuildingsById" parameterType="int">
+		DELETE
+		FROM
+		tb_building_dict
+		WHERE buildings_id = #{value}
+	</delete>
+</mapper>

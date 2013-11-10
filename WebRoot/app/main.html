@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Basic Layout - jQuery EasyUI Demo</title>
+        <link rel="stylesheet" type="text/css" href="../themes/default/easyui.css">
+        <link rel="stylesheet" type="text/css" href="../themes/icon.css">
+        <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+        <script type="text/javascript" src="../jquery.easyui.min.js"></script>
+        <script src="../locale/easyui-lang-zh_CN.js" type="text/javascript" charset="utf-8"></script>
+        <style type="text/css" media="all">
+            html{ width:100%; height: 100%; margin:0px; overflow:hidden; }
+            body { width: 97%; height: 94%; padding:1%; overflow:hidden; }
+            .easyui-layout { width: 100%; height: 98%; overflow:hidden; } 
+
+        </style>
+    </head>
+    <body>
+        <div class="easyui-layout">
+            <div data-options="region:'north'" style="height:50px"></div>
+            <div data-options="region:'south',split:true" style="height:50px;"></div>
+            <div data-options="region:'west',split:true" title="west" style="width:250px;">
+                <ul class="easyui-tree">
+                    <li>
+                        <span>My Documents</span>
+                        <ul>
+                            <li data-options="state:'closed'">
+                                <span>Photos</span>
+                                <ul>
+                                    <li>
+                                        <span>Friend</span>
+                                    </li>
+                                    <li>
+                                        <span>Wife</span>
+                                    </li>
+                                    <li>
+                                        <span>Company</span>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <span>Program Files</span>
+                                <ul>
+                                    <li>Intel</li>
+                                    <li>Java</li>
+                                    <li>Microsoft Office</li>
+                                    <li>Games</li>
+                                </ul>
+                            </li>
+                            <li>index.html</li>
+                            <li>about.html</li>
+                            <li>welcome.html</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div data-options="region:'center',title:'Main Title',iconCls:'icon-ok'">
+                <table class="easyui-datagrid"
+                    data-options="url:'datagrid_data1.json',method:'get',border:false,singleSelect:true,fit:true,fitColumns:true">
+                    <thead>
+                        <tr>
+                            <th data-options="field:'itemid'" width="80">Item ID</th>
+                            <th data-options="field:'productid'" width="100">Product ID</th>
+                            <th data-options="field:'listprice',align:'right'" width="80">List Price</th>
+                            <th data-options="field:'unitcost',align:'right'" width="80">Unit Cost</th>
+                            <th data-options="field:'attr'" width="150">Attribute</th>
+                            <th data-options="field:'status',align:'center'" width="50">Status</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+
+    </body>
+</html>

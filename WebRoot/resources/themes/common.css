@@ -1,0 +1,93 @@
+.form-inline{ padding: 8px; } 
+ul,h1,h5 {margin:0px; padding:0px;  }
+html{ width:100%; height: 100%; margin:0px; overflow:hidden; }
+body { width: 100%; height: 100%; padding:0px; overflow:hidden; margin:0px; font-family: verdana, helvetica, arial, sans-serif; background: #fafafa; text-align: center; }
+.graph {position:absolute; bottom:1px; top:1px; right:1px; left:1px;}
+.house-menu { position:absolute; bottom:0px; padding: 5px 10px 5px 10px; font-weight:bold; font-size:1.2em; border: 1px solid #95B8E7; border-bottom:none; border-left:none;  }
+.easyui-layout { width: 100%; height: 100%; overflow:hidden; } 
+.ui-layout-head {
+    position: relative;
+    background: url(../images/header.jpg) repeat-x left -70px;
+    height: 66px;
+    width: 100%
+}
+.ui-layout-head .ui-layout-logo {
+    background: url(../images/logo.gif) no-repeat center center;
+    height: 66px;
+    width: 60px;
+    float: left
+}
+.ui-layout-nav {
+    position: relative;
+    top: 36px;
+    text-align: right;
+    float: right;
+    right: 10px
+}
+.ui-layout-nav-contain {
+    float: left;
+    height: 28px;
+    _width: 440px;
+    background: url(../images/header-menu.gif) 0 -31px repeat-x;
+    position: relative;
+    zoom: 1
+}
+.ui-layout-nav-tab {
+    height: 28px;
+    position: relative;
+    left: 0
+}
+.ui-layout-nav-tab li {
+    float: left;
+    color: #DBE3E8;
+    height: 28px;
+    line-height: 28px;
+    cursor: pointer;
+    list-style: none;
+    font-family: Arial, Verdana, Helvetica, sans-serif "寰蒋闆呴粦";
+    font-size: 13px;
+    text-align: center;
+    border-left: 1px solid #6F98BE;
+    border-right: 1px solid #2A5379
+}
+.ui-layout-nav-tab a {
+    color: #DBE3E8;
+    text-decoration: none;
+    display: block;
+    padding: 0 15px
+}
+.ui-layout-nav-active {
+    background: url(../images/header-menu.gif) 0 -93px repeat-x;
+    color: #075587;
+    font-weight: normal
+}
+.ui-layout-nav-prev {
+    float: left;
+    background: url(../images/header-menu.gif) 0 0 no-repeat;
+    height: 28px;
+    padding: 0;
+    width: 10px;
+    font-family: 瀹嬩綋;
+    font-size: 12px;
+    text-align: right;
+    cursor: pointer;
+    color: #fff
+}
+
+.ui-layout-nav-next {
+    float: left;
+    background: url(../images/header-menu.gif) right -62px no-repeat;
+    height: 28px;
+    padding: 0;
+    width: 10px;
+    font-size: 12px;
+    text-align: left;
+    cursor: pointer;
+    color: #fff
+}
+.ui-layout-nav-frist {
+    border-left: none !important
+}
+.ui-layout-nav-last {
+    border-right: none !important
+}

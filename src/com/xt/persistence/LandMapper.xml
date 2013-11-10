@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.xt.persistence.LandMapper">
+
+	<select id="getLandById" parameterType="int"	resultType="Land">
+		SELECT
+		land_id as landId,
+		list_no as listNo,
+		deal_time as dealTime,
+		city as city,
+		county as county,
+		locate as locate,
+		level as level,
+		use_no as useNo,
+		use_scale as useScale,
+		acreage as acreage,
+		area_ratio as areaRatio,
+		age_limit as ageLimit,
+		starting_price as startingPrice,
+		total_price as totalPrice,
+		unit_price1 as unitPrice1,
+		unit_price2 as unitPrice2,
+		floor_price as floorPrice,
+		deal_unit as dealUnit,
+		bid_times as bidTimes,
+		deal_confirmation as dealConfirmation,
+		design_sheets as designSheets,
+		mapping_result as mappingResult,
+		assessment_report as assessmentReport,
+		lng,
+		lat,
+		remark
+		FROM tb_land_info where
+		land_id=#{value}
+	</select>
+
+	
+
+	<select id="getLandListForSearch" parameterType="map"
+		resultType="Land">
+		<![CDATA[
+		  SELECT
+			land_id as landId,
+			list_no as listNo,
+			deal_time as dealTime,
+			city as city,
+			county as county,
+			locate as locate,
+			level as level,
+			use_no as useNo,
+			use_scale as useScale,
+			acreage as acreage,
+			area_ratio as areaRatio,
+			age_limit as ageLimit,
+			starting_price as startingPrice,
+			total_price as totalPrice,
+			unit_price1 as unitPrice1,
+			unit_price2 as unitPrice2,
+			floor_price as floorPrice,
+			deal_unit as dealUnit,
+			bid_times as bidTimes,
+			deal_confirmation as dealConfirmation,
+			design_sheets as designSheets,
+			mapping_result as mappingResult,
+			assessment_report as assessmentReport,
+			lng,
+			lat,
+			remark
+			FROM tb_land_info
+			where 1=1
+			]]>
+		<if test="listNo != null and listNo != ''">
+		    <![CDATA[
+		    and list_no = #{listNo}
+		    ]]>
+		</if>
+		<if test="city != null and city != ''">
+		    <![CDATA[
+		       and city = #{city}
+		     ]]>
+		</if>
+		<if test="locate != null and locate != ''">
+		    <![CDATA[
+		    and locate like '%${locate}%'
+		     ]]>
+		</if>
+		<if test="useNo != null and useNo != ''"> 
+		    <![CDATA[
+		    and use_no = #{useNo}
+		     ]]>
+		</if>
+		<if test="acreage != null and acreage != ''"> 
+		    <![CDATA[
+		    and acreage ${operator1} #{acreage}
+		     ]]>
+		</if>
+		<if test="unitPrice1 != null and unitPrice1 != ''"> 
+		    <![CDATA[
+		    and unit_price1 ${operator2} #{unitPrice1}
+		     ]]>
+		</if>
+		<if test="level != null and level != ''"> 
+		    <![CDATA[
+		    and level = #{level}
+		     ]]>
+		</if>
+		<if test="areaRatio != null and areaRatio != ''"> 
+		    <![CDATA[
+		    and area_ratio = #{areaRatio}
+		     ]]>
+		</if>
+		<if test="startDate != null and startDate != ''"> 
+		    <![CDATA[
+		    and deal_time >= #{startDate}
+		     ]]>
+		</if>
+		<if test="endDate != null and endDate != ''"> 
+		<![CDATA[
+		     and deal_time <= #{endDate}
+		]]>
+		</if>
+		<![CDATA[
+			order by land_id desc limit #{start},#{rows}
+         ]]>
+	</select>
+	<select id="getLandCountForSearch" parameterType="map"
+		resultType="int">
+		<![CDATA[
+		  SELECT
+			count(1)
+			FROM tb_land_info
+			where 1=1 
+		]]>
+		<if test="listNo != null and listNo != ''">
+		    <![CDATA[
+		    and list_no = #{listNo}
+		    ]]>
+		</if>
+		<if test="city != null and city != ''">
+		    <![CDATA[
+		    and city = #{city}
+		     ]]>
+		</if>
+		<if test="locate != null and locate != ''">
+		    <![CDATA[
+		    and locate like '%${locate}%'
+		     ]]>
+		</if>
+		<if test="useNo != null and useNo != ''"> 
+		    <![CDATA[
+		    and use_no = #{useNo}
+		     ]]>
+		</if>
+		<if test="acreage != null and acreage != ''"> 
+		    <![CDATA[
+		    and acreage ${operator1} #{acreage}
+		     ]]>
+		</if>
+		<if test="unitPrice1 != null and unitPrice1 != ''"> 
+		    <![CDATA[
+		    and unit_price1 ${operator2} #{unitPrice1}
+		     ]]>
+		</if>
+		<if test="level != null and level != ''"> 
+		    <![CDATA[
+		    and level = #{level}
+		     ]]>
+		</if>
+		<if test="areaRatio != null and areaRatio != ''"> 
+		    <![CDATA[
+		    and area_ratio = #{areaRatio}
+		     ]]>
+		</if>
+		<if test="startDate != null and startDate != ''"> 
+		    <![CDATA[
+		    and deal_time >= #{startDate}
+		     ]]>
+		</if>
+		<if test="endDate != null and endDate != ''"> 
+		<![CDATA[
+		     and deal_time <= #{endDate}
+		]]>
+		</if>
+        <![CDATA[
+			order by land_id desc
+         ]]>
+	</select>
+	
+
+	<insert id="insertLand" parameterType="Land">
+		INSERT INTO
+		tb_land_info (
+		list_no,
+		deal_time,
+		city,
+		county,
+		locate,
+		level,
+		use_no,
+		use_scale,
+		acreage,
+		area_ratio,
+		age_limit,
+		starting_price,
+		total_price,
+		unit_price1,
+		unit_price2,
+		floor_price,
+		deal_unit,
+		bid_times,
+		deal_confirmation,
+		design_sheets,
+		mapping_result,
+		assessment_report,
+		lng,
+		lat,
+		remark
+		)
+		VALUES (
+		#{listNo},
+		#{dealTime},
+		#{city},
+		#{county},
+		#{locate},
+		#{level},
+		#{useNo},
+		#{useScale},
+		#{acreage},
+		#{areaRatio},
+		#{ageLimit},
+		#{startingPrice},
+		#{totalPrice},
+		#{unitPrice1},
+		#{unitPrice2},
+		#{floorPrice},
+		#{dealUnit},
+		#{bidTimes},
+		#{dealConfirmation},
+		#{designSheets},
+		#{mappingResult},
+		#{assessmentReport},
+		#{lng},
+		#{lat},
+		#{remark}
+		)
+	</insert>
+
+	<update id="updateLandById" parameterType="Land">
+		UPDATE
+		tb_land_info SET
+		list_no = #{listNo},
+		deal_time = #{dealTime},
+		city = #{city},
+		county = #{county},
+		locate = #{locate},
+		level = #{level},
+		use_no = #{useNo},
+		use_scale = #{useScale},
+		acreage = #{acreage},
+		area_ratio = #{areaRatio},
+		age_limit = #{ageLimit},
+		starting_price = #{startingPrice},
+		total_price = #{totalPrice},
+		unit_price1 = #{unitPrice1},
+		unit_price2 = #{unitPrice2},
+		floor_price = #{floorPrice},
+		deal_unit = #{dealUnit},
+		bid_times = #{bidTimes},
+		deal_confirmation = #{dealConfirmation},
+		design_sheets = #{designSheets},
+		mapping_result = #{mappingResult},
+		assessment_report = #{assessmentReport},
+		lng = #{lng},
+		lat = #{lat},
+		remark = #{remark}
+		WHERE land_id = #{landId}
+	</update>
+
+	<delete id="deleteLandById" parameterType="int">
+		DELETE
+		FROM
+		tb_land_info
+		WHERE land_id = #{value}
+	</delete>
+</mapper>

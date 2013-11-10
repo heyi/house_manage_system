@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.xt.persistence.InfomationMapper">
+
+	<select id="getInfomationById" parameterType="int"	resultType="Infomation">
+		SELECT
+		   info_title           as infoTitle,
+		   catagory_id          as catagoryId,
+		   content              as content,
+		   attachment           as attachment,
+		   insert_time          as insertTime,
+		   user_id              as userId
+		FROM tb_information_library
+		where info_id=#{value}
+	</select>
+
+	
+
+	<select id="getInfomationListForSearch" parameterType="map"
+		resultType="Infomation">
+		<![CDATA[
+		  SELECT
+		       info_id              as infoId,
+			   info_title           as infoTitle,
+			   catagory_id          as catagoryId,
+			   content              as content,
+			   attachment           as attachment,
+			   insert_time          as insertTime,
+			   user_id              as userId
+			FROM tb_information_library
+			where 1=1
+			]]>
+		
+		<if test="infoTitle != null and infoTitle != ''">
+		    <![CDATA[
+		    and info_title like '%${infoTitle}%'
+		     ]]>
+		</if>
+		
+		<if test="catagoryId != null and catagoryId != ''"> 
+		    <![CDATA[
+		    and catagory_id = #{catagoryId}
+		     ]]>
+		</if>
+		
+		<![CDATA[
+			order by info_id desc limit #{start},#{rows}
+         ]]>
+	</select>
+	<select id="getInfomationCountForSearch" parameterType="map"
+		resultType="int">
+		<![CDATA[
+		  SELECT
+			count(1)
+			FROM tb_information_library
+			where 1=1 
+		]]>
+		
+		<if test="infoTitle != null and infoTitle != ''">
+		    <![CDATA[
+		    and info_title like '%${infoTitle}%'
+		     ]]>
+		</if>
+		
+		<if test="catagoryId != null and catagoryId != ''"> 
+		    <![CDATA[
+		    and catagory_id = #{catagoryId}
+		     ]]>
+		</if>
+		
+        <![CDATA[
+			order by info_id desc
+         ]]>
+	</select>
+	
+
+	<insert id="insertInfomation" parameterType="Infomation">
+		INSERT INTO
+		tb_information_library (
+			   info_title,
+			   catagory_id,
+			   content,
+			   attachment,
+			   insert_time,
+			   user_id
+		)
+		VALUES (
+			#{infoTitle},
+			#{catagoryId},
+			#{content},
+			#{attachment},
+			now(),
+			#{userId}
+		)
+	</insert>
+
+	<update id="updateInfomationById" parameterType="Infomation">
+		UPDATE
+		tb_information_library SET
+			   info_title           = #{infoTitle},
+			   catagory_id          = #{catagoryId},
+			   content              = #{content},
+			   attachment           = #{attachment}
+		WHERE info_id = #{infoId}
+	</update>
+
+	<delete id="deleteInfomationById" parameterType="int">
+		DELETE
+		FROM
+		tb_information_library
+		WHERE info_id = #{value}
+	</delete>
+</mapper>

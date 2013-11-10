@@ -1,0 +1,101 @@
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/twzg/!svn/ver/1499/trunk/fw/src/com/xt/persistence
+END
+DictMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/twzg/!svn/ver/1439/trunk/fw/src/com/xt/persistence/DictMapper.xml
+END
+InfomationMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/twzg/!svn/ver/1484/trunk/fw/src/com/xt/persistence/InfomationMapper.xml
+END
+AccountMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/twzg/!svn/ver/1476/trunk/fw/src/com/xt/persistence/AccountMapper.java
+END
+LandMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/twzg/!svn/ver/1370/trunk/fw/src/com/xt/persistence/LandMapper.java
+END
+CatagoryMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/twzg/!svn/ver/1449/trunk/fw/src/com/xt/persistence/CatagoryMapper.xml
+END
+BuildingsMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/twzg/!svn/ver/1499/trunk/fw/src/com/xt/persistence/BuildingsMapper.xml
+END
+SectorMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/twzg/!svn/ver/1499/trunk/fw/src/com/xt/persistence/SectorMapper.java
+END
+HouseMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/twzg/!svn/ver/1470/trunk/fw/src/com/xt/persistence/HouseMapper.xml
+END
+HouseMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/twzg/!svn/ver/1437/trunk/fw/src/com/xt/persistence/HouseMapper.java
+END
+BuildingsMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/twzg/!svn/ver/1478/trunk/fw/src/com/xt/persistence/BuildingsMapper.java
+END
+SectorMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/twzg/!svn/ver/1499/trunk/fw/src/com/xt/persistence/SectorMapper.xml
+END
+LandMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/twzg/!svn/ver/1410/trunk/fw/src/com/xt/persistence/LandMapper.xml
+END
+CatagoryMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/twzg/!svn/ver/1449/trunk/fw/src/com/xt/persistence/CatagoryMapper.java
+END
+AccountMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/twzg/!svn/ver/1498/trunk/fw/src/com/xt/persistence/AccountMapper.xml
+END
+DictMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/twzg/!svn/ver/1439/trunk/fw/src/com/xt/persistence/DictMapper.java
+END
+InfomationMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/twzg/!svn/ver/1469/trunk/fw/src/com/xt/persistence/InfomationMapper.java
+END

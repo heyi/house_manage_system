@@ -1,0 +1,120 @@
+10
+
+dir
+1510
+http://222.247.54.24:5222/svn/twzg/trunk/fw/WebRoot
+http://222.247.54.24:5222/svn/twzg
+
+
+
+2013-11-07T14:50:59.447899Z
+1510
+zj
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+faa40252-17c3-b44d-a65b-6b134e5888ea
+
+META-INF
+dir
+
+WEB-INF
+dir
+
+app
+dir
+
+error
+dir
+
+login.jsp
+file
+
+
+
+
+2013-10-21T14:44:34.507000Z
+e09e05fb51eaf3e009f147e6d29ae4d6
+2013-10-21T06:23:35.609059Z
+1340
+xt
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+567
+
+logs
+dir
+
+resources
+dir
+
+test.html
+file
+
+
+
+
+2013-10-21T14:44:34.501000Z
+1ef0ecae6c90fe88c3c259331a72c993
+2013-10-21T06:23:35.609059Z
+1340
+xt
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+615
+
+tmp
+dir
+
+uploadfile
+dir
+

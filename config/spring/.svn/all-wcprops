@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/twzg/!svn/ver/1350/trunk/fw/config/spring
+END
+servlet-context.xml
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/twzg/!svn/ver/1340/trunk/fw/config/spring/servlet-context.xml
+END
+applicationContext.xml
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/twzg/!svn/ver/1350/trunk/fw/config/spring/applicationContext.xml
+END

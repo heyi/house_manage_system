@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.xt.persistence.AccountMapper">
+
+	<select id="getAccountByUsername" parameterType="string"
+		resultType="Account">
+		SELECT
+			user_id as userId,
+			username as username,
+			user_pwd as password,
+			true_name as trueName,
+			user_level as userRight,
+			is_valid as isValid,
+			mobile               as mobile,
+		    qq                   as qq,
+		    rank                 as rank,
+		    dept                 as dept,
+		    photo                as photo,
+		    idcard               as idcard,
+		    address              as address,
+		    remark               as remark
+		FROM tb_user_info where
+		username=#{value}
+	</select>
+
+	<select id="getAccountByUserId" parameterType="int" resultType="Account">
+		SELECT
+			user_id as userId,
+			username as username,
+			user_pwd as password,
+			true_name as trueName,
+			user_level as userRight,
+			is_valid as isValid,
+			mobile               as mobile,
+		    qq                   as qq,
+		    rank                 as rank,
+		    dept                 as dept,
+		    photo                as photo,
+		    idcard               as idcard,
+		    address              as address,
+		    remark               as remark
+		FROM tb_user_info where user_id=#{value}
+	</select>
+
+	<select id="getAccountListByKeywords" parameterType="map"
+		resultType="Account">
+		<![CDATA[
+		SELECT
+			user_id as userId,
+			username as username,
+			user_pwd as password,
+			true_name as trueName,
+			user_level as userRight,
+			is_valid as isValid,
+			mobile               as mobile,
+		    qq                   as qq,
+		    rank                 as rank,
+		    dept                 as dept,
+		    photo                as photo,
+		    idcard               as idcard,
+		    address              as address,
+		    remark               as remark
+		FROM tb_user_info
+		 where 1=1
+		]]>
+		<if test="keywords != null and keywords != ''"> 
+		    <![CDATA[
+		    and (username like '%${keywords}%' or true_name like '%${keywords}%')
+		     ]]>
+		</if>
+		<![CDATA[
+		 order by user_id desc limit #{start},#{rows} 
+         ]]>
+	</select>
+	
+	<select id="getAccountCount" parameterType="map" resultType="int">
+	    <![CDATA[
+		SELECT
+			count(1)
+		FROM tb_user_info
+		 where 1=1
+		]]>
+		<if test="keywords != null and keywords != ''"> 
+		    <![CDATA[
+		    and (username like '%${keywords}%' or true_name like '%${keywords}%')
+		     ]]>
+		</if>
+		<![CDATA[
+		 order by user_id desc 
+         ]]>
+	</select>
+
+	<insert id="insertAccount" parameterType="Account">
+		INSERT INTO
+		tb_user_info (username, user_pwd, true_name,
+		user_level,is_valid,
+		mobile,
+		    qq,
+		    rank,
+		    dept,
+		    photo,
+		    idcard,
+		    address,
+		    remark 
+		)
+		VALUES (#{username},
+		#{password}, #{trueName}, 
+		#{userRight},#{isValid},
+		#{mobile},#{qq},#{rank},#{dept},#{photo},#{idcard},#{address},
+		#{remark}
+		)
+	</insert>
+
+	<update id="updateAccountByUserId" parameterType="map">
+		UPDATE
+		tb_user_info SET
+		<if test="password != null">
+		user_pwd = #{password},
+		</if>
+		<if test="trueName != null">
+		true_name = #{trueName},
+		</if>
+		<if test="userRight != null">
+		user_level = #{userRight},
+		</if>
+		<if test="isValid != null">
+		is_valid = #{isValid},
+		</if>
+		username = #{username},
+		mobile               = #{mobile},
+		    qq                   = #{qq},
+		    rank                 = #{rank},
+		    dept                 = #{dept},
+		    photo                = #{photo},
+		    idcard               = #{idcard},
+		    address              = #{address},
+		    remark               = #{remark}
+		WHERE user_id = #{userId}
+	</update>
+
+	<delete id="deleteAccountByUserId" parameterType="int">
+		DELETE
+		FROM
+		tb_user_info
+		WHERE user_id = #{value}
+	</delete>
+</mapper>

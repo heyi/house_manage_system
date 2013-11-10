@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.xt.persistence.HouseMapper">
+
+	<select id="getHouseById" parameterType="int"	resultType="House">
+		SELECT
+		   house_type			as houseType,
+		   deal_type            as dealType,
+		   house_name           as houseName,
+		   house_no             as houseNo,
+		   deal_time            as dealTime,
+		   city_no              as cityNo,
+		   locate               as locate,
+		   area_no              as areaNo,
+		   realuse              as realUse,
+		   business_state       as businessState,
+		   structure            as structure,
+		   construction_area    as constructionArea,
+		   pool_area            as poolArea,
+		   building_date        as buildingDate,
+		   new_situation        as newSituation,
+		   street_side          as streetSide,
+		   street_length        as streetLength,
+		   depth                as depth,
+		   total_floor          as totalFloor,
+		   floor                as floor,
+		   floor_height         as floorHeight,
+		   decorate_situation   as decorateSituation,
+		   land_use_right       as landUseRight,
+		   land_expired_date    as landExpiredDate,
+		   total_price          as totalPrice,
+		   unit_price           as unitPrice,
+		   hire_state           as hireState,
+		   hire_price           as hirePrice,
+		   Supporting_facilities as Supporting_facilities,
+		   contact_tel          as contactTel,
+		   remark               as remark,
+		   lng                  as lng,
+		   lat                  as lat,
+		   insert_time          as insertTime,
+		   img                  as img,
+		   contract             as contract,
+		   user_id              as userId,
+		   hire_expired_date    as hireExpiredDate,
+		   hire_unit_price      as hireUnitPrice,
+		   transfer_fee         as transferFee,
+		   deposit              as deposit,
+		   property_management_fee as propertyManagementFee,
+		   office_facilities    as officeFacilities,
+		   parking_facilities   as parkingFacilities,
+		   pilespacing          as pilespacing,
+		   crane_beam           as craneBeam,
+		   span                 as span
+		FROM tb_house_info 
+		where house_id=#{value}
+	</select>
+
+	
+
+	<select id="getHouseListForSearch" parameterType="map"
+		resultType="House">
+		<![CDATA[
+		  SELECT
+			   house_id             as houseId,
+			   house_type			as houseType,
+		       deal_type            as dealType,
+			   house_name           as houseName,
+			   house_no             as houseNo,
+			   deal_time            as dealTime,
+			   city_no              as cityNo,
+			   locate               as locate,
+			   area_no              as areaNo,
+			   realuse               as realUse,
+			   business_state       as businessState,
+			   structure            as structure,
+			   construction_area    as constructionArea,
+			   pool_area            as poolArea,
+			   building_date        as buildingDate,
+			   new_situation        as newSituation,
+			   street_side          as streetSide,
+			   street_length        as streetLength,
+			   depth                as depth,
+			   total_floor          as totalFloor,
+			   floor                as floor,
+			   floor_height         as floorHeight,
+			   decorate_situation   as decorateSituation,
+			   land_use_right       as landUseRight,
+			   land_expired_date    as landExpiredDate,
+			   total_price          as totalPrice,
+			   unit_price           as unitPrice,
+			   hire_state           as hireState,
+			   hire_price           as hirePrice,
+			   Supporting_facilities as SupportingFacilities,
+			   contact_tel          as contactTel,
+			   user_id              as userId,
+			   remark               as remark,
+			   lng                  as lng,
+			   lat                  as lat,
+			   insert_time          as insertTime,
+			   img                  as img,
+		   	   contract             as contract,
+		       hire_expired_date    as hireExpiredDate,
+		       hire_unit_price      as hireUnitPrice,
+		       transfer_fee         as transferFee,
+		       deposit              as deposit,
+		       property_management_fee as propertyManagementFee,
+		       office_facilities    as officeFacilities,
+		       parking_facilities   as parkingFacilities,
+		       pilespacing          as pilespacing,
+		       crane_beam           as craneBeam,
+		       span                 as span
+			FROM tb_house_info
+			where 1=1
+			]]>
+		<if test="houseType != null and houseType != ''">
+		    <![CDATA[
+		    and house_type = #{houseType}
+		    ]]>
+		</if>
+		<if test="dealType != null and dealType != ''">
+		    <![CDATA[
+		    and deal_type = #{dealType}
+		    ]]>
+		</if>
+		<if test="cityNo != null and cityNo != ''">
+		    <![CDATA[
+		    and city_no = #{cityNo}
+		     ]]>
+		</if>
+		<if test="locate != null and locate != ''">
+		    <![CDATA[
+		    and locate like '%${locate}%'
+		     ]]>
+		</if>
+		<if test="structure != null and structure != ''"> 
+		    <![CDATA[
+		    and structure = #{structure}
+		     ]]>
+		</if>
+		<if test="constructionArea != null and constructionArea != ''"> 
+		    <![CDATA[
+		    and construction_area ${operator1} #{constructionArea}
+		     ]]>
+		</if>
+		<if test="unitPrice != null and unitPrice != ''"> 
+		    <![CDATA[
+		    and unit_price ${operator2} #{unitPrice}
+		     ]]>
+		</if>
+		<if test="buildingDate != null and buildingDate != ''"> 
+		    <![CDATA[
+		    and building_date = #{buildingDate}
+		     ]]>
+		</if>
+		<if test="landUseRight != null and landUseRight != ''"> 
+		    <![CDATA[
+		    and land_use_right = #{landUseRight}
+		     ]]>
+		</if>
+		<if test="startDate != null and startDate != ''"> 
+		    <![CDATA[
+		    and deal_time >= #{startDate}
+		     ]]>
+		</if>
+		<if test="endDate != null and endDate != ''"> 
+		<![CDATA[
+		     and deal_time <= #{endDate}
+		]]>
+		</if>
+		<![CDATA[
+			order by house_id limit #{start},#{rows}
+         ]]>
+	</select>
+	<select id="getHouseCountForSearch" parameterType="map"
+		resultType="int">
+		<![CDATA[
+		  SELECT
+			count(1)
+		FROM tb_house_info
+		where 1=1 
+		]]>
+		<if test="listNo != null and listNo != ''">
+		    <![CDATA[
+		    and list_no = #{listNo}
+		    ]]>
+		</if>
+		<if test="cityNo != null and cityNo != ''">
+		    <![CDATA[
+		    and city_no = #{cityNo}
+		     ]]>
+		</if>
+		<if test="locate != null and locate != ''">
+		    <![CDATA[
+		    and locate like '%${locate}%'
+		     ]]>
+		</if>
+		<if test="structure != null and structure != ''"> 
+		    <![CDATA[
+		    and structure = #{structure}
+		     ]]>
+		</if>
+		<if test="constructionArea != null and constructionArea != ''"> 
+		    <![CDATA[
+		    and construction_area ${operator1} #{constructionArea}
+		     ]]>
+		</if>
+		<if test="unitPrice != null and unitPrice != ''"> 
+		    <![CDATA[
+		    and unit_price ${operator2} #{unitPrice}
+		     ]]>
+		</if>
+		<if test="buildingDate != null and buildingDate != ''"> 
+		    <![CDATA[
+		    and building_date = #{buildingDate}
+		     ]]>
+		</if>
+		<if test="landUseRight != null and landUseRight != ''"> 
+		    <![CDATA[
+		    and land_use_right = #{landUseRight}
+		     ]]>
+		</if>
+		<if test="startDate != null and startDate != ''"> 
+		    <![CDATA[
+		    and deal_time >= #{startDate}
+		     ]]>
+		</if>
+		<if test="endDate != null and endDate != ''"> 
+		<![CDATA[
+		     and deal_time <= #{endDate}
+		]]>
+		</if>
+        <![CDATA[
+			order by house_id 
+         ]]>
+	</select>
+	
+
+	<insert id="insertHouse" parameterType="House">
+		INSERT INTO
+		tb_house_info (
+			   house_type,
+		       deal_type,
+			   house_name,
+			   house_no,
+			   deal_time,
+			   city_no,
+			   locate,
+			   area_no,
+			   realuse,
+			   business_state,
+			   structure,
+			   construction_area,
+			   pool_area,
+			   building_date,
+			   new_situation,
+			   street_side,
+			   street_length,
+			   depth,
+			   total_floor,
+			   floor,
+			   floor_height,
+			   decorate_situation,
+			   land_use_right,
+			   land_expired_date,
+			   total_price,
+			   unit_price,
+			   hire_state,
+			   hire_price,
+			   Supporting_facilities,
+			   contact_tel,
+			   remark,
+			   lng,
+			   lat,
+			   insert_time,
+			   img,
+		   	   contract,
+		       user_id,
+		       hire_expired_date,
+		       hire_unit_price,
+		       transfer_fee,
+		       deposit,
+		       property_management_fee,
+		       office_facilities,
+		       parking_facilities,
+		       pilespacing,
+		       crane_beam,
+		       span 
+		)
+		VALUES (
+			#{houseType},#{dealType},#{houseName},#{houseNo},#{dealTime},#{cityNo},#{locate},#{areaNo},#{realUse},#{businessState},#{structure},#{constructionArea},#{poolArea},#{buildingDate},
+			#{newSituation},#{streetSide},#{streetLength},#{depth},#{totalFloor},#{floor},#{floorHeight},#{decorateSituation},#{landUseRight},#{landExpiredDate},#{totalPrice},
+			#{unitPrice},#{hireState},#{hirePrice},#{SupportingFacilities},#{contactTel},#{remark},#{lng},#{lat},now(),#{img},#{contract},
+			#{userId},#{hireExpiredDate},#{hireUnitPrice},#{transferFee},#{deposit},#{propertyManagementFee},#{officeFacilities},
+			#{parkingFacilities},#{pilespacing},#{craneBeam},#{span}
+		)
+	</insert>
+
+	<update id="updateHouseById" parameterType="House">
+		UPDATE
+		tb_house_info SET
+			   house_type			= #{houseType},
+		       deal_type            = #{dealType},
+			   house_name           = #{houseName},
+			   house_no             = #{houseNo},
+			   deal_time            = #{dealTime},
+			   city_no              = #{cityNo},
+			   locate               = #{locate},
+			   area_no              = #{areaNo},
+			   realuse               = #{realUse},
+			   business_state       = #{businessState},
+			   structure            = #{structure},
+			   construction_area    = #{constructionArea},
+			   pool_area            = #{poolArea},
+			   building_date        = #{buildingDate},
+			   new_situation        = #{newSituation},
+			   street_side          = #{streetSide},
+			   street_length        = #{streetLength},
+			   depth                = #{depth},
+			   total_floor          = #{totalFloor},
+			   floor                = #{floor},
+			   floor_height         = #{floorHeight},
+			   decorate_situation   = #{decorateSituation},
+			   land_use_right       = #{landUseRight},
+			   land_expired_date    = #{landExpiredDate},
+			   total_price          = #{totalPrice},
+			   unit_price           = #{unitPrice},
+			   hire_state           = #{hireState},
+			   hire_price           = #{hirePrice},
+			   Supporting_facilities = #{SupportingFacilities},
+			   contact_tel          = #{contactTel},
+			   remark               = #{remark},
+			   lng                  = #{lng},
+			   lat                  = #{lat},
+			   insert_time          = #{insertTime},
+			   img                  = #{img},
+		   	   contract             = #{contract},
+		       user_id              = #{userId},
+		       hire_expired_date    = #{hireExpiredDate},
+		       hire_unit_price      = #{hireUnitPrice},
+		       transfer_fee         = #{transferFee},
+		       deposit              = #{deposit},
+		       property_management_fee = #{propertyManagementFee},
+		       office_facilities    = #{officeFacilities},
+		       parking_facilities   = #{parkingFacilities},
+		       pilespacing          = #{pilespacing},
+		       crane_beam           = #{craneBeam},
+		       span                 = #{span}
+		WHERE house_id = #{houseId}
+	</update>
+
+	<delete id="deleteHouseById" parameterType="int">
+		DELETE
+		FROM
+		tb_house_info
+		WHERE house_id = #{value}
+	</delete>
+</mapper>

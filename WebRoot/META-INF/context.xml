@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context reloadable="true">
+	<Resource name="HNZG_DS" auth="Container" type="javax.sql.DataSource"
+		driverClassName="com.mysql.jdbc.Driver"
+		url="jdbc:mysql://localhost:3306/fw"
+		username="root" password="talkweb520" initialSize="10" maxActive="20"
+		maxIdle="10" maxWait="10000" poolPreparedStatements="true"
+		testOnBorrow="true" testOnReturn="false" removeAbandoned="true"
+		removeAbandonedTimeout="30" logAbandoned="true" />
+</Context>

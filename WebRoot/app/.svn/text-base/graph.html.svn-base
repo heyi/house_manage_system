@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>宗地首页</title>
+        <link rel="stylesheet" type="text/css" href="../resources/themes/default/easyui.css">
+        <link rel="stylesheet" type="text/css" href="../resources/themes/icon.css">
+        <link rel="stylesheet" type="text/css" href="../resources/themes/common.css">
+        <script src="http://api.map.baidu.com/api?v=1.5&ak=C0e1334aab91d623969240a6e098acb7&sk=7c93af0bd6efdc6610cc6026153a92c9" type="text/javascript" charset="utf-8">
+        </script>
+        <script src="../resources/jquery.min.js"></script>
+        <script type="text/javascript" src="../resources/jquery.easyui.min.js"></script>
+        <script src="../resources/locale/easyui-lang-zh_CN.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../resources/underscore-min.js" type="text/javascript" charset="utf-8"></script>
+        <style type="text/css" media="all">
+            #house_info_content tr {height:32px; }
+            #house_info_content td {padding: 0px 4px;  }
+            #graph_table .datagrid-wrap {border:0px;  }
+        </style>
+    </head>
+    <body>
+        <div class="easyui-layout">
+            <div data-options="region:'west',split:true" title="选择地区:" style="width:250px;">
+                <ul class="easyui-tree">
+                    <li>
+                        <span>长沙</span>
+                        <ul>
+                            <li>市区</li>
+                            <li>宁乡</li>
+                            <li>长沙县</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <span>株洲</span>
+                        <ul>
+                            <li>市区</li>
+                            <li>茶陵</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div data-options="region:'north'" style="height:50px">
+            </div>
+            <div data-options="region:'center'">
+                <form action="" class="form-inline" method="post" style="height:30px; ">
+                    <label>宗地搜索:</label>
+                    <input type="text" name="area_name" value="" />
+                    <a id="btn_search" href="javascript:void(0)" class="easyui-linkbutton" style="margin-left:10px; ">搜索</a>
+                    <a id="btn_mode" href="javascript:void(0)" class="easyui-linkbutton" style="margin-left:100px; ">切换到表格模式</a>
+                </form>
+                <div id="graph" class="graph"> </div>
+                <div id="graph_table" class="graph" style = "display:none; ">
+                    <table id="tb_rs" class="graph" style="height:500px; " data-options="pagination:true,rownumbers:false, fitColumns:true, singleSelect:true ">
+                        <thead>
+                            <tr>
+                                <th data-options="field:'house_id', width:40" >序号</th>
+                                <th data-options="field:'address', width:60">位置</th>
+                                <th data-options="field:'area', width:60">区域</th>
+                                <th data-options="field:'level', width:60">级别</th>
+                                <th data-options="field:'business', width:60">用途</th>
+                                <th data-options="field:'acreage', width:60">面积</th>
+                                <th data-options="field:'rate', width:60">容积率</th>
+                                <th data-options="field:'period', width:60">出让年限</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+                <div id="w_rs" class="easyui-window" title="搜索结果" data-options="iconCls:'icon-save', close:true, inline:true" style="width:650px;height:400px;padding:10px;">
+                    <table id="dg_rs" style="height:320px; " data-options="pagination:true,rownumbers:false, fitColumns:true, singleSelect:true ">
+                        <thead>
+                            <tr>
+                                <th data-options="field:'house_id', width:40" >序号</th>
+                                <th data-options="field:'house_name', width:60">名称</th>
+                                <th data-options="field:'xx',width:80,align:'center',formatter:format_action" >动作</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <script type="text/template" id="house_info">
+            <div id="house_info_content" style="width:320px; height: 340px; ">
+                <table cellspacing="0" style="margin-bottom:50px; ">
+                    <tr>
+                        <td>名称:</td>
+                        <td><%= name %> </td>
+                    </tr>
+                    <tr>
+                        <td>位置:</td>
+                        <td><%= address %> </td>
+                    </tr>
+                    <tr>
+                        <td>区域:</td>
+                        <td><%= area %> </td>
+                    </tr>
+                    <tr>
+                        <td>级别:</td>
+                        <td><%= level %> </td>
+                    </tr>
+                    <tr>
+                        <td>用途:</td>
+                        <td><%= bussiness %> </td>
+                    </tr>
+                </table>
+                <table cellspacing="0">
+                    <tr>
+                        <td>
+                            <a href='javascript:void(0)' class='easyui-linkbautton l-btn' >
+                                <span class='l-btn-left'><span class='l-btn-text'>照片</span></span>
+                            </a> 
+                        </td>
+                        <td>
+                            <a href='javascript:void(0)' class='easyui-linkbautton l-btn' >
+                                <span class='l-btn-left'><span class='l-btn-text'>确认书</span></span>
+                            </a>
+                        </td>
+                        <td>
+                            <a href='javascript:void(0)' class='easyui-linkbautton l-btn' >
+                                <span class='l-btn-left'><span class='l-btn-text'>规划条件书</span></span>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a href='javascript:void(0)' class='easyui-linkbautton l-btn' >
+                                <span class='l-btn-left'><span class='l-btn-text'>测绘成果</span></span>
+                            </a>
+                        </td>
+                        <td>
+                            <a href='javascript:void(0)' class='easyui-linkbautton l-btn' >
+                                <span class='l-btn-left'><span class='l-btn-text'>评估报告</span></span>
+                            </a>
+                        </td>
+                        <td></td>
+                    </tr>
+                </table>
+            </div>
+        </script>
+        <script src="graph.js" type="text/javascript" charset="utf-8"></script>
+    </body>
+</html>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.xt.persistence.SectorMapper">
+
+	<select id="getSectorById" parameterType="int"	resultType="Sector">
+		SELECT
+		dict_id as sectorId,
+		dict_name as sectorName,
+		city_no as cityNo
+		FROM tb_sector_dict where
+		dict_id=#{value}
+	</select>
+	
+	<select id="getSectorListByCityNo" parameterType="String"	resultType="Sector">
+		SELECT
+		dict_id as sectorId,
+		dict_name as sectorName,
+		city_no as cityNo
+		FROM tb_sector_dict where
+		city_no=#{value}
+	</select>
+
+	
+
+	<select id="getSectorListForSearch" parameterType="map"
+		resultType="Sector">
+		<![CDATA[
+		  SELECT
+			dict_id as sectorId,
+			dict_name as sectorName,
+			city_no as cityNo
+			FROM tb_sector_dict
+			where 1=1
+			]]>
+		
+		<if test="sectorName != null and sectorName != ''">
+		    <![CDATA[
+		    and dict_name like '%${sectorName}%'
+		     ]]>
+		</if>
+		
+		<![CDATA[
+			order by dict_id desc limit #{start},#{rows}
+         ]]>
+	</select>
+	<select id="getSectorCountForSearch" parameterType="map"
+		resultType="int">
+		<![CDATA[
+		  SELECT
+			count(1)
+			FROM tb_sector_dict
+			where 1=1 
+		]]>
+		<if test="sectorName != null and sectorName != ''">
+		    <![CDATA[
+		    and dict_name like '%${sectorName}%'
+		     ]]>
+		</if>
+		
+		<![CDATA[
+			order by dict_id desc 
+         ]]>
+	</select>
+	
+
+	<insert id="insertSector" parameterType="Sector">
+		INSERT INTO
+		tb_sector_dict (
+			dict_name,
+			city_no
+		)
+		VALUES (
+		#{sectorName},
+		#{cityNo}
+		)
+	</insert>
+
+	<update id="updateSectorById" parameterType="Sector">
+		UPDATE
+		tb_sector_dict SET
+		dict_name = #{sectorName},
+		city_no = #{cityNo}
+		WHERE dict_id = #{sectorId}
+	</update>
+
+	<delete id="deleteSectorById" parameterType="int">
+		DELETE
+		FROM
+		tb_sector_dict
+		WHERE dict_id = #{value}
+	</delete>
+</mapper>

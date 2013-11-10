@@ -1,0 +1,16 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<form action="app/engineering/importFlux.do" method="post" enctype="multipart/form-data">
+ <input type="hidden" name="stadiaCode" value="756778"/>
+ <input type="hidden" name="deviceId" value="1"/>
+ <input type="hidden" name="sensorId" value="2"/>
+ <input type="file" name="importExcel" id="importExcel">
+ <input type="submit" value="导入"> 
+ </form>
+</body>
+</html>
