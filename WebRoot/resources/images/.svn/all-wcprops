@@ -1,7 +1,7 @@
 K 25
 svn:wc:ra_dav:version-url
 V 57
-/svn/twzg/!svn/ver/1501/trunk/fw/WebRoot/resources/images
+/svn/twzg/!svn/ver/1525/trunk/fw/WebRoot/resources/images
 END
 header.jpg
 K 25
@@ -15,29 +15,53 @@ svn:wc:ra_dav:version-url
 V 66
 /svn/twzg/!svn/ver/1417/trunk/fw/WebRoot/resources/images/logo.gif
 END
-shop.png
-K 25
-svn:wc:ra_dav:version-url
-V 66
-/svn/twzg/!svn/ver/1467/trunk/fw/WebRoot/resources/images/shop.png
-END
 header.gif
 K 25
 svn:wc:ra_dav:version-url
 V 68
 /svn/twzg/!svn/ver/1417/trunk/fw/WebRoot/resources/images/header.gif
 END
-header-menu.gif
-K 25
-svn:wc:ra_dav:version-url
-V 73
-/svn/twzg/!svn/ver/1417/trunk/fw/WebRoot/resources/images/header-menu.gif
-END
 factory.png
 K 25
 svn:wc:ra_dav:version-url
 V 69
 /svn/twzg/!svn/ver/1467/trunk/fw/WebRoot/resources/images/factory.png
+END
+user.png
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/twzg/!svn/ver/1525/trunk/fw/WebRoot/resources/images/user.png
+END
+floor.png
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/twzg/!svn/ver/1525/trunk/fw/WebRoot/resources/images/floor.png
+END
+module.png
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/twzg/!svn/ver/1525/trunk/fw/WebRoot/resources/images/module.png
+END
+block.png
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/twzg/!svn/ver/1525/trunk/fw/WebRoot/resources/images/block.png
+END
+shop.png
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/twzg/!svn/ver/1467/trunk/fw/WebRoot/resources/images/shop.png
+END
+header-menu.gif
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/twzg/!svn/ver/1417/trunk/fw/WebRoot/resources/images/header-menu.gif
 END
 tip.png
 K 25
@@ -51,9 +75,27 @@ svn:wc:ra_dav:version-url
 V 68
 /svn/twzg/!svn/ver/1467/trunk/fw/WebRoot/resources/images/office.png
 END
+market.png
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/twzg/!svn/ver/1525/trunk/fw/WebRoot/resources/images/market.png
+END
 house.png
 K 25
 svn:wc:ra_dav:version-url
 V 67
 /svn/twzg/!svn/ver/1467/trunk/fw/WebRoot/resources/images/house.png
+END
+personal.png
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/twzg/!svn/ver/1525/trunk/fw/WebRoot/resources/images/personal.png
+END
+law.png
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/twzg/!svn/ver/1525/trunk/fw/WebRoot/resources/images/law.png
 END

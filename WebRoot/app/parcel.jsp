@@ -34,7 +34,11 @@ if(session.getAttribute(Constant.CURRENT_USER)==null){
             .easyui-validatebox,.easyui-numberbox { width: 180px; }
             #w_rs td { padding: 5px; }
             #w_rs table { width: 100%; }
-            #dlg_info table { width: 98%; padding: 1%; }
+            #dlg_info {background:none; border:none;}
+            #dlg_info table { width: 500px; margin:auto; margin-top: 5px;}
+            <%-- #dlg_info td {border-left:1px solid #95B8E7;border-bottom:1px solid #95B8E7;}--%>
+            <%-- #dlg_info td:last-child {border-right:1px solid #95B8E7;}--%>
+            #dlg_info td:first-child{width: 120px;}
         </style>
 
     </head>
@@ -47,7 +51,8 @@ if(session.getAttribute(Constant.CURRENT_USER)==null){
                             <li ><a href="parcel.jsp" class="ui-layout-nav-active">土地交易案例</a></li>
                             <li><a href="house.jsp">房产交易案例</a></li>
                             <li><a href="database.jsp">资料库</a></li>
-                            <li class="ui-layout-nav-last"><a href="system.jsp">系统管理</a></li>
+                            <li><a href="system.jsp">系统管理</a></li>
+                            <li><a href="../logout.do">退出系统</a></li>
                         </ul>
                     </div>
                 </div>
@@ -77,7 +82,7 @@ if(session.getAttribute(Constant.CURRENT_USER)==null){
                                 <td><input class="easyui-validatebox" type="text"
                                     name="locate" data-options=""></input></td>
                                 <td nowrap="nowrap">土地用途：</td>
-                                <td><input class="easyui-combotree" name="useNo"
+                                <td><input id='ctree1' class="easyui-combotree" name="useNo"
                                     data-options="url:'../resources/data/land.json',method:'get', lines:true,
                                     onLoadSuccess:makeLandKeys"
                                     style="width: 230px;"></td>
@@ -93,7 +98,7 @@ if(session.getAttribute(Constant.CURRENT_USER)==null){
                                     </select> <input class="easyui-numberbox" type="text" name="acreage"
                                     style="width: 115px;"></input></td>
                                 <td nowrap="nowrap">级别：</td>
-                                <td><select class="easyui-combobox" id="level" name="level"
+                                <td><select class="easyui-combobox" id="level" name="level" value='1'
                                         style="width: 184px;" data-options="onLoadSuccess:makeLevelKeys">
                                         <option value="1">一级</option>
                                         <option value="2">二级</option>
@@ -125,7 +130,7 @@ if(session.getAttribute(Constant.CURRENT_USER)==null){
                                     data-options="precision:2,groupSeparator:','" type="text"
                                     name="unitPrice1" style="width: 115px;"></input></td>
                                 <td colspan="6"><a class="easyui-linkbutton" onclick="javascript:parcel_search(); ">查询</a>
-                                    <a class="easyui-linkbutton" data-mode="table" onclick="javascript:graphInfo.call(this); ">切换到地图模式</a>
+                                    <a class="easyui-linkbutton" id="btn_view" data-mode="table" onclick="javascript:graphInfo.call(this); ">切换到地图模式</a>
                                 </td>
                             </tr>
                         </table>
@@ -153,9 +158,9 @@ if(session.getAttribute(Constant.CURRENT_USER)==null){
         </div>
 
         <div class="easyui-dialog" id="dlg"
-            data-options="iconCls:'icon-save',onOpen:adjustButton,  closed:true,modal:true,buttons:'#btns_view', inline:true"
-            title="查看土地案例" style="width: 540px; height: 460px;">
-            <div id="dlg_info" style="width: 100%; height: 100%;"></div>
+            data-options="iconCls:'icon-save',onOpen:adjustButton,  closed:true,modal:true,buttons:'#btns_view'"
+            title="查看土地案例" style="width: 540px; height: 486px;">
+            <div id="dlg_info"></div>
         </div>
         <div id="w_rs" class="easyui-dialog"
             data-options="iconCls:'icon-save', closed:true, buttons:'#btns', modal:true,  inline:true,title:'新增土地案例'"
@@ -298,7 +303,7 @@ if(session.getAttribute(Constant.CURRENT_USER)==null){
             <a class="easyui-linkbutton" onclick="javascript:$('#dlg').window('close'); "data-options="iconCls:'icon-cancel'">关闭</a>
         </div>
         <script type="text/template" id="parcel_tp">
-            <table cellspacing="0" >
+            <table cellspacing="0" border='1' >
                 <tr>
                     <td>挂牌号：</td>
                     <td><@= listNo @> </td>
@@ -350,8 +355,8 @@ if(session.getAttribute(Constant.CURRENT_USER)==null){
                 <tr>
                     <td>竞价次数：</td>
                     <td><@= bidTimes @> </td>
-                    <td></td>
-                    <td></td>
+                    <td>&nbsp; </td>
+                    <td>&nbsp; </td>
                 </tr>
                 <tr>
                     <td>成交确认书：</td>

@@ -13,11 +13,15 @@ function makeCityKeys(node, rs) {
     setKeys(rs, cityKeys); 
 };
 
-var gp = $("#_graph"), marker_trash=[];  
+var gp = $("#_graph");  
 function mClickEvent (r){
     var ds = r ; 
     return function () {
-        r_view = r; 
+        var fas = ds["supportingFacilities"];
+        if (fas && fas.length >= 0) {
+            ds["supportingFacilities"] = fas.join(",");
+        }
+        r_view = ds; 
         dlg_info.html(house_tp(ds)); 
         dlg3.dialog("open");
     };
@@ -30,24 +34,6 @@ function graphInfo() {
         $(this).data("mode", "graph");
         gp.show();
         init_graph_info(); 
-        for (var i = 0, l = marker_trash.length; i < l; i ++) {
-            var m = marker_trash[i];
-            bmap.removeOverlay(m);    
-        }
-        marker_trash = []; 
-        var rs = table1.datagrid("getData").rows; 
-        for (var i = 0, l = rs.length; i < l; i ++) {
-            var r = rs[i];
-            if (r.lat  &&  r.lng) {
-                var p = new BMap.Point(r.lng, r.lat);
-                var m = new BMap.Marker(p, 11);
-                bmap.centerAndZoom(p, 11);
-                bmap.addOverlay(m);
-                marker_trash.push(m); 
-                r["cityName"] = cityKeys[r.city]; 
-                m.addEventListener("click", mClickEvent(r));
-            }
-        }
         mode = "graph"; 
     }else {
         $(this).find(".l-btn-text").text("切换到地图模式");
@@ -77,6 +63,18 @@ function init_graph_info () {
     bmap.addControl(new BMap.ScaleControl());
     bmap.addControl(new BMap.OverviewMapControl());
     bmap.addControl(new BMap.MapTypeControl());
+    var rs = table1.datagrid("getData").rows; 
+    for (var i = 0, l = rs.length; i < l; i ++) {
+        var r = rs[i];
+        if (r.lat  &&  r.lng) {
+            var p = new BMap.Point(r.lng, r.lat);
+            var m = new BMap.Marker(p, 11);
+            bmap.centerAndZoom(p, 11);
+            bmap.addOverlay(m);
+            r["cityName"] = cityKeys[r.city]; 
+            m.addEventListener("click", mClickEvent(r));
+        }
+    }
 };
 
 function setLatlng(lat, lng) {
@@ -128,7 +126,7 @@ function init_fas() {
     var rs = [];
     for (var i = 0, l =facilities.length; i < l; i ++) {
         var f = facilities[i];
-        rs.push("<input type='checkbox' name='SupportingFacilities[]' value='" + f + "' >" + "<span style='display:inline-block;width:70px;' >" + f + "</span>");
+        rs.push("<input type='checkbox' name='SupportingFacilities[]' value='" + f + "' >" + "<span style='display:inline-block;width:78px;' >" + f + "</span>");
         if ((i+1) % 7 == 0) {
             rs.push("<br/>"); 
         }
@@ -231,8 +229,18 @@ table1.datagrid({
         {width:80, field:'areaNo', title:"区域代码"}, 
         {width:80, field:'realUse', title:"实际用途"} 
     ]] , 
+    onLoadSuccess: function (data) {
+        var mode = $("#btn_view").data("mode");
+        if (mode === 'graph') {
+            init_graph_info(); 
+        }
+    },
     onDblClickRow: function (i, r) {
         r["cityName"] = cityKeys[r.city]; 
+        var fas = r["supportingFacilities"];
+        if (fas && fas.length >= 0) {
+            r["supportingFacilities"] = fas.replace(/[\[\]\"]/g,""); 
+        }
         r_view = r; 
         dlg_info.html(house_tp(r)); 
         dlg3.dialog("open");
@@ -278,7 +286,8 @@ $(".nav").on("click","a",function (e) {
     search_house();
 });
 
-$(".nav").find("a:first").trigger("click");
+setTimeout(function () { $(".nav").find("a:first").trigger("click");
+},0);
 
 $(function () {
     init_fas();

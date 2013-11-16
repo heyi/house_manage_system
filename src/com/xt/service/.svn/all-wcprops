@@ -1,7 +1,7 @@
 K 25
 svn:wc:ra_dav:version-url
 V 51
-/svn/twzg/!svn/ver/1499/trunk/fw/src/com/xt/service
+/svn/twzg/!svn/ver/1526/trunk/fw/src/com/xt/service
 END
 DictService.java
 K 25
@@ -25,7 +25,7 @@ LandService.java
 K 25
 svn:wc:ra_dav:version-url
 V 68
-/svn/twzg/!svn/ver/1370/trunk/fw/src/com/xt/service/LandService.java
+/svn/twzg/!svn/ver/1525/trunk/fw/src/com/xt/service/LandService.java
 END
 AccountService.java
 K 25
@@ -37,11 +37,11 @@ BuildingsService.java
 K 25
 svn:wc:ra_dav:version-url
 V 73
-/svn/twzg/!svn/ver/1478/trunk/fw/src/com/xt/service/BuildingsService.java
+/svn/twzg/!svn/ver/1526/trunk/fw/src/com/xt/service/BuildingsService.java
 END
 HouseService.java
 K 25
 svn:wc:ra_dav:version-url
 V 69
-/svn/twzg/!svn/ver/1437/trunk/fw/src/com/xt/service/HouseService.java
+/svn/twzg/!svn/ver/1526/trunk/fw/src/com/xt/service/HouseService.java
 END

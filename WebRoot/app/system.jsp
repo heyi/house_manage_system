@@ -30,12 +30,14 @@ if(session.getAttribute(Constant.CURRENT_USER)==null){
         <style type="text/css" media="all">
         	#main .datagrid-wrap { border: 0px; }
             .easyui-validatebox,.easyui-numberbox { width: 180px; }
-            .sf,.sf1 { padding: 10px; border: 1px solid #95B8E7; margin-bottom: 10px; }
+            .sf { padding: 10px; }
+            .sf1 { padding: 10px; border: 1px solid #95B8E7; margin-bottom: 10px; }
             .sf1{width: 600px;}
             .sf1 td {padding: 5px 4px;}
             #dlg1 td { padding: 2px 4px; }
             .nav {width: 90px; margin:auto; text-align:center;}
             .nav li {padding:15px 0px; list-style-type: none;}
+            .nav img {display:block;width:50px;margin:auto;}
             .nav a {text-decoration: none; padding:5px 0px; display:block;border-radius: 10px; background:#eee;}
             .nav a:hover, .nav a.active { color: #fff; background-color: #0E2D5F; }
             #dlg_info table { width: 98%; padding: 1%; }
@@ -53,7 +55,8 @@ if(session.getAttribute(Constant.CURRENT_USER)==null){
                             <li ><a href="parcel.jsp" >土地交易案例</a></li>
                             <li><a href="house.jsp">房产交易案例</a></li>
                             <li><a href="database.jsp">资料库</a></li>
-                            <li class="ui-layout-nav-last ui-layout-nav-active"><a href="system.jsp">系统管理</a></li>
+                            <li class="ui-layout-nav-active"><a href="system.jsp">系统管理</a></li>
+                            <li><a href="../logout.do">退出系统</a></li>
                         </ul>
                     </div>
                 </div>
@@ -64,56 +67,78 @@ if(session.getAttribute(Constant.CURRENT_USER)==null){
             style="width: 200px;">
             <ul class='nav'>
                 <li>
-                    <a href="javascript:void(0)" data-key="1" >用户管理</a>
-                </li>
-                <li>
-                    <a href="javascript:void(0)" data-key="2">
-                        模块维护
+                    <a href="javascript:void(0)" data-key="1" >
+                        <img src="../resources/images/user.png" alt="shop" />
+                        用户管理
                     </a>
                 </li>
                 <li>
-                    <a href="javascript:void(0)" data-key="3">楼盘字典</a>
+                    <a href="javascript:void(0)" data-key="2">
+                        <img src="../resources/images/module.png" alt="shop" />
+                        板块维护
+                    </a>
                 </li>
                 <li>
-                    <a href="javascript:void(0)" data-key="4">个人信息</a>
+                    <a href="javascript:void(0)" data-key="3">
+                        <img src="../resources/images/floor.png" alt="shop" />
+                        楼盘字典</a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)" data-key="4">
+                        <img src="../resources/images/personal.png" alt="shop" />
+                        个人信息</a>
                 </li>
             </ul>
         </div>
         <div id="main" data-options="region:'center'" style="width: 100%; position:relative;">
             <div id="tab1" class="easyui-tabs" data-options="fit:true,border:false,onSelect:tab_select">
                 <div title="用户管理" style="padding:2%;">
-                    <form class="sf" id="sform1" method="post" method="post">
-                        关键筛选:
-                        <input class="easyui-validatebox" name="username" data-options="" placeholder="可输入用户名或姓名进行筛选"></input> 
-                        <a class="easyui-linkbutton" data-options="iconCls:'icon-search'" >查询</a>
-                    </form>
-                    <div style="position:absolute;bottom:0px; top:90px; left:0px;  right:0px; padding:2%;     ">
-                        <table cellspacing="0" id="table1"></table>
+                    <div class="easyui-layout" data-options="fit:true">
+                        <div data-options="region:'north',border:true" style="height:55px;padding: 2px;margin-bottom:10px;border-bottom:none;">
+                            <form class="sf" id="sform1" method="post" method="post">
+                                关键筛选:
+                                <input class="easyui-validatebox" name="username" data-options="" placeholder="可输入用户名或姓名进行筛选"></input> 
+                                <a class="easyui-linkbutton" data-options="iconCls:'icon-search'" >查询</a>
+                            </form>
+                        </div>
+                        <div data-options="region:'center',border:true" style="position:relative; ">
+                            <table cellspacing="0" id="table1"></table>
+                        </div>
                     </div>
                 </div>
                 <div title="模块维护" data-options="" style="overflow:hidden; padding:2%;">
-                    <form class="sf" id="sform2" method="post">
-                        关键筛选:
-                        <input class="easyui-validatebox" name="sectorName" data-options="" placeholder="输入板块名称"></input> 
-                        <a class="easyui-linkbutton" data-options="iconCls:'icon-search'" >查询</a>
-                    </form>
-                    <div style="position:absolute;bottom:0px; top:90px; left:0px;  right:0px; padding: 2%;     ">
-                        <table cellspacing="0" id="table2"></table>
+                    <div class="easyui-layout" data-options="fit:true">
+                        <div data-options="region:'north',border:true" style="height:55px;padding: 2px;margin-bottom:10px;border-bottom:none;">
+                           <form class="sf" id="sform2" method="post">
+                                关键筛选:
+                                <input class="easyui-validatebox" name="sectorName" data-options="" placeholder="输入板块名称"></input> 
+                                <a class="easyui-linkbutton" data-options="iconCls:'icon-search'" >查询</a>
+                            </form>
+                        </div>
+                        <div data-options="region:'center',border:true" style="position:relative; ">
+                            <table cellspacing="0" id="table2"></table>
+                        </div>
                     </div>
                 </div>
                 <div title="楼盘字典" data-options="" style="overflow:hidden;padding:2%;border-sizeing:border-box;">
-                    <div style="width:22%; float:left;">
-                        <ul class="easyui-tree" data-options="url:'../resources/data/city.json',method:'get',lines:true,title:'板块列表',onClick:search_sector"></ul>
-                    </div>
-                    <div style="width:76%; position:relative; display:inline-block;height:450px;border: 1px solid #95B8E7; "> 
-                        <form class="sf" id="sform3" method="post" style="border:none;border-bottom: 1px solid #95B8E7;">
-                            关键筛选:
-                            <input class="easyui-validatebox" name="" data-options="" placeholder="输入板块名称"></input> 
-                            <input type="hidden" name="cityNo" id="cityNo" value="" />
-                            <a class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a>
-                        </form>
-                        <div style="position:absolute;bottom:0px; top:70px; left:0px;  right:0px;">
-                            <table cellspacing="0" id="table3"></table>
+                    <div class="easyui-layout" data-options="fit:true">
+                        <div data-options="region:'west'" style="width: 200px;border-right:none;">
+                            <ul class="easyui-tree" data-options="url:'../resources/data/city.json',method:'get',lines:true,title:'板块列表',onClick:search_sector"></ul>
+                        </div>
+                        <div data-options="region:'center',border:true,border:false" style="position:relative; ">
+                            <div class="easyui-layout" data-options="fit:true">
+                                <div data-options="region:'north',border:true" style="height:55px;padding: 2px;margin-bottom:10px;border-bottom:none;">
+                                    <form class="sf" id="sform3" method="post" style="border:none;">
+                                        关键筛选:
+                                        <input class="easyui-validatebox" name="" data-options="" placeholder="输入板块名称"></input> 
+                                        <input type="hidden" name="cityNo" id="cityNo" value="" />
+                                        <a class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a>
+                                    </form>
+                                </div>
+                                <div data-options="region:'center',border:true" style="position:relative; ">
+                                    <table cellspacing="0" id="table3"></table>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -173,7 +198,7 @@ if(session.getAttribute(Constant.CURRENT_USER)==null){
             </div>
         </div>
         <div data-options="region:'south',border:false" style="height: 25px; background: #E0ECFF; padding: 5px;">当前登录用户：<%=username%></div>
-        
+
 
         <div id="dlg1" class="easyui-dialog" data-options="iconCls:'icon-save', closed:true, buttons:'#btns1', modal:true,  inline:true,title:'用户管理'" style="width: 600px; height: 300px; padding: 10px;">
             <form id="form1">

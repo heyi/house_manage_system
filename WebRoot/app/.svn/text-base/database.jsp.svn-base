@@ -17,7 +17,7 @@ if(session.getAttribute(Constant.CURRENT_USER)==null){
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
-        <title>房产交易案例</title>
+        <title>资料库</title>
         <link rel="stylesheet" type="text/css" href="../resources/themes/default/easyui.css">
         <link rel="stylesheet" type="text/css" href="../resources/themes/icon.css">
         <link rel="stylesheet" type="text/css" href="../resources/themes/common.css">
@@ -34,6 +34,7 @@ if(session.getAttribute(Constant.CURRENT_USER)==null){
             .sf-tb td,#dlg_info td  { padding: 6px 4px; }
             #dlg1 td { padding: 2px 4px; }
             .nav {width: 90px; margin:auto; text-align:center;}
+            .nav img {display:block;width:50px;margin:auto;}
             .nav li {padding:15px 0px; list-style-type: none;}
             .nav a {text-decoration: none; padding:5px 0px; display:block;border-radius: 10px; background:#eee;}
             .nav a:hover, .nav a.active { color: #fff; background-color: #0E2D5F; }
@@ -49,7 +50,8 @@ if(session.getAttribute(Constant.CURRENT_USER)==null){
                             <li ><a href="parcel.jsp" >土地交易案例</a></li>
                             <li><a href="house.jsp" >房产交易案例</a></li>
                             <li><a href="database.jsp" class="ui-layout-nav-active">资料库</a></li>
-                            <li class="ui-layout-nav-last"><a href="system.jsp">系统管理</a></li>
+                            <li><a href="system.jsp">系统管理</a></li>
+                            <li><a href="../logout.do">退出系统</a></li>
                         </ul>
                     </div>
                 </div>
@@ -60,13 +62,22 @@ if(session.getAttribute(Constant.CURRENT_USER)==null){
             style="width: 200px;">
             <ul class='nav'>
                 <li>
-                    <a href="javascript:void(0)" data-index="0">政策法规</a>
+                    <a href="javascript:void(0)" data-index="0">
+                        <img src="../resources/images/law.png" alt="shop" />
+                        政策法规
+                    </a>
                 </li>
                 <li>
-                    <a href="javascript:void(0)" data-index="1" > 市场分析 </a>
+                    <a href="javascript:void(0)" data-index="1" >
+                        <img src="../resources/images/market.png" alt="shop" />
+                        市场分析
+                    </a>
                 </li>
                 <li>
-                    <a href="javascript:void(0)" data-index="2" >标准化模板</a>
+                    <a href="javascript:void(0)" data-index="2" >
+                        <img src="../resources/images/block.png" alt="shop" /> 
+                        标准化模板
+                    </a>
                 </li>
             </ul>
         </div>
@@ -74,7 +85,7 @@ if(session.getAttribute(Constant.CURRENT_USER)==null){
             <div class="easyui-layout" data-options="fit:true">
                 <div data-options="region:'north',split:true,border:false" title="查询条件" style="height: 110px; padding: 2px">
                     <form class="sf" method="post" id="form2">
-                        <table class="sf-tb" width="100%">
+                        <table class="sf-tb">
                             <tr>
                                 <td nowrap="nowrap">标题：</td>
                                 <td><input class="easyui-validatebox" name="infoTitle" data-options=""></input> </td>
@@ -96,7 +107,7 @@ if(session.getAttribute(Constant.CURRENT_USER)==null){
 
         <div class="easyui-dialog" id="dlg3"
             data-options="iconCls:'icon-save', closed:true,modal:true,buttons:'#btns_view', inline:true"
-            title="查看资料" style="width: 500px; height: 400px;;">
+            title="查看资料" style="width: 700px; height: 480px;;">
             <div id="dlg_info" style="width: 100%%; padding:5%;text-align:center; box-sizing:border-box; ">
             </div>
         </div>

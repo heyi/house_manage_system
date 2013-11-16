@@ -21,8 +21,8 @@ if(session.getAttribute(Constant.CURRENT_USER)==null){
         <link rel="stylesheet" type="text/css" href="../resources/themes/default/easyui.css">
         <link rel="stylesheet" type="text/css" href="../resources/themes/icon.css">
         <link rel="stylesheet" type="text/css" href="../resources/themes/common.css">
-        <script src="http://api.map.baidu.com/api?v=1.5&ak=C0e1334aab91d623969240a6e098acb7&sk=7c93af0bd6efdc6610cc6026153a92c9" type="text/javascript" charset="utf-8"> 
-        </script> <script src="../resources/jquery.min.js"></script>
+         
+        <script src="../resources/jquery.min.js"></script>
         <script type="text/javascript" src="../resources/jquery.easyui.min.js"></script>
         <script src="../resources/locale/easyui-lang-zh_CN.js" type="text/javascript" charset="utf-8"></script>
         <script src="../resources/underscore-min.js"></script>
@@ -30,17 +30,18 @@ if(session.getAttribute(Constant.CURRENT_USER)==null){
         <style type="text/css" media="all">
         	#main .datagrid-wrap { border: 0px; }
             .easyui-validatebox,.easyui-numberbox { width: 180px; }
-            .sf { padding: 5px 5px; }
+            .sf { padding: 3px 3px; }
             .sf-tb td,#dlg_info td  { padding: 6px 4px; }
             #dlg1 td { padding: 2px 4px; }
             #dlg1 .easyui-validatebox,#dlg1 .easyui-numberbox { width: 145px; }
-            #fs_container input[type='checkbox'] { margin:5px 4px 5px 5px; }
+            #fs_container input[type='checkbox'] { margin:4px 4px 4px 4px; }
             .nav {width: 90px; margin:auto; text-align:center;}
             .nav img {display:block;width:50px;margin:auto;}
             .nav li {padding:15px 0px; list-style-type: none;}
             .nav a {text-decoration: none; padding:5px 0px; display:block;border-radius: 10px; background:#eee; text-align:center;}
             .nav a:hover, .nav a.active { color: #fff; background-color: #0E2D5F; }
-            #dlg_info table { width: 98%; padding: 1%; }
+            #dlg_info table { width: 100%;}
+            #dlg_info td:nth-child(even) {width: 110px;}
         </style>
     </head>
     <body class="easyui-layout">
@@ -52,7 +53,8 @@ if(session.getAttribute(Constant.CURRENT_USER)==null){
                             <li ><a href="parcel.jsp" >土地交易案例</a></li>
                             <li><a href="house.jsp" class="ui-layout-nav-active">房产交易案例</a></li>
                             <li><a href="database.jsp">资料库</a></li>
-                            <li class="ui-layout-nav-last"><a href="system.jsp">系统管理</a></li>
+                            <li><a href="system.jsp">系统管理</a></li>
+                            <li><a href="../logout.do">退出系统</a></li>
                         </ul>
                     </div>
                 </div>
@@ -167,14 +169,14 @@ if(session.getAttribute(Constant.CURRENT_USER)==null){
                                 </td>
                                 <td nowrap="nowrap">成交时间：</td>
                                 <td><input name="startDate" type="text"
-                                    class="easyui-datebox" style="width: 100px"> 到 <input
+                                    class="easyui-datebox" style="width: 90px">到<input
                                     name="endDate" type="text" class="easyui-datebox"
-                                    style="width: 100px"></td>
+                                    style="width: 90px"></td>
                             </tr>
                             <tr>
                                 <td colspan="8">
                                     <a class="easyui-linkbutton" onclick="javascript:search_house(); ">查询</a>
-                                    <a class="easyui-linkbutton" data-mode="table" onclick="javascript:graphInfo.call(this); ">切换到地图模式</a>
+                                    <a class="easyui-linkbutton" id="btn_view" data-mode="table" onclick="javascript:graphInfo.call(this); ">切换到地图模式</a>
                                 </td>
                             </tr>
                         </table>
@@ -198,7 +200,7 @@ if(session.getAttribute(Constant.CURRENT_USER)==null){
 
         <div class="easyui-dialog" id="dlg3"
             data-options="iconCls:'icon-save', onOpen:adjustButton,  closed:true,modal:true,buttons:'#btns_view', inline:true"
-            title="查看房产案例" style="width: 800px; height: 600px;;">
+            title="查看房产案例" style="width: 800px; height: 620px;;">
             <div id="dlg_info" style="width: 98%; padding:1%; "></div>
         </div>
         <div id="btns2">
@@ -207,7 +209,7 @@ if(session.getAttribute(Constant.CURRENT_USER)==null){
         </div>
 
         <div id="dlg1" class="easyui-dialog" data-options="iconCls:'icon-save', closed:true, buttons:'#btns', modal:true,  inline:true,title:'新增房产案例'"
-            style="width: 850px; height: 660px; padding: 10px;">
+            style="width: 900px; height: 660px; padding: 2px;">
             <form id="form1">
                 <fieldset style="border:1px solid #95B8E7; padding:5px;">
                     <legend>基本信息</legend>
@@ -437,7 +439,7 @@ if(session.getAttribute(Constant.CURRENT_USER)==null){
         <script type="text/template" id="house_tp">
             <fieldset style="border:1px solid #95B8E7; padding:5px;">
                 <legend>基本信息</legend>
-                <table cellspacing="0">
+                <table cellspacing="0" border='1'>
                     <tr>
                         <td>区县：</td>
                         <td><@= cityName @> </td>
@@ -504,7 +506,7 @@ if(session.getAttribute(Constant.CURRENT_USER)==null){
                     </tr>
                     <tr>
                         <td colspan=6>
-                            <div style="border:1px solid #95B8E7; padding:10px 30px; margin-top:5px;">
+                            <div style="padding:10px 30px; margin-top:5px;">
                                 <@= supportingFacilities @> 
                             </div>
                         </td>
@@ -513,7 +515,7 @@ if(session.getAttribute(Constant.CURRENT_USER)==null){
             </fieldset>
             <fieldset style="border:1px solid #95B8E7; padding:5px; margin-top:5px;">
                 <legend>业务信息</legend>
-                <table cellspacing="0">
+                <table cellspacing="0" border=1>
                     <tr>
                         <td>成交时间：</td>
                         <td><@= dealTime @> </td>
@@ -564,5 +566,7 @@ if(session.getAttribute(Constant.CURRENT_USER)==null){
         </div>
         <script src="../resources/util.js" type="text/javascript" charset="utf-8"></script>
         <script src="house.js" type="text/javascript" charset="utf-8"></script>
+        <script src="http://api.map.baidu.com/api?v=1.5&ak=C0e1334aab91d623969240a6e098acb7&sk=7c93af0bd6efdc6610cc6026153a92c9" type="text/javascript" charset="utf-8"> 
+        </script>
     </body>
 </html>

@@ -5,7 +5,9 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.xt.domain.Buildings;
 import com.xt.domain.House;
 import com.xt.persistence.HouseMapper;
 
@@ -37,6 +39,23 @@ public class HouseService {
 
 	public int insertHouse(House house) {
 		return houseMapper.insertHouse(house);
+	}
+	
+	/**
+	 * 批处理excel导入
+	 * @param list
+	 * @return
+	 */
+	@Transactional
+	public int insertHouseBatch(List<House> list) {
+		int result = 0;
+		for (House house : list) {
+			result = houseMapper.insertHouse(house);
+			if(result==0){
+				break;
+			}
+		}
+		return result;
 	}
 
 }

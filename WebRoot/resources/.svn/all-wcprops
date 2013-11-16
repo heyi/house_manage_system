@@ -1,7 +1,7 @@
 K 25
 svn:wc:ra_dav:version-url
 V 50
-/svn/twzg/!svn/ver/1501/trunk/fw/WebRoot/resources
+/svn/twzg/!svn/ver/1529/trunk/fw/WebRoot/resources
 END
 jquery.min.js
 K 25
@@ -26,4 +26,10 @@ K 25
 svn:wc:ra_dav:version-url
 V 71
 /svn/twzg/!svn/ver/1353/trunk/fw/WebRoot/resources/jquery.easyui.min.js
+END
+underscore-min.map
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/twzg/!svn/ver/1529/trunk/fw/WebRoot/resources/underscore-min.map
 END

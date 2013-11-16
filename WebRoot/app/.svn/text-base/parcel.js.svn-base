@@ -35,6 +35,17 @@ function init_graph_info () {
     bmap.addControl(new BMap.ScaleControl());
     bmap.addControl(new BMap.OverviewMapControl());
     bmap.addControl(new BMap.MapTypeControl());
+
+    var rs = table1.datagrid("getData").rows; 
+    for (var i = 0, l = rs.length; i < l; i ++) {
+        var r = rs[i];
+        if (r.lat  &&  r.lng) {
+            var p = new BMap.Point(r.lng, r.lat);
+            var m = new BMap.Marker(p, 11);
+            bmap.addOverlay(m);
+            m.addEventListener("click", mClickEvent(r));
+        }
+    }
 };
 
 function graphInfo() {
@@ -44,22 +55,6 @@ function graphInfo() {
         $(this).data("mode", "graph");
         gp.show();
         init_graph_info(); 
-        for (var i = 0, l = marker_trash.length; i < l; i ++) {
-            var m = marker_trash[i];
-            bmap.removeOverlay(m);    
-        }
-        marker_trash = []; 
-        var rs = table1.datagrid("getData").rows; 
-        for (var i = 0, l = rs.length; i < l; i ++) {
-            var r = rs[i];
-            if (r.lat  &&  r.lng) {
-                var p = new BMap.Point(r.lng, r.lat);
-                var m = new BMap.Marker(p, 11);
-                bmap.addOverlay(m);
-                marker_trash.push(m); 
-                m.addEventListener("click", mClickEvent(r));
-            }
-        }
         mode = "graph"; 
     }else {
         $(this).find(".l-btn-text").text("切换到地图模式");
@@ -99,6 +94,7 @@ function makeCityKeys(node, rs) {
 function makeLandKeys(node, rs) {
     setKeys(rs, landKeys); 
     dfd_datagrid.resolve(); 
+    $("#ctree1").combotree("setValue",1);
 };
 
 function setKeys(rs, keys) {
@@ -190,17 +186,22 @@ dfd_datagrid.done(function () {
             {width:80, field:'totalPrice', title:"成交总价"}, 
             {width:80, field:'unitPrice1', title:"成交单价"} 
         ]], 
+        onLoadSuccess: function (data) {
+            var mode = $("#btn_view").data("mode");
+            if (mode === 'graph') {
+               init_graph_info(); 
+            }
+        },
         onDblClickRow: function (i, r) {
             r["cityName"] = cityKeys[r.city]; 
             r["useNoName"] = landKeys[r.useNo]; 
             r["levelName"] = levelKeys[r.level]; 
             r_view = r; 
             dlg_info.html(parcel_tp(r)); 
-            $("#dlg").dialog("open"); 
+            $("#dlg").dialog("open");
         }
     });
 }); 
-
 function uploadfile(el) {
     var rs = window.showModalDialog("uploadFile.jsp", null, "dialogWidth=300px;dialogHeight=100px;resizable=false;status=no;scroll=no;location=no;toolbar=no;menubar=no");
     if (rs) {

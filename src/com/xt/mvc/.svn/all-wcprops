@@ -1,7 +1,7 @@
 K 25
 svn:wc:ra_dav:version-url
 V 47
-/svn/twzg/!svn/ver/1503/trunk/fw/src/com/xt/mvc
+/svn/twzg/!svn/ver/1527/trunk/fw/src/com/xt/mvc
 END
 UploadController.java
 K 25
@@ -31,7 +31,7 @@ LandController.java
 K 25
 svn:wc:ra_dav:version-url
 V 67
-/svn/twzg/!svn/ver/1411/trunk/fw/src/com/xt/mvc/LandController.java
+/svn/twzg/!svn/ver/1527/trunk/fw/src/com/xt/mvc/LandController.java
 END
 InfomationController.java
 K 25

@@ -2,17 +2,15 @@
 {
 	font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
 	font-size: 12px;
-	margin: 45px;
-	width: 480px;
+	margin: auto;
+	width: 100%;
+    margin-top: 45px;
 }
 #simple table {
     width: 100%;
 	text-align: left;
 }
 
-td
-{
-	padding: 8px 15px;
-	color: #000;
-	text-align: left;
-}
+td { padding: 8px 5px; color: #000; text-align: left; }
+td:nth-child(even) {width: 110px;}
+

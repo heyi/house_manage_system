@@ -5,8 +5,10 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.xt.domain.Buildings;
+import com.xt.domain.Land;
 import com.xt.persistence.BuildingsMapper;
 
 @Service
@@ -35,5 +37,4 @@ public class BuildingsService {
 	public int insertBuildings(Buildings buildings) {
 		return buildingsMapper.insertBuildings(buildings);
 	}
-
 }

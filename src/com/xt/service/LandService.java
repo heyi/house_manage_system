@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.xt.domain.Land;
 import com.xt.persistence.LandMapper;
@@ -37,6 +38,23 @@ public class LandService {
 
 	public int insertLand(Land land) {
 		return landMapper.insertLand(land);
+	}
+	
+	/**
+	 * 批处理excel导入
+	 * @param list
+	 * @return
+	 */
+	@Transactional
+	public int insertLandBatch(List<Land> list) {
+		int result = 0;
+		for (Land land : list) {
+			result = landMapper.insertLand(land);
+			if(result==0){
+				break;
+			}
+		}
+		return result;
 	}
 
 }

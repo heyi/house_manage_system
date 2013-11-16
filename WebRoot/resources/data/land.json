@@ -2,6 +2,7 @@
     {
     "id":1,
     "text":"商服用地", 
+    "selected" : true,
     "children" : [
         {
         "id" : "11", 
