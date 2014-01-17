@@ -1,31 +1,37 @@
 K 25
 svn:wc:ra_dav:version-url
 V 44
-/svn/twzg/!svn/ver/1529/trunk/fw/WebRoot/app
+/svn/twzg/!svn/ver/1625/trunk/fw/WebRoot/app
 END
 main.html
 K 25
 svn:wc:ra_dav:version-url
 V 54
-/svn/twzg/!svn/ver/1353/trunk/fw/WebRoot/app/main.html
+/svn/twzg/!svn/ver/1594/trunk/fw/WebRoot/app/main.html
+END
+common.css
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/twzg/!svn/ver/1595/trunk/fw/WebRoot/app/common.css
+END
+market2.js
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/twzg/!svn/ver/1623/trunk/fw/WebRoot/app/market2.js
 END
 login.jsp
 K 25
 svn:wc:ra_dav:version-url
 V 54
-/svn/twzg/!svn/ver/1359/trunk/fw/WebRoot/app/login.jsp
+/svn/twzg/!svn/ver/1613/trunk/fw/WebRoot/app/login.jsp
 END
-parcel.jsp
+industryforsale.js
 K 25
 svn:wc:ra_dav:version-url
-V 55
-/svn/twzg/!svn/ver/1529/trunk/fw/WebRoot/app/parcel.jsp
-END
-test.js
-K 25
-svn:wc:ra_dav:version-url
-V 52
-/svn/twzg/!svn/ver/1340/trunk/fw/WebRoot/app/test.js
+V 63
+/svn/twzg/!svn/ver/1624/trunk/fw/WebRoot/app/industryforsale.js
 END
 test.html
 K 25
@@ -33,41 +39,35 @@ svn:wc:ra_dav:version-url
 V 54
 /svn/twzg/!svn/ver/1426/trunk/fw/WebRoot/app/test.html
 END
+houseforsale.js
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/twzg/!svn/ver/1623/trunk/fw/WebRoot/app/houseforsale.js
+END
 graph.json
 K 25
 svn:wc:ra_dav:version-url
 V 55
 /svn/twzg/!svn/ver/1353/trunk/fw/WebRoot/app/graph.json
 END
-system.js
-K 25
-svn:wc:ra_dav:version-url
-V 54
-/svn/twzg/!svn/ver/1510/trunk/fw/WebRoot/app/system.js
-END
 system.jsp
 K 25
 svn:wc:ra_dav:version-url
 V 55
-/svn/twzg/!svn/ver/1530/trunk/fw/WebRoot/app/system.jsp
+/svn/twzg/!svn/ver/1623/trunk/fw/WebRoot/app/system.jsp
 END
-graph.js
+storeforsale.js
 K 25
 svn:wc:ra_dav:version-url
-V 53
-/svn/twzg/!svn/ver/1353/trunk/fw/WebRoot/app/graph.js
+V 60
+/svn/twzg/!svn/ver/1623/trunk/fw/WebRoot/app/storeforsale.js
 END
-estate.js
+houseforsale.jsp
 K 25
 svn:wc:ra_dav:version-url
-V 54
-/svn/twzg/!svn/ver/1353/trunk/fw/WebRoot/app/estate.js
-END
-index.jsp
-K 25
-svn:wc:ra_dav:version-url
-V 54
-/svn/twzg/!svn/ver/1351/trunk/fw/WebRoot/app/index.jsp
+V 61
+/svn/twzg/!svn/ver/1623/trunk/fw/WebRoot/app/houseforsale.jsp
 END
 graph.html
 K 25
@@ -75,11 +75,11 @@ svn:wc:ra_dav:version-url
 V 55
 /svn/twzg/!svn/ver/1353/trunk/fw/WebRoot/app/graph.html
 END
-importExcel.jsp
+industryforsale.jsp
 K 25
 svn:wc:ra_dav:version-url
-V 60
-/svn/twzg/!svn/ver/1527/trunk/fw/WebRoot/app/importExcel.jsp
+V 64
+/svn/twzg/!svn/ver/1625/trunk/fw/WebRoot/app/industryforsale.jsp
 END
 estate.html
 K 25
@@ -91,19 +91,181 @@ parcel.js
 K 25
 svn:wc:ra_dav:version-url
 V 54
-/svn/twzg/!svn/ver/1524/trunk/fw/WebRoot/app/parcel.js
+/svn/twzg/!svn/ver/1623/trunk/fw/WebRoot/app/parcel.js
 END
-login.js
+market2.jsp
 K 25
 svn:wc:ra_dav:version-url
-V 53
-/svn/twzg/!svn/ver/1340/trunk/fw/WebRoot/app/login.js
+V 56
+/svn/twzg/!svn/ver/1614/trunk/fw/WebRoot/app/market2.jsp
 END
 import_result.jsp
 K 25
 svn:wc:ra_dav:version-url
 V 62
-/svn/twzg/!svn/ver/1525/trunk/fw/WebRoot/app/import_result.jsp
+/svn/twzg/!svn/ver/1542/trunk/fw/WebRoot/app/import_result.jsp
+END
+database.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/twzg/!svn/ver/1595/trunk/fw/WebRoot/app/database.jsp
+END
+law.js
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/twzg/!svn/ver/1602/trunk/fw/WebRoot/app/law.js
+END
+market.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/twzg/!svn/ver/1602/trunk/fw/WebRoot/app/market.jsp
+END
+storeforhire.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/twzg/!svn/ver/1623/trunk/fw/WebRoot/app/storeforhire.jsp
+END
+import_demo.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/twzg/!svn/ver/1579/trunk/fw/WebRoot/app/import_demo.jsp
+END
+officeforhire.js
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/twzg/!svn/ver/1624/trunk/fw/WebRoot/app/officeforhire.js
+END
+house.js
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/twzg/!svn/ver/1623/trunk/fw/WebRoot/app/house.js
+END
+officeforhire.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/twzg/!svn/ver/1625/trunk/fw/WebRoot/app/officeforhire.jsp
+END
+stand2.js
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/twzg/!svn/ver/1623/trunk/fw/WebRoot/app/stand2.js
+END
+database.js
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/twzg/!svn/ver/1589/trunk/fw/WebRoot/app/database.js
+END
+datagrid_data1.json
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/twzg/!svn/ver/1353/trunk/fw/WebRoot/app/datagrid_data1.json
+END
+stand.js
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/twzg/!svn/ver/1593/trunk/fw/WebRoot/app/stand.js
+END
+parcel.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/twzg/!svn/ver/1623/trunk/fw/WebRoot/app/parcel.jsp
+END
+officeforsale.js
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/twzg/!svn/ver/1623/trunk/fw/WebRoot/app/officeforsale.js
+END
+test.js
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/twzg/!svn/ver/1340/trunk/fw/WebRoot/app/test.js
+END
+law2.js
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/twzg/!svn/ver/1623/trunk/fw/WebRoot/app/law2.js
+END
+system.js
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/twzg/!svn/ver/1623/trunk/fw/WebRoot/app/system.js
+END
+storeforsale.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/twzg/!svn/ver/1623/trunk/fw/WebRoot/app/storeforsale.jsp
+END
+graph.js
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/twzg/!svn/ver/1353/trunk/fw/WebRoot/app/graph.js
+END
+law2.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/twzg/!svn/ver/1614/trunk/fw/WebRoot/app/law2.jsp
+END
+estate.js
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/twzg/!svn/ver/1353/trunk/fw/WebRoot/app/estate.js
+END
+index.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/twzg/!svn/ver/1623/trunk/fw/WebRoot/app/index.jsp
+END
+importExcel.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/twzg/!svn/ver/1571/trunk/fw/WebRoot/app/importExcel.jsp
+END
+chrome.zip
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/twzg/!svn/ver/1605/trunk/fw/WebRoot/app/chrome.zip
+END
+officeforsale.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/twzg/!svn/ver/1623/trunk/fw/WebRoot/app/officeforsale.jsp
+END
+login.js
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/twzg/!svn/ver/1589/trunk/fw/WebRoot/app/login.js
+END
+stand.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/twzg/!svn/ver/1602/trunk/fw/WebRoot/app/stand.jsp
 END
 upload_result.jsp
 K 25
@@ -111,11 +273,17 @@ svn:wc:ra_dav:version-url
 V 62
 /svn/twzg/!svn/ver/1359/trunk/fw/WebRoot/app/upload_result.jsp
 END
-database.jsp
+footer.jsp
 K 25
 svn:wc:ra_dav:version-url
-V 57
-/svn/twzg/!svn/ver/1530/trunk/fw/WebRoot/app/database.jsp
+V 55
+/svn/twzg/!svn/ver/1606/trunk/fw/WebRoot/app/footer.jsp
+END
+stand2.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/twzg/!svn/ver/1614/trunk/fw/WebRoot/app/stand2.jsp
 END
 uploadFile.jsp
 K 25
@@ -123,23 +291,35 @@ svn:wc:ra_dav:version-url
 V 59
 /svn/twzg/!svn/ver/1361/trunk/fw/WebRoot/app/uploadFile.jsp
 END
-import_demo.jsp
+houseforhire.jsp
 K 25
 svn:wc:ra_dav:version-url
-V 60
-/svn/twzg/!svn/ver/1525/trunk/fw/WebRoot/app/import_demo.jsp
+V 61
+/svn/twzg/!svn/ver/1623/trunk/fw/WebRoot/app/houseforhire.jsp
 END
-house.js
+index1.jsp
 K 25
 svn:wc:ra_dav:version-url
-V 53
-/svn/twzg/!svn/ver/1528/trunk/fw/WebRoot/app/house.js
+V 55
+/svn/twzg/!svn/ver/1595/trunk/fw/WebRoot/app/index1.jsp
+END
+industryforhire.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/twzg/!svn/ver/1625/trunk/fw/WebRoot/app/industryforhire.jsp
+END
+industryforhire.js
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/twzg/!svn/ver/1624/trunk/fw/WebRoot/app/industryforhire.js
 END
 house.jsp
 K 25
 svn:wc:ra_dav:version-url
 V 54
-/svn/twzg/!svn/ver/1529/trunk/fw/WebRoot/app/house.jsp
+/svn/twzg/!svn/ver/1623/trunk/fw/WebRoot/app/house.jsp
 END
 upload_demo.jsp
 K 25
@@ -147,15 +327,27 @@ svn:wc:ra_dav:version-url
 V 60
 /svn/twzg/!svn/ver/1363/trunk/fw/WebRoot/app/upload_demo.jsp
 END
-database.js
+houseforhire.js
 K 25
 svn:wc:ra_dav:version-url
-V 56
-/svn/twzg/!svn/ver/1483/trunk/fw/WebRoot/app/database.js
+V 60
+/svn/twzg/!svn/ver/1623/trunk/fw/WebRoot/app/houseforhire.js
 END
-datagrid_data1.json
+law.jsp
 K 25
 svn:wc:ra_dav:version-url
-V 64
-/svn/twzg/!svn/ver/1353/trunk/fw/WebRoot/app/datagrid_data1.json
+V 52
+/svn/twzg/!svn/ver/1602/trunk/fw/WebRoot/app/law.jsp
+END
+market.js
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/twzg/!svn/ver/1593/trunk/fw/WebRoot/app/market.js
+END
+storeforhire.js
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/twzg/!svn/ver/1623/trunk/fw/WebRoot/app/storeforhire.js
 END

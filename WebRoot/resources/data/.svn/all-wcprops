@@ -1,25 +1,25 @@
 K 25
 svn:wc:ra_dav:version-url
 V 55
-/svn/twzg/!svn/ver/1524/trunk/fw/WebRoot/resources/data
+/svn/twzg/!svn/ver/1620/trunk/fw/WebRoot/resources/data
 END
 year.json
 K 25
 svn:wc:ra_dav:version-url
 V 65
-/svn/twzg/!svn/ver/1442/trunk/fw/WebRoot/resources/data/year.json
+/svn/twzg/!svn/ver/1620/trunk/fw/WebRoot/resources/data/year.json
 END
 land.json
 K 25
 svn:wc:ra_dav:version-url
 V 65
-/svn/twzg/!svn/ver/1524/trunk/fw/WebRoot/resources/data/land.json
+/svn/twzg/!svn/ver/1592/trunk/fw/WebRoot/resources/data/land.json
 END
 city.json
 K 25
 svn:wc:ra_dav:version-url
 V 65
-/svn/twzg/!svn/ver/1366/trunk/fw/WebRoot/resources/data/city.json
+/svn/twzg/!svn/ver/1554/trunk/fw/WebRoot/resources/data/city.json
 END
 database.json
 K 25

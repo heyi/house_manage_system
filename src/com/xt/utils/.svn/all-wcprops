@@ -1,7 +1,7 @@
 K 25
 svn:wc:ra_dav:version-url
 V 49
-/svn/twzg/!svn/ver/1398/trunk/fw/src/com/xt/utils
+/svn/twzg/!svn/ver/1621/trunk/fw/src/com/xt/utils
 END
 DataGrid.java
 K 25
@@ -14,6 +14,12 @@ K 25
 svn:wc:ra_dav:version-url
 V 65
 /svn/twzg/!svn/ver/1340/trunk/fw/src/com/xt/utils/DecodeUtil.java
+END
+DateUtil.java
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/twzg/!svn/ver/1571/trunk/fw/src/com/xt/utils/DateUtil.java
 END
 GetPinyin.java
 K 25
@@ -31,7 +37,7 @@ Constant.java
 K 25
 svn:wc:ra_dav:version-url
 V 63
-/svn/twzg/!svn/ver/1394/trunk/fw/src/com/xt/utils/Constant.java
+/svn/twzg/!svn/ver/1621/trunk/fw/src/com/xt/utils/Constant.java
 END
 ReadExcel.java
 K 25

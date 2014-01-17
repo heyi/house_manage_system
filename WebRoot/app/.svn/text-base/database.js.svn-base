@@ -23,6 +23,7 @@ var toolbar = [{
         flag = "add";
         dlg1.dialog("open").dialog('setTitle','添加资料库');
         form1.form("clear");
+        editor.setData("");
     }
 },
 '-', {
@@ -61,6 +62,10 @@ var toolbar = [{
     }
 }];
 
+if (userLevel!=1&&userLevel!=2) {
+   toolbar = []; 
+}
+
 var tp1 =_.template($("#tp1").html());
 
 dfd_datagrid.done(function () {
@@ -68,19 +73,21 @@ dfd_datagrid.done(function () {
         fit: true,
         url: "searchInfomation.do", 
         pagination: true, 
-        rownumbers:false, 
+        rownumbers:true, 
         fitColumns:true, 
         singleSelect:true, 
         toolbar:toolbar,
         columns:[[
             {width:80, field:'ck', checkbox:true}, 
-            {width:80, field:'infoId', title:"序号"}, 
             {width:80, field:'infoTitle', title:"标题"}, 
-            {width:80, field:'catagoryId', title:"所属分类"}, 
+            {width:80, field:'catagoryName', title:"所属分类"}, 
             {width:80, field:'insertTime', title:"录入时间"} 
         ]] , 
         onDblClickRow: function (i, r) {
-            r_view = r; 
+            r_view = $.extend({},r); 
+            for(var o in r ) {
+                if(!r[o]) r[o] = '&nbsp;'
+            }
             dlg_info.html(tp1(r)); 
             dlg3.dialog("open");
         }
@@ -123,7 +130,8 @@ function uploadfile(el) {
 
 $(".upload").on("click", function(e) {
     e.preventDefault();
-    uploadfile($(this).prev());
+    var el = $(this).parents('td').find("input");
+    uploadfile(el);
 });
 
 $(".nav").on("click","a",function (e) {
@@ -132,7 +140,8 @@ $(".nav").on("click","a",function (e) {
     $("#tree2").combotree("loadData",database[index].children);
     $('.nav').find("a").removeClass("active");
     $(this).addClass("active");
-    search_database();
+//    search_database();
+    table1.datagrid("load", { "params": "{\"catagoryId\":\""+(index+1)+"\"}"});
 });
 
 

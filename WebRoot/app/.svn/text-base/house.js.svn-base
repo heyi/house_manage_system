@@ -4,11 +4,31 @@ var action_url = "insertHouse.do";
 var table1 = $("#table1"), form1 = $("#form1"), form2 = $("#form2"),dlg1 = $("#dlg1"),dlg2 = $("#dlg2"), $lat = form1.find("[name=lat]"), $lng = form1.find("[name=lng]"),$ht = $("body").find("[name=houseType]") ,$dt = $("body").find("[name=dealType]"),dlg_info = $("#dlg_info"),dlg3 =  $("#dlg3");
 
 var fs_container = $("#fs_container");
-var map, geo,marker, point,  lat = 28.19, lng = 119;
+var map, geo,marker, point,  _lat = lat = 28.19580849444327, _lng = lng = 112.95644760131836;
 var bmap, mode;
 var facilities = "水,有线电视,空调,暖气,电梯,家具,物业管理,电,冰箱,微波炉,宽带,储藏/地下室,露台/花园,商务中心,煤气/天然气,洗衣机,热水器,电话,灶具,停车位,健身设备".split(",");
-var cityKeys = {}; 
 
+function uploadfile(el) {
+    var rs = window.showModalDialog("uploadFile.jsp", null, "dialogWidth=300px;dialogHeight=100px;resizable=false;status=no;scroll=no;location=no;toolbar=no;menubar=no");
+    if (rs) {
+        el.val(rs);
+    }
+}
+
+function importfile() {
+//	alert($ht.val() + "|" + $dt.val())
+	var o = {
+			"excelType":"house",//房地产是house，土地交易是land
+			"houseType":$ht.val(),
+			"dealType":$dt.val()
+	};
+    var rs = window .showModalDialog( "importExcel.jsp", o, "dialogWidth=300px;dialogHeight=100px;resizable=false;status=no;scroll=no;location=no;toolbar=no;menubar=no");
+    if (rs === "ok") {
+        table1.datagrid("reload"); 
+    }
+};
+
+var cityKeys = {}; 
 function makeCityKeys(node, rs) {
     setKeys(rs, cityKeys); 
 };
@@ -19,7 +39,7 @@ function mClickEvent (r){
     return function () {
         var fas = ds["supportingFacilities"];
         if (fas && fas.length >= 0) {
-            ds["supportingFacilities"] = fas.join(",");
+            r["supportingFacilities"] = fas.replace(/[\[\]\"]/g,""); 
         }
         r_view = ds; 
         dlg_info.html(house_tp(ds)); 
@@ -56,13 +76,14 @@ function setKeys(rs, keys) {
 function init_graph_info () {
     $("#_graph").children().remove(); 
     bmap = new BMap.Map("_graph");
-    var p = new BMap.Point(lng, lat);
+    var p = new BMap.Point(_lng, _lat);
     bmap.centerAndZoom(p, 11);
     bmap.addControl(new BMap.NavigationControl());
     bmap.addControl(new BMap.NavigationControl());
     bmap.addControl(new BMap.ScaleControl());
     bmap.addControl(new BMap.OverviewMapControl());
     bmap.addControl(new BMap.MapTypeControl());
+
     var rs = table1.datagrid("getData").rows; 
     for (var i = 0, l = rs.length; i < l; i ++) {
         var r = rs[i];
@@ -136,12 +157,24 @@ function init_fas() {
 
 function search_house() {
     var rs = form2.serializeJson(); 
-    table1.datagrid("load", { "params": JSON.stringify(rs)}); 
+    table1.datagrid({url:"searchHouse.do",queryParams:{ "params": JSON.stringify(rs)}}); 
 };
 
 function show_buildings(newValue,oldValue) {
     var rs = {"cityNo" : newValue};
-    $("#s_building").combobox("reload","getBuildings.do?params=" + JSON.stringify(rs));
+    $("#s_building").combobox("clear").combobox("reload","getBuildings.do?params=" + JSON.stringify(rs));
+};
+
+function changeLatlng(node) {
+    lat = node.attributes.lat || lat;
+    lng = node.attributes.lng || lng;
+    init_graph(lat,lng);
+};
+
+function _changeLatlng(node) {
+    _lat = node.attributes.lat || _lat;
+    _lng = node.attributes.lng || _lng;
+    init_graph_info();
 };
 
 function bind_chks(rs) {
@@ -180,9 +213,12 @@ var toolbar = [{
         flag = "update";
         var r = table1.datagrid("getSelected"); 
         if (r) {
+            for(var o in r ) {
+                if(r[o] ==  '&nbsp;') r[o] = '';
+            }
             form1.form("load", r); 
             bind_chks(r["supportingFacilities"] || '');
-            dlg1.dialog("open").dialog('setTitle','添加房产交易案例');
+            dlg1.dialog("open").dialog('setTitle','修改房产交易案例');
         }else {
             $.messager.alert("警告","请选择要修改的行","warning"); 
         }
@@ -195,39 +231,53 @@ var toolbar = [{
     handler: function() {
         var r = table1.datagrid("getSelected"); 
         if (r) {
-            $.ajax({url:"deleteHouse.do?id=" + r.houseId}).success(function (result) {
-                if (result == "yes") {
-                    table1.datagrid("reload"); 
-                    $.messager.alert("系统信息","删除成功！","info"); 
-                }else{
-                    $.messager.alert("系统信息","删除失败！","error"); 
-                }
-            });
+        	$.messager.confirm('提示','确实要删除吗？',function(m){
+        		if(m){
+		            $.ajax({url:"deleteHouse.do?id=" + r.houseId}).success(function (result) {
+		                if (result == "yes") {
+		                    table1.datagrid("reload"); 
+		                }else{
+		                    $.messager.alert("系统信息","删除失败！","error"); 
+		                }
+		            });
+        		}
+        	});
         }else {
             $.messager.alert("警告","请选择要删除的行","warning"); 
         }
-    }
-}];
+    }},
+    '-',{
+        text: '导入',
+        iconCls: "icon-import",
+        handler: function() {
+            importfile();
+        }
+    }];
+
+if (userLevel!=1&&userLevel!=2) {
+   toolbar = []; 
+}
 
 var house_tp =_.template($("#house_tp").html());
 table1.datagrid({
     fit: true,
-    url: "searchHouse.do", 
     pagination: true, 
-    rownumbers:false, 
+    queryParams:{ params: JSON.stringify({houseType: "1",dealType: "1"}) },
+    rownumbers:true, 
     fitColumns:true, 
     singleSelect:true, 
     toolbar:toolbar,
     columns:[[
-        {width:80, field:'ck', checkbox:true}, 
-        {width:80, field:'houseId', title:"序号"}, 
+        {width:50, field:'ck', checkbox:true}, 
+        {width:80, field:'cityName', title:"所属区域"}, 
         {width:80, field:'houseName', title:"房屋名称"}, 
         {width:80, field:'houseNo', title:"栋号及房号"}, 
         {width:80, field:'dealTime', title:"成交时间"}, 
-        {width:80, field:'cityNo', title:"所属区域"}, 
         {width:80, field:'locate', title:"具体位置"}, 
-        {width:80, field:'areaNo', title:"区域代码"}, 
-        {width:80, field:'realUse', title:"实际用途"} 
+        {width:80, field:'totalPrice', title:"成交总价(元)"}, 
+        {width:80, field:'constructionArea', title:"建筑面积(m2)"},
+        {width:80, field:'realUse', title:"实际用途"},
+        {width:80, field:'buildingDate', title:"建筑年代"}
     ]] , 
     onLoadSuccess: function (data) {
         var mode = $("#btn_view").data("mode");
@@ -235,13 +285,15 @@ table1.datagrid({
             init_graph_info(); 
         }
     },
-    onDblClickRow: function (i, r) {
-        r["cityName"] = cityKeys[r.city]; 
+    onDblClickRow: function (i, r) { 
         var fas = r["supportingFacilities"];
         if (fas && fas.length >= 0) {
             r["supportingFacilities"] = fas.replace(/[\[\]\"]/g,""); 
         }
-        r_view = r; 
+            r_view = $.extend({},r); 
+            for(var o in r ) {
+                if(!r[o]) r[o] = '&nbsp;'
+            }
         dlg_info.html(house_tp(r)); 
         dlg3.dialog("open");
     }
@@ -249,6 +301,10 @@ table1.datagrid({
 form1.submit(function (e) {
     e.preventDefault();
     e.stopImmediatePropagation();
+
+    var isValid = form1.form("validate");
+    if (!isValid) { return; }
+
     var rs = form1.serializeJson();
     var fas = rs["supportingFacilities"];
     if (flag === "update") {
@@ -275,20 +331,25 @@ form1.submit(function (e) {
     });
 });
 
-$(".nav").on("click","a",function (e) {
+$(".easyui-accordion").on("click",".nav-item",function (e) {
     var housetype = $(this).data("housetype") ;
     var dealtype = $(this).data("dealtype") ;
     $ht.data("housetype",housetype).val(housetype); 
     $dt.data("dealtype",dealtype).val(dealtype); 
 
-    $('.nav').find("a").removeClass("active");
+    $('.easyui-accordion').find("a").removeClass("active");
     $(this).addClass("active");
     search_house();
 });
 
-setTimeout(function () { $(".nav").find("a:first").trigger("click");
+setTimeout(function () { $(".easyui-accordion").find("a.nav-item:first").trigger("click");
 },0);
 
 $(function () {
     init_fas();
+    $(".upload").on("click", function(e) {
+        e.preventDefault();
+        var el = $(this).parents('td').find("input");
+        uploadfile(el);
+    });
 });

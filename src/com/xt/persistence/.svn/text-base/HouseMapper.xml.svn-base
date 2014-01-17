@@ -36,6 +36,7 @@
 		   hire_price           as hirePrice,
 		   Supporting_facilities as Supporting_facilities,
 		   contact_tel          as contactTel,
+		   collecter			as collecter,
 		   remark               as remark,
 		   lng                  as lng,
 		   lat                  as lat,
@@ -69,7 +70,8 @@
 			   house_name           as houseName,
 			   house_no             as houseNo,
 			   deal_time            as dealTime,
-			   city_no              as cityNo,
+			   a.city_no            as cityNo,
+			   b.city_name			as cityName,
 			   locate               as locate,
 			   area_no              as areaNo,
 			   realuse               as realUse,
@@ -95,9 +97,10 @@
 			   Supporting_facilities as SupportingFacilities,
 			   contact_tel          as contactTel,
 			   user_id              as userId,
+			   collecter			as collecter,
 			   remark               as remark,
-			   lng                  as lng,
-			   lat                  as lat,
+			   a.lng                  as lng,
+			   a.lat                  as lat,
 			   insert_time          as insertTime,
 			   img                  as img,
 		   	   contract             as contract,
@@ -111,7 +114,7 @@
 		       pilespacing          as pilespacing,
 		       crane_beam           as craneBeam,
 		       span                 as span
-			FROM tb_house_info
+			FROM tb_house_info a left join tb_city_info b on a.city_no = b.city_no
 			where 1=1
 			]]>
 		<if test="houseType != null and houseType != ''">
@@ -126,7 +129,7 @@
 		</if>
 		<if test="cityNo != null and cityNo != ''">
 		    <![CDATA[
-		    and city_no = #{cityNo}
+		    and a.city_no like '${cityNo}%'
 		     ]]>
 		</if>
 		<if test="locate != null and locate != ''">
@@ -134,7 +137,7 @@
 		    and locate like '%${locate}%'
 		     ]]>
 		</if>
-		<if test="structure != null and structure != ''"> 
+		<if test="structure != null and structure != '全部'"> 
 		    <![CDATA[
 		    and structure = #{structure}
 		     ]]>
@@ -151,10 +154,10 @@
 		</if>
 		<if test="buildingDate != null and buildingDate != ''"> 
 		    <![CDATA[
-		    and building_date = #{buildingDate}
+		    and building_date ${operator3} #{buildingDate}
 		     ]]>
 		</if>
-		<if test="landUseRight != null and landUseRight != ''"> 
+		<if test="landUseRight != null and landUseRight != '全部'"> 
 		    <![CDATA[
 		    and land_use_right = #{landUseRight}
 		     ]]>
@@ -178,9 +181,19 @@
 		<![CDATA[
 		  SELECT
 			count(1)
-		FROM tb_house_info
+		FROM tb_house_info a left join tb_city_info b on a.city_no = b.city_no
 		where 1=1 
 		]]>
+		<if test="houseType != null and houseType != ''">
+		    <![CDATA[
+		    and house_type = #{houseType}
+		    ]]>
+		</if>
+		<if test="dealType != null and dealType != ''">
+		    <![CDATA[
+		    and deal_type = #{dealType}
+		    ]]>
+		</if>
 		<if test="listNo != null and listNo != ''">
 		    <![CDATA[
 		    and list_no = #{listNo}
@@ -188,7 +201,7 @@
 		</if>
 		<if test="cityNo != null and cityNo != ''">
 		    <![CDATA[
-		    and city_no = #{cityNo}
+		    and a.city_no like '${cityNo}%'
 		     ]]>
 		</if>
 		<if test="locate != null and locate != ''">
@@ -196,7 +209,7 @@
 		    and locate like '%${locate}%'
 		     ]]>
 		</if>
-		<if test="structure != null and structure != ''"> 
+		<if test="structure != null and structure != '全部'"> 
 		    <![CDATA[
 		    and structure = #{structure}
 		     ]]>
@@ -213,10 +226,10 @@
 		</if>
 		<if test="buildingDate != null and buildingDate != ''"> 
 		    <![CDATA[
-		    and building_date = #{buildingDate}
+		    and building_date  ${operator3} #{buildingDate}
 		     ]]>
 		</if>
-		<if test="landUseRight != null and landUseRight != ''"> 
+		<if test="landUseRight != null and landUseRight != '全部'"> 
 		    <![CDATA[
 		    and land_use_right = #{landUseRight}
 		     ]]>
@@ -270,6 +283,7 @@
 			   hire_price,
 			   Supporting_facilities,
 			   contact_tel,
+			   collecter,
 			   remark,
 			   lng,
 			   lat,
@@ -286,14 +300,15 @@
 		       parking_facilities,
 		       pilespacing,
 		       crane_beam,
-		       span 
+		       span,
+		       apartment 
 		)
 		VALUES (
 			#{houseType},#{dealType},#{houseName},#{houseNo},#{dealTime},#{cityNo},#{locate},#{areaNo},#{realUse},#{businessState},#{structure},#{constructionArea},#{poolArea},#{buildingDate},
 			#{newSituation},#{streetSide},#{streetLength},#{depth},#{totalFloor},#{floor},#{floorHeight},#{decorateSituation},#{landUseRight},#{landExpiredDate},#{totalPrice},
-			#{unitPrice},#{hireState},#{hirePrice},#{SupportingFacilities},#{contactTel},#{remark},#{lng},#{lat},now(),#{img},#{contract},
+			#{unitPrice},#{hireState},#{hirePrice},#{SupportingFacilities},#{contactTel},#{collecter},#{remark},#{lng},#{lat},now(),#{img},#{contract},
 			#{userId},#{hireExpiredDate},#{hireUnitPrice},#{transferFee},#{deposit},#{propertyManagementFee},#{officeFacilities},
-			#{parkingFacilities},#{pilespacing},#{craneBeam},#{span}
+			#{parkingFacilities},#{pilespacing},#{craneBeam},#{span},#{apartment}
 		)
 	</insert>
 
@@ -330,6 +345,7 @@
 			   hire_price           = #{hirePrice},
 			   Supporting_facilities = #{SupportingFacilities},
 			   contact_tel          = #{contactTel},
+			   collecter            = #{collecter},
 			   remark               = #{remark},
 			   lng                  = #{lng},
 			   lat                  = #{lat},

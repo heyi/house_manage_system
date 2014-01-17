@@ -30,8 +30,9 @@
 		  SELECT
 			dict_id as sectorId,
 			dict_name as sectorName,
-			city_no as cityNo
-			FROM tb_sector_dict
+			a.city_no as cityNo,
+			b.city_name as cityName
+			FROM tb_sector_dict a inner join tb_city_info b on a.city_no=b.city_no
 			where 1=1
 			]]>
 		
@@ -50,8 +51,8 @@
 		<![CDATA[
 		  SELECT
 			count(1)
-			FROM tb_sector_dict
-			where 1=1 
+			FROM tb_sector_dict a inner join tb_city_info b on a.city_no=b.city_no
+			where 1=1
 		]]>
 		<if test="sectorName != null and sectorName != ''">
 		    <![CDATA[

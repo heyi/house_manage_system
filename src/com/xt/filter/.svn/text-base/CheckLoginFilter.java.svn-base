@@ -19,6 +19,7 @@ import org.apache.log4j.Logger;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
+import com.xt.service.DictService;
 import com.xt.utils.Constant;
 
 
@@ -39,20 +40,18 @@ public class CheckLoginFilter implements Filter {
 		String uri = request.getRequestURI();
 		String path = request.getContextPath();
 		HttpSession session = request.getSession(true);
-		Date expiredTime;
 		ApplicationContext wac = WebApplicationContextUtils.getWebApplicationContext(request.getServletContext());
-//		SystemConfig sysconf = ((SystemConfigService)wac.getBean("systemConfigService")).getSystemTime();
-//		long curTime = sysconf.getSysCurTime().getTime();
-//		try {
-//			expiredTime = sdf.parse(Constant.EXPIRED_TIME);
-//			if(curTime > expiredTime.getTime() && !uri.equals(new StringBuffer(path).append("/app/login.jsp").toString())){
-//				response.sendRedirect(path + "/app/login.jsp?error_code=99");
-//				return;
-//			}
-//			log.debug("系统当前时间：" + curTime + "|系统失效时间：" + expiredTime.getTime());
-//		} catch (ParseException e) {
-//			e.printStackTrace();
-//		}
+		try {
+			long curTime = sdf.parse(((DictService)wac.getBean("dictService")).getSystemTime()).getTime();
+			long expiredTime = sdf.parse(Constant.EXPIRED_TIME).getTime();
+			if(curTime > expiredTime && !uri.equals(new StringBuffer(path).append("/app/login.jsp").toString())){
+				response.sendRedirect(path + "/app/login.jsp?error_code=99");
+				return;
+			}
+//			log.error("系统当前时间：" + new Date(curTime) + "|系统失效时间：" + new Date(expiredTime));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 		if(session.getAttribute(Constant.CURRENT_USER) != null){
 			chain.doFilter(request, response);
 			return;
@@ -60,7 +59,17 @@ public class CheckLoginFilter implements Filter {
 				&& !uri.equals(new StringBuffer(path).append("/login.jsp").toString())
 				&& !uri.equals(new StringBuffer(path).append("/app/login.jsp").toString())
 				&& !uri.equals(new StringBuffer(path).append("/login.do").toString())){
-			response.sendRedirect(path + "/app/login.jsp?error_code=2");
+
+			//判断是否为ajax请求
+			if (request.getHeader("x-requested-with") != null && request.getHeader("x-requested-with").equalsIgnoreCase("XMLHttpRequest")) {
+				HttpServletResponse httpResponse = (HttpServletResponse)response;
+				httpResponse.addHeader("sessionstatus", "timeOut");
+				httpResponse.addHeader("loginPath",path + "/app/login.jsp?error_code=2");
+				chain.doFilter(request, response);//不可少，否则请求会出错
+			}else{//不是ajax请求，超时直接重定向
+				response.sendRedirect(path + "/app/login.jsp?error_code=2");
+			}
+				
 			return;
 		}
 		chain.doFilter(request, arg1);

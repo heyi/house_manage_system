@@ -31,7 +31,10 @@
 		assessment_report as assessmentReport,
 		lng,
 		lat,
-		remark
+		remark,
+		grant_notice as grantNotice,
+		transfer_notice as transferNotice,
+		img as img
 		FROM tb_land_info where
 		land_id=#{value}
 	</select>
@@ -67,18 +70,21 @@
 			assessment_report as assessmentReport,
 			lng,
 			lat,
-			remark
+			remark,
+			grant_notice as grantNotice,
+			transfer_notice as transferNotice,
+			img as img
 			FROM tb_land_info
 			where 1=1
 			]]>
 		<if test="listNo != null and listNo != ''">
 		    <![CDATA[
-		    and list_no = #{listNo}
+		    and list_no like '%${listNo}%'
 		    ]]>
 		</if>
 		<if test="city != null and city != ''">
 		    <![CDATA[
-		       and city = #{city}
+		       and city like '${city}%'
 		     ]]>
 		</if>
 		<if test="locate != null and locate != ''">
@@ -88,7 +94,7 @@
 		</if>
 		<if test="useNo != null and useNo != ''"> 
 		    <![CDATA[
-		    and use_no = #{useNo}
+		    and use_no like '%${useNo}%'
 		     ]]>
 		</if>
 		<if test="acreage != null and acreage != ''"> 
@@ -101,14 +107,14 @@
 		    and unit_price1 ${operator2} #{unitPrice1}
 		     ]]>
 		</if>
-		<if test="level != null and level != ''"> 
+		<if test="level != null and level != '全部'"> 
 		    <![CDATA[
 		    and level = #{level}
 		     ]]>
 		</if>
 		<if test="areaRatio != null and areaRatio != ''"> 
 		    <![CDATA[
-		    and area_ratio = #{areaRatio}
+		    and area_ratio like '%${areaRatio}%'
 		     ]]>
 		</if>
 		<if test="startDate != null and startDate != ''"> 
@@ -135,12 +141,12 @@
 		]]>
 		<if test="listNo != null and listNo != ''">
 		    <![CDATA[
-		    and list_no = #{listNo}
+		    and list_no like '%${listNo}%'
 		    ]]>
 		</if>
 		<if test="city != null and city != ''">
 		    <![CDATA[
-		    and city = #{city}
+		       and city like '${city}%'
 		     ]]>
 		</if>
 		<if test="locate != null and locate != ''">
@@ -163,14 +169,14 @@
 		    and unit_price1 ${operator2} #{unitPrice1}
 		     ]]>
 		</if>
-		<if test="level != null and level != ''"> 
+		<if test="level != null and level != '全部'"> 
 		    <![CDATA[
 		    and level = #{level}
 		     ]]>
 		</if>
 		<if test="areaRatio != null and areaRatio != ''"> 
 		    <![CDATA[
-		    and area_ratio = #{areaRatio}
+		    and area_ratio like '%${areaRatio}%'
 		     ]]>
 		</if>
 		<if test="startDate != null and startDate != ''"> 
@@ -216,7 +222,10 @@
 		assessment_report,
 		lng,
 		lat,
-		remark
+		remark,
+		grant_notice,
+		transfer_notice,
+		img
 		)
 		VALUES (
 		#{listNo},
@@ -243,7 +252,10 @@
 		#{assessmentReport},
 		#{lng},
 		#{lat},
-		#{remark}
+		#{remark},
+		#{grantNotice},
+		#{transferNotice},
+		#{img}
 		)
 	</insert>
 
@@ -274,7 +286,10 @@
 		assessment_report = #{assessmentReport},
 		lng = #{lng},
 		lat = #{lat},
-		remark = #{remark}
+		remark = #{remark},
+		grant_notice = #{grantNotice},
+		transfer_notice = #{transferNotice},
+		img = #{img}
 		WHERE land_id = #{landId}
 	</update>
 

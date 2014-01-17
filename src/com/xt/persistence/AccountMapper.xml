@@ -107,7 +107,7 @@
 		)
 		VALUES (#{username},
 		#{password}, #{trueName}, 
-		#{userRight},#{isValid},
+		#{userRight},1,
 		#{mobile},#{qq},#{rank},#{dept},#{photo},#{idcard},#{address},
 		#{remark}
 		)

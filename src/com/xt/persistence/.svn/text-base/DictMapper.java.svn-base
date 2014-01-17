@@ -1,19 +1,15 @@
 package com.xt.persistence;
 
 import java.util.List;
+import java.util.Map;
 
+import com.xt.domain.City;
 import com.xt.domain.Dict;
 
 public interface DictMapper {
 
-	List<Dict> getDeviceType();
-	List<Dict> getSensorType();
-	List<Dict> getPowerType();
-	List<Dict> getSensorUnit();
-	List<Dict> getHoistType();
-	List<Dict> getSluiceType();
-	List<Dict> getDeviceStatus();
-	List<Dict> getVideoProvider();
-	List<Dict> getProtocalType();
-	List<Dict> getCommType();
+	List<Dict> getLandUseDict(Map<String,Object> map);
+	List<City> getCityList(Map<String,Object> map);
+	int insertCity(City city);
+	String getSystemTime();
 }

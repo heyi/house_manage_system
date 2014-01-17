@@ -20,26 +20,28 @@ if(session.getAttribute(Constant.CURRENT_USER)==null){
         <title>系统管理</title>
         <link rel="stylesheet" type="text/css" href="../resources/themes/default/easyui.css">
         <link rel="stylesheet" type="text/css" href="../resources/themes/icon.css">
-        <link rel="stylesheet" type="text/css" href="../resources/themes/common.css">
-        <script src="http://api.map.baidu.com/api?v=1.5&ak=C0e1334aab91d623969240a6e098acb7&sk=7c93af0bd6efdc6610cc6026153a92c9" type="text/javascript" charset="utf-8"> 
+        <link rel="stylesheet" type="text/css" href="../resources/themes/common.css"> 
         </script> <script src="../resources/jquery.min.js"></script>
         <script type="text/javascript" src="../resources/jquery.easyui.min.js"></script>
         <script src="../resources/locale/easyui-lang-zh_CN.js" type="text/javascript" charset="utf-8"></script>
         <script src="../resources/underscore-min.js"></script>
-
+		<script>
+        var userLevel = <%=(user!=null?user.getUserRight():"0")%>
+        </script>
         <style type="text/css" media="all">
         	#main .datagrid-wrap { border: 0px; }
             .easyui-validatebox,.easyui-numberbox { width: 180px; }
             .sf { padding: 10px; }
-            .sf1 { padding: 10px; border: 1px solid #95B8E7; margin-bottom: 10px; }
-            .sf1{width: 600px;}
+            .sf1 { padding: 10px; margin-bottom: 10px; }
+            .sf1{width: 750px;}
             .sf1 td {padding: 5px 4px;}
             #dlg1 td { padding: 2px 4px; }
-            .nav {width: 90px; margin:auto; text-align:center;}
-            .nav li {padding:15px 0px; list-style-type: none;}
-            .nav img {display:block;width:50px;margin:auto;}
-            .nav a {text-decoration: none; padding:5px 0px; display:block;border-radius: 10px; background:#eee;}
-            .nav a:hover, .nav a.active { color: #fff; background-color: #0E2D5F; }
+            .nav {width: 120px; margin:5px auto; text-align:center;}
+            .nav li {padding:8px 0px; list-style-type: none;}
+            .nav img {display:block;width:80px;margin:auto;}
+            .nav a {color:#000;text-decoration: none; display:block;border-radius: 2px; text-align:center;width:100px;margin:5px auto;padding: 5px;border: 1px #ffffff solid;}
+            .nav a:hover {color:#000;background:url(../resources/images/tab-bg.gif) repeat-x;border: 1px #8FB1DB solid; }
+            .nav a.active { color:#000;background:url(../resources/images/tree-over-bg.gif) repeat-x;border: 1px #8FB1DB solid;}
             #dlg_info table { width: 98%; padding: 1%; }
             .demo-info { background: #FFFEE6; color: #8F5700; padding: 12px; }
             .demo-tip { width: 16px; height: 16px; margin-right: 8px; float: left; }
@@ -49,43 +51,57 @@ if(session.getAttribute(Constant.CURRENT_USER)==null){
     <body class="easyui-layout">
         <div data-options="region:'north',border:false" class="" style="width: 50px; ">
             <div class="ui-layout-head">
-                <div class="ui-layout-nav">
-                    <div class="ui-layout-nav-contain">
-                        <ul class="ui-layout-nav-tab">
-                            <li ><a href="parcel.jsp" >土地交易案例</a></li>
-                            <li><a href="house.jsp">房产交易案例</a></li>
-                            <li><a href="database.jsp">资料库</a></li>
-                            <li class="ui-layout-nav-active"><a href="system.jsp">系统管理</a></li>
-                            <li><a href="../logout.do">退出系统</a></li>
-                        </ul>
-                    </div>
-                </div>
+            	<div class="ui-layout-logo"></div>
+                <h1>房地产信息管理系统</h1>
+                <div class="ui-layout-menu">
+	                <div class="ui-layout-nav">
+	                    <span class="ui-layout-nav-prev"></span>
+	                    <div class="ui-layout-nav-contain">
+	                        <ul class="ui-layout-nav-tab">
+	                            <li class="ui-layout-nav-frist">
+									<a href="index.jsp">首页</a>
+								</li>
+	                            <li ><a href="parcel.jsp" >土地交易案例</a></li>
+	                            <li><a href="house.jsp">房产交易案例</a></li>
+	                            <li><a href="law2.jsp">政策法规</a></li>
+	                            <li><a href="market2.jsp">市场分析</a></li>
+	                            <li><a href="stand2.jsp">标准化模板</a></li>
+	                            <li><a href="javascript:alert('正在建设中')">统计分析</a></li>
+	                            <li><a href="system.jsp" class="ui-layout-nav-active">系统管理</a></li>
+	                            <li class="ui-layout-nav-last">
+									<a href="../logout.do">退出系统</a>
+							    </li>
+	                        </ul>
+	                    </div>
+	                    <span class="ui-layout-nav-next"></span>
+	                </div>
+	             </div>
             </div>
         </div>
 
-        <div data-options="region:'west',split:true" title="案例类型"
-            style="width: 200px;">
+        <div data-options="region:'west',split:true" title="系统配置"
+            style="width: 180px;">
             <ul class='nav'>
                 <li>
                     <a href="javascript:void(0)" data-key="1" >
-                        <img src="../resources/images/user.png" alt="shop" />
+                        <img src="../resources/images/user.png" alt="shop" border="0"/>
                         用户管理
                     </a>
                 </li>
                 <li>
                     <a href="javascript:void(0)" data-key="2">
-                        <img src="../resources/images/module.png" alt="shop" />
+                        <img src="../resources/images/module.png" alt="shop" border="0"/>
                         板块维护
                     </a>
                 </li>
                 <li>
                     <a href="javascript:void(0)" data-key="3">
-                        <img src="../resources/images/floor.png" alt="shop" />
+                        <img src="../resources/images/floor.png" alt="shop" border="0"/>
                         楼盘字典</a>
                 </li>
                 <li>
                     <a href="javascript:void(0)" data-key="4">
-                        <img src="../resources/images/personal.png" alt="shop" />
+                        <img src="../resources/images/personal.png" alt="shop" border="0"/>
                         个人信息</a>
                 </li>
             </ul>
@@ -94,10 +110,10 @@ if(session.getAttribute(Constant.CURRENT_USER)==null){
             <div id="tab1" class="easyui-tabs" data-options="fit:true,border:false,onSelect:tab_select">
                 <div title="用户管理" style="padding:2%;">
                     <div class="easyui-layout" data-options="fit:true">
-                        <div data-options="region:'north',border:true" style="height:55px;padding: 2px;margin-bottom:10px;border-bottom:none;">
+                        <div data-options="region:'north',border:true" style="height:55px;padding: 2px;margin-bottom:10px;border-bottom:none;overflow: hidden;">
                             <form class="sf" id="sform1" method="post" method="post">
-                                关键筛选:
-                                <input class="easyui-validatebox" name="username" data-options="" placeholder="可输入用户名或姓名进行筛选"></input> 
+                                关键字筛选:
+                                <input class="easyui-validatebox" name="keywords" data-options="" placeholder="可输入用户名或姓名进行筛选"></input> 
                                 <a class="easyui-linkbutton" data-options="iconCls:'icon-search'" >查询</a>
                             </form>
                         </div>
@@ -106,11 +122,11 @@ if(session.getAttribute(Constant.CURRENT_USER)==null){
                         </div>
                     </div>
                 </div>
-                <div title="模块维护" data-options="" style="overflow:hidden; padding:2%;">
+                <div title="板块维护" data-options="" style="overflow:hidden; padding:2%;">
                     <div class="easyui-layout" data-options="fit:true">
-                        <div data-options="region:'north',border:true" style="height:55px;padding: 2px;margin-bottom:10px;border-bottom:none;">
+                        <div data-options="region:'north',border:true" style="height:55px;padding: 2px;margin-bottom:10px;border-bottom:none;overflow: hidden;">
                            <form class="sf" id="sform2" method="post">
-                                关键筛选:
+                                关键字筛选:
                                 <input class="easyui-validatebox" name="sectorName" data-options="" placeholder="输入板块名称"></input> 
                                 <a class="easyui-linkbutton" data-options="iconCls:'icon-search'" >查询</a>
                             </form>
@@ -123,19 +139,19 @@ if(session.getAttribute(Constant.CURRENT_USER)==null){
                 <div title="楼盘字典" data-options="" style="overflow:hidden;padding:2%;border-sizeing:border-box;">
                     <div class="easyui-layout" data-options="fit:true">
                         <div data-options="region:'west'" style="width: 200px;border-right:none;">
-                            <ul class="easyui-tree" data-options="url:'../resources/data/city.json',method:'get',lines:true,title:'板块列表',onClick:search_sector"></ul>
+                            <ul class="easyui-tree" data-options="url:'getCityList.do',method:'get',lines:true,title:'板块列表',onClick:search_sector"></ul>
                         </div>
                         <div data-options="region:'center',border:true,border:false" style="position:relative; ">
                             <div class="easyui-layout" data-options="fit:true">
-                                <div data-options="region:'north',border:true" style="height:55px;padding: 2px;margin-bottom:10px;border-bottom:none;">
+                                <div data-options="region:'north',border:true" style="height:55px;padding: 2px;margin-bottom:10px;border-bottom:none;overflow: hidden;">
                                     <form class="sf" id="sform3" method="post" style="border:none;">
-                                        关键筛选:
-                                        <input class="easyui-validatebox" name="" data-options="" placeholder="输入板块名称"></input> 
+                                        关键字筛选:
+                                        <input class="easyui-validatebox" name="buildingsName" data-options="" placeholder="输入楼盘名称"></input> 
                                         <input type="hidden" name="cityNo" id="cityNo" value="" />
                                         <a class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a>
                                     </form>
                                 </div>
-                                <div data-options="region:'center',border:true" style="position:relative; ">
+                                <div data-options="region:'center',border:true" style="position:relative;">
                                     <table cellspacing="0" id="table3"></table>
                                 </div>
                             </div>
@@ -144,14 +160,35 @@ if(session.getAttribute(Constant.CURRENT_USER)==null){
                 </div>
                 <div title="个人信息" data-options="" style="overflow:hidden;padding:2%;border-sizeing:border-box;">
                     <form class="sf1" id="form4"  method="post">
-                        <table cellspacing="0" width="100%" style="margin-bottom:20px;">
+                    <fieldset style="border:1px solid #95B8E7; padding:5px;">
+                    <legend>个人信息</legend>
+                        <table border="0" cellspacing="0" cellpadding="0" class="ui-form-table" width="100%" style="margin-bottom:20px;">
                             <tr>
-                                <td>用户名：</td>
-                                <td><input class="easyui-validatebox" id="username" disabled name="username" data-options=""></input>
+                                <td class="ui-form-table-dt">用户名：</td>
+                                <td class="ui-form-table-dd"><input class="easyui-validatebox" id="username" disabled name="username" data-options=""></input>
                                     <input type="hidden" name="userId" value="" />
                                 </td>
-                                <td>角色：</td>
-                                <td>
+                                <td class="ui-form-table-dd" rowspan=3 colspan=2 style="text-align:center;">
+                                    <img id="img_photo" src="" alt="" style="width:80px;height:70px;"/>
+                                    <div>
+                                        <input id="photo" type="hidden" name="photo" value="" />
+                                        <a class="easyui-linkbutton" onclick="javascript:uploadfile();" data-options="iconCls:'icon-upload'" >上传照片</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr >
+                                <td class="ui-form-table-dt">姓名：</td>
+                                <td class="ui-form-table-dd"> <input class="easyui-validatebox" name="trueName" data-options=""></input> </td>
+                            </tr>
+                            <tr>
+                                <td class="ui-form-table-dt">身份证号：</td>
+                                <td class="ui-form-table-dd"><input class="easyui-numberbox" name="idcard" data-options=""></input> </td>
+                            </tr>
+                            <tr >
+                                <td class="ui-form-table-dt">手机：</td>
+                                <td class="ui-form-table-dd"> <input class="easyui-numberbox" name="mobile" data-options=""></input> </td>
+                                <td class="ui-form-table-dt">角色：</td>
+                                <td class="ui-form-table-dd">
                                     <select class="easyui-combobox" disabled name="userRight" style="width: 184px;" >
                                         <option value="1">系统管理员</option>
                                         <option value="2">信息录入员</option>
@@ -159,71 +196,63 @@ if(session.getAttribute(Constant.CURRENT_USER)==null){
                                     </select>
                                 </td>
                             </tr>
-                            <tr >
-                                <td>姓名：</td>
-                                <td> <input class="easyui-validatebox" name="trueName" data-options=""></input> </td>
-                                <td rowspan=3 colspan=2 style="text-align:center;">
-                                    <img id="img_photo" src="" alt="" style="width:80px;height:70px;"/>
-                                    <div>
-                                        <input id="photo" type="hidden" name="photo" value="" />
-                                        <a class="easyui-linkbutton" onclick="javascript:uploadfile();" data-options="iconCls:'icon-save'" >上传照片</a>
-                                    </div>
+                            <tr>
+                                <td class="ui-form-table-dt">住址：</td>
+                                <td class="ui-form-table-dd"> <input class="easyui-validatebox" name="address" data-options=""></input> </td>
+                                <td class="ui-form-table-dt">QQ：</td>
+                                <td class="ui-form-table-dd"> <input class="easyui-numberbox" name="qq" data-options=""></input> </td>
+                            </tr>
+                            <tr>
+                                <td class="ui-form-table-dt">部门：</td>
+                                <td class="ui-form-table-dd"> <input class="easyui-validatebox" name="dept" data-options=""></input> </td>
+                                <td class="ui-form-table-dt">头衔：</td>
+                                <td class="ui-form-table-dd"><input class="easyui-validatebox" name="rank" data-options=""></input></td>
+                            </tr>
+                            <tr>
+                                <td class="ui-form-table-dd" colspan="4" align="right">
+			                        <a class="easyui-linkbutton" onclick="javascript:dlg4.dialog('open');" data-options="iconCls:'icon-edit'">修改密码</a>
+			                        <a class="easyui-linkbutton" onclick="javascript:form4.submit();" data-options="iconCls:'icon-save'">保存</a>
                                 </td>
                             </tr>
-                            <tr>
-                                <td>身份证号：</td>
-                                <td><input class="easyui-numberbox" name="idcard" data-options=""></input> </td>
-                            </tr>
-                            <tr >
-                                <td>手机：</td>
-                                <td> <input class="easyui-numberbox" name="mobile" data-options=""></input> </td>
-                            </tr>
-                            <tr>
-                                <td>住址:</td>
-                                <td> <input class="easyui-validatebox" name="address" data-options=""></input> </td>
-                                <td>QQ:</td>
-                                <td> <input class="easyui-numberbox" name="qq" data-options=""></input> </td>
-                            </tr>
-                            <tr>
-                                <td>部门:</td>
-                                <td> <input class="easyui-validatebox" name="dept" data-options=""></input> </td>
-                                <td>头衔:</td>
-                                <td><input class="easyui-validatebox" name="rank" data-options=""></input></td>
-                            </tr>
                         </table>
-                        <a class="easyui-linkbutton" onclick="javascript:dlg4.dialog('open');" data-options="iconCls:'icon-remove'">修改密码</a>
-                        <a class="easyui-linkbutton" onclick="javascript:form4.submit();" data-options="iconCls:'icon-save'">保存</a>
+                        </fieldset>
                     </form>
                 </div>
             </div>
         </div>
-        <div data-options="region:'south',border:false" style="height: 25px; background: #E0ECFF; padding: 5px;">当前登录用户：<%=username%></div>
+        <%@include file="footer.jsp" %>
 
 
-        <div id="dlg1" class="easyui-dialog" data-options="iconCls:'icon-save', closed:true, buttons:'#btns1', modal:true,  inline:true,title:'用户管理'" style="width: 600px; height: 300px; padding: 10px;">
+        <div id="dlg1" class="easyui-dialog" data-options="iconCls:'icon-save', closed:true, buttons:'#btns1', modal:true,  inline:true,title:'用户管理'" style="width: 400px; height: 300px; padding: 10px;">
             <form id="form1">
-                <table cellspacing="0" width="100%">
+                <table border="0" cellspacing="0" cellpadding="0" class="ui-form-table" width="100%">
                     <tr>
-                        <td>用户名：</td>
-                        <td><input class="easyui-validatebox" id="username" name="username" data-options=""></input>
+                        <td class="ui-form-table-dt">用户名：</td>
+                        <td class="ui-form-table-dd"><input class="easyui-validatebox" id="username1" name="username" data-options="" required="true" ></input>
                             <input type="hidden" name="userId" value="" />
                         </td>
-                        <td>姓名：</td>
-                        <td><input class="easyui-validatebox" name="trueName" data-options=""></input> </td>
-                    </tr>
-                    <tr >
-                        <td>头衔：</td>
-                        <td><input class="easyui-validatebox" name="rank" data-options=""></input> </td>
-                        <td>手机：</td>
-                        <td><input class="easyui-numberbox" name="mobile" data-options=""></input> </td>
                     </tr>
                     <tr>
-                        <td>QQ：</td>
-                        <td><input class="easyui-numberbox" name="qq" data-options=""></input> </td>
-                        <td>角色：</td>
-                        <td>
+                        <td class="ui-form-table-dt">姓名：</td>
+                        <td class="ui-form-table-dd"><input class="easyui-validatebox" name="trueName" data-options="" required="true"></input> </td>
+                    </tr>
+                    <tr >
+                        <td class="ui-form-table-dt">头衔：</td>
+                        <td class="ui-form-table-dd"><input class="easyui-validatebox" name="rank" data-options=""></input> </td>
+                    </tr>
+                    <tr>
+                        <td class="ui-form-table-dt">手机：</td>
+                        <td class="ui-form-table-dd"><input class="easyui-numberbox" name="mobile" data-options=""></input> </td>
+                    </tr>
+                    <tr>
+                        <td class="ui-form-table-dt">QQ：</td>
+                        <td class="ui-form-table-dd"><input class="easyui-numberbox" name="qq" data-options=""></input> </td>
+                    </tr>
+                    <tr>
+                        <td class="ui-form-table-dt">角色：</td>
+                        <td class="ui-form-table-dd">
                             <select class="easyui-combobox"  name="userRight"
-                                style="width: 184px;" >
+                                style="width: 184px;" required="true">
                                 <option value="1">系统管理员</option>
                                 <option value="2">信息录入员</option>
                                 <option value="3">普通用户</option>
@@ -240,21 +269,21 @@ if(session.getAttribute(Constant.CURRENT_USER)==null){
 
         <div id="dlg4" class="easyui-dialog" data-options="iconCls:'icon-save', closed:true, buttons:'#btns5', modal:true,  inline:true,title:'修改密码'" style="width: 400px; height: 300px; padding: 10px;">
             <form id="form5">
-                <table cellspacing="0" width="100%">
+                <table border="0" cellspacing="0" cellpadding="0" class="ui-form-table" width="100%">
                     <tr>
-                        <td>旧密码：</td>
-                        <td><input class="easyui-validatebox" type="password" name="oldPassword" data-options=""></input> 
+                        <td class="ui-form-table-dt">旧密码：</td>
+                        <td class="ui-form-table-dd"><input class="easyui-validatebox" type="password" name="oldPassword" data-options="required:true"></input> 
                             <input type="hidden" name="userId" value="" />
                         </td>
                     </tr>
                     <tr>
-                        <td>新密码:</td>
-                        <td><input class="easyui-validatebox" type="password" name="newPassword" data-options=""></input> </td>
+                        <td class="ui-form-table-dt">新密码：</td>
+                        <td class="ui-form-table-dd"><input class="easyui-validatebox" type="password" name="newPassword" data-options="required:true"></input> </td>
                     </tr>
 
                     <tr>
-                        <td>确认新密码:</td>
-                        <td><input class="easyui-validatebox" type="password" name="confirmPassword" data-options=""></input> </td>
+                        <td class="ui-form-table-dt">确认新密码：</td>
+                        <td class="ui-form-table-dd"><input class="easyui-validatebox" type="password" name="confirmPassword" data-options="required:true"></input> </td>
                     </tr>
                 </table>
                 <div class="demo-info">
@@ -273,17 +302,17 @@ if(session.getAttribute(Constant.CURRENT_USER)==null){
 
         <div id="dlg2" class="easyui-dialog" data-options="iconCls:'icon-save', closed:true, buttons:'#btns2', modal:true,  inline:true,title:'板块管理'" style="width: 400px; height: 300px; padding: 10px;">
             <form id="form2">
-                <table cellspacing="0" width="100%">
+                <table border="0" cellspacing="0" cellpadding="0" class="ui-form-table" width="100%">
                     <tr>
-                        <td>所属区县：</td>
-                        <td>
-                            <input class="easyui-combotree" name="cityNo" data-options="url:'../resources/data/city.json',method:'get', lines:true" style="width: 185px;">
+                        <td class="ui-form-table-dt">所属区县：</td>
+                        <td class="ui-form-table-dd">
+                            <input class="easyui-combotree" name="cityNo" data-options="url:'getCityList.do',method:'get', lines:true" style="width: 185px;" required="true">
                             <input type="hidden" name="sectorId" value="" />
                         </td>
                     </tr>
                     <tr>
-                        <td>板块:</td>
-                        <td><input class="easyui-validatebox" name="sectorName" data-options=""></input> </td>
+                        <td class="ui-form-table-dt">板块：</td>
+                        <td class="ui-form-table-dd"><input class="easyui-validatebox" name="sectorName" data-options="" required="true"></input> </td>
                     </tr>
                 </table>
                 <div id="btns2">
@@ -294,25 +323,25 @@ if(session.getAttribute(Constant.CURRENT_USER)==null){
         </div>
         <div id="dlg3" class="easyui-dialog" data-options="iconCls:'icon-save', closed:true, buttons:'#btns3', modal:true,  inline:true,title:'楼盘管理'" style="width: 400px; height: 300px; padding: 10px;">
             <form id="form3">
-                <table cellspacing="0" width="100%">
+                <table border="0" cellspacing="0" cellpadding="0" class="ui-form-table" width="100%">
                     <tr>
-                        <td>目标区县：</td>
-                        <td>
-                            <input class="easyui-combotree" name="cityNo" data-options="url:'../resources/data/city.json',method:'get',onChange:search_sectorid, lines:true" style="width: 185px;">
+                        <td class="ui-form-table-dt">目标区县：</td>
+                        <td class="ui-form-table-dd">
+                            <input class="easyui-combotree" name="cityNo" required="true" data-options="url:'getCityList.do',method:'get',onChange:search_sectorid, lines:true" style="width: 185px;">
                             <input type="hidden" name="buildingsId" value="" />
                         </td>
                     </tr>
                     <tr>
-                        <td>目标板块:</td>
-                        <td> <select class="easyui-combobox" id="sectorId" name="sectorId" style="width: 184px;" ></select> </td>
+                        <td class="ui-form-table-dt">目标板块：</td>
+                        <td class="ui-form-table-dd"> <select class="easyui-combobox" id="sectorId" required="true" data-options="textField:'sectorName',valueField:'sectorId'" name="sectorId" style="width: 184px;" ></select> </td>
                     </tr>
                     <tr>
-                        <td>小区名称:</td>
-                        <td><input class="easyui-validatebox" name="sectorName" data-options=""></input> </td>
+                        <td class="ui-form-table-dt">小区名称：</td>
+                        <td class="ui-form-table-dd"><input class="easyui-validatebox" name="buildingsName" data-options="" required="true"></input> </td>
                     </tr>
                     <tr>
-                        <td>小区地址:</td>
-                        <td><input class="easyui-validatebox" name="buildingsName" data-options=""></input> </td>
+                        <td class="ui-form-table-dt">小区地址：</td>
+                        <td class="ui-form-table-dd"><input class="easyui-validatebox" name="buildingsAddress" data-options="" required="true"></input> </td>
                     </tr>
                 </table>
                 <div id="btns3">

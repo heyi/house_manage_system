@@ -8,9 +8,11 @@
 }
 #simple table {
     width: 100%;
+    min-width: 960px;
 	text-align: left;
 }
 
 td { padding: 8px 5px; color: #000; text-align: left; }
-td:nth-child(even) {width: 110px;}
+td:nth-child(even) {width: 150px;}
+td:nth-child(odd) {width: 150px;}
 

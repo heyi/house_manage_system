@@ -1,4 +1,5 @@
 .form-inline{ padding: 8px; } 
+a { text-decoration: none !important; }
 ul,h1,h5 {margin:0px; padding:0px;  }
 html{ width:100%; height: 100%; margin:0px; overflow:hidden; }
 body { width: 100%; height: 100%; padding:0px; overflow:hidden; margin:0px; font-family: verdana, helvetica, arial, sans-serif; background: #fafafa; text-align: center; }
@@ -6,31 +7,51 @@ body { width: 100%; height: 100%; padding:0px; overflow:hidden; margin:0px; font
 .house-menu { position:absolute; bottom:0px; padding: 5px 10px 5px 10px; font-weight:bold; font-size:1.2em; border: 1px solid #95B8E7; border-bottom:none; border-left:none;  }
 .easyui-layout { width: 100%; height: 100%; overflow:hidden; } 
 .ui-layout-head {
-    position: relative;
-    background: url(../images/header.jpg) repeat-x left -70px;
-    height: 66px;
-    width: 100%
+	position: relative;
+	background: url(../images/header.gif) repeat-x left -70px;
+	border-bottom: 3px solid #DDEAEF;
+	height: 66px;
+	width: 100%
 }
+
+.ui-layout-head h1 {
+	font-size: 2.5em;
+	text-shadow: #333 1px 1px 1px;
+	font-family: "微软雅黑";
+	color: #fff;
+	font-weight: normal;
+	line-height: 66px;
+	float: left;
+	margin-left: 5px
+}
+
+.ui-layout-head .ui-layout-menu {
+	background: url(../images/header.gif) no-repeat right 0;
+	height: 66px;
+	width: 65%;
+	float: right
+}
+
 .ui-layout-head .ui-layout-logo {
-    background: url(../images/logo.gif) no-repeat center center;
+    background: url(../images/headbg1.gif) repeat-x;
     height: 66px;
     width: 60px;
     float: left
 }
 .ui-layout-nav {
-    position: relative;
-    top: 36px;
-    text-align: right;
-    float: right;
-    right: 10px
+	position: relative;
+	top: 38px;
+	text-align: right;
+	float: right;
+	right: 10px
 }
 .ui-layout-nav-contain {
-    float: left;
-    height: 28px;
-    _width: 440px;
-    background: url(../images/header-menu.gif) 0 -31px repeat-x;
-    position: relative;
-    zoom: 1
+	float: left;
+	height: 28px;
+	_width: 440px;
+	background: url(../images/header-menu.gif) 0 -31px repeat-x;
+	position: relative;
+	zoom: 1
 }
 .ui-layout-nav-tab {
     height: 28px;
@@ -44,7 +65,7 @@ body { width: 100%; height: 100%; padding:0px; overflow:hidden; margin:0px; font
     line-height: 28px;
     cursor: pointer;
     list-style: none;
-    font-family: Arial, Verdana, Helvetica, sans-serif "寰蒋闆呴粦";
+    font-family: Arial, Verdana, Helvetica, sans-serif "微软雅黑";
     font-size: 13px;
     text-align: center;
     border-left: 1px solid #6F98BE;
@@ -67,7 +88,7 @@ body { width: 100%; height: 100%; padding:0px; overflow:hidden; margin:0px; font
     height: 28px;
     padding: 0;
     width: 10px;
-    font-family: 瀹嬩綋;
+    font-family: 宋体;
     font-size: 12px;
     text-align: right;
     cursor: pointer;
@@ -90,4 +111,82 @@ body { width: 100%; height: 100%; padding:0px; overflow:hidden; margin:0px; font
 }
 .ui-layout-nav-last {
     border-right: none !important
+}
+
+.ui-form-table {
+	border-collapse: collapse;
+	margin: 0 0 10px;
+	padding: 0;
+	width: 100%;
+	table-layout: fixed
+}
+
+.ui-form-table .ui-form-table-dt {
+	background: #F3F7FA;
+	border: 1px solid #D8E2EB;
+	font: 12px Arial, Helvetica, sans-serif, "宋体";
+	margin-right: 4px;
+	padding: 1px 4px;
+	text-align: right;
+	width: 110px;
+	white-space: nowrap
+}
+
+.ui-form-table .ui-form-table-dt,.ui-form-table .ui-form-table-dd {
+	color: #333;
+	margin: 0;
+	vertical-align: middle;
+	height: 20px
+}
+
+.ui-form-table .ui-form-table-dd {
+	border: 1px solid #D8E2EB;
+	padding: 3px 10px 3px 5px;
+	vertical-align: middle;
+	word-wrap: break-word;
+	word-break: normal;
+	white-space: normal
+}
+
+.ui-noborder .ui-form-table-dt {
+	background: none;
+	border: none;
+	text-align: left
+}
+
+.ui-noborder .ui-form-table-dd {
+	background: none;
+	border: none
+}
+
+#footerdiv {
+	width:100%; height:25px; line-height:25px; color:#fff; font-size:12px; 
+	margin:0; padding:0 0 0 10px;
+	background:url(../images/rootbg.gif) repeat-x;
+}
+
+#dlg_info table {
+    border-collapse: collapse;
+}
+#dlg_info td:nth-child(odd) {
+    background: #F3F7FA;
+    color: #333;
+    margin: 0;
+    vertical-align: middle;
+    height: 20px;
+    border: 1px solid #D8E2EB;
+    font: 12px Arial, Helvetica, sans-serif, "宋体";
+    text-align: right;
+    white-space: nowrap;
+}
+
+#dlg_info td:nth-child(even) {
+    border: 1px solid #D8E2EB;
+    vertical-align: middle;
+    word-wrap: break-word;
+    word-break: normal;
+    white-space: normal;
+    color: #333;
+    margin: 0;
+    height: 20px;
 }

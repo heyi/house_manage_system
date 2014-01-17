@@ -26,7 +26,9 @@ if(session.getAttribute(Constant.CURRENT_USER)==null){
         <script src="../resources/locale/easyui-lang-zh_CN.js" type="text/javascript" charset="utf-8"></script>
         <script src="../resources/underscore-min.js"></script>
         <script src="../resources/ckeditor/ckeditor.js"></script>
-
+		<script>
+        var userLevel = <%=(user!=null?user.getUserRight():"0")%>
+        </script>
         <style type="text/css" media="all">
         	#main .datagrid-wrap { border: 0px; }
             .easyui-validatebox,.easyui-numberbox { width: 180px; }
@@ -45,15 +47,25 @@ if(session.getAttribute(Constant.CURRENT_USER)==null){
         <div data-options="region:'north',border:false" class="" style="width: 50px; ">
             <div class="ui-layout-head">
                 <div class="ui-layout-nav">
+                    <span class="ui-layout-nav-prev"></span>
                     <div class="ui-layout-nav-contain">
                         <ul class="ui-layout-nav-tab">
+                            <li class="ui-layout-nav-frist">
+								<a href="index.jsp">首页</a>
+							</li>
                             <li ><a href="parcel.jsp" >土地交易案例</a></li>
-                            <li><a href="house.jsp" >房产交易案例</a></li>
-                            <li><a href="database.jsp" class="ui-layout-nav-active">资料库</a></li>
-                            <li><a href="system.jsp">系统管理</a></li>
-                            <li><a href="../logout.do">退出系统</a></li>
+                            <li><a href="house.jsp">房产交易案例</a></li>
+                            <li><a href="law.jsp">政策法规</a></li>
+                            <li><a href="market.jsp">市场分析</a></li>
+                            <li><a href="stand.jsp">标准化模板</a></li>
+                            <li><a href="database.jsp" class="ui-layout-nav-active">资料录入</a></li>
+                            <li><a href="system.jsp" >系统管理</a></li>
+                            <li class="ui-layout-nav-last">
+								<a href="../logout.do">退出系统</a>
+						    </li>
                         </ul>
                     </div>
+                    <span class="ui-layout-nav-next"></span>
                 </div>
             </div>
         </div>
@@ -63,19 +75,19 @@ if(session.getAttribute(Constant.CURRENT_USER)==null){
             <ul class='nav'>
                 <li>
                     <a href="javascript:void(0)" data-index="0">
-                        <img src="../resources/images/law.png" alt="shop" />
+                        <img src="../resources/images/law.png" alt="shop" border="0"/>
                         政策法规
                     </a>
                 </li>
                 <li>
                     <a href="javascript:void(0)" data-index="1" >
-                        <img src="../resources/images/market.png" alt="shop" />
+                        <img src="../resources/images/market.png" alt="shop" border="0"/>
                         市场分析
                     </a>
                 </li>
                 <li>
                     <a href="javascript:void(0)" data-index="2" >
-                        <img src="../resources/images/block.png" alt="shop" /> 
+                        <img src="../resources/images/block.png" alt="shop" border="0"/> 
                         标准化模板
                     </a>
                 </li>
@@ -92,7 +104,7 @@ if(session.getAttribute(Constant.CURRENT_USER)==null){
 
                                 <td nowrap="nowrap">所属分类：</td>
                                 <td> <input class="easyui-combotree" name="catagoryId" id="tree2" data-options="lines:true" style="width: 200px;">
-                                <td colspan="2"><a class="easyui-linkbutton" onclick="javascript:search_database(); ">查询</a></td>
+                                <td colspan="2"><a class="easyui-linkbutton" onclick="javascript:search_database(); " data-options="iconCls:'icon-search'" >查询</a></td>
                         </table>
                     </form>
                 </div>
@@ -108,14 +120,14 @@ if(session.getAttribute(Constant.CURRENT_USER)==null){
         <div class="easyui-dialog" id="dlg3"
             data-options="iconCls:'icon-save', closed:true,modal:true,buttons:'#btns_view', inline:true"
             title="查看资料" style="width: 700px; height: 480px;;">
-            <div id="dlg_info" style="width: 100%%; padding:5%;text-align:center; box-sizing:border-box; ">
+            <div id="dlg_info" style="width: 100%%; padding:5%; box-sizing:border-box; ">
             </div>
         </div>
 
         <div id="dlg1" class="easyui-dialog" data-options="iconCls:'icon-save', closed:true, buttons:'#btns', modal:true,  inline:true,title:'添加资料'"
-            style="width: 800px; height: 550px; padding: 10px;">
+            style="width: 900px; height: 600px; padding: 10px;">
             <form id="form1">
-                <table cellspacing="0" width="100%">
+                <table cellspacing="0" width="100%" height="100%">
                     <tr>
                         <td>标题：</td>
                         <td><input class="easyui-validatebox" name="infoTitle" data-options=""></input>
@@ -124,7 +136,7 @@ if(session.getAttribute(Constant.CURRENT_USER)==null){
                         <td>所属分类：</td>
                         <td> <input class="easyui-combotree" id="tree1" name="catagoryId" data-options="lines:true" style="width: 200px;">
                     </tr>
-                    <tr rowspan=3 >
+                    <tr rowspan=5 >
                         <td>内容：</td>
                         <td colspan=3>
                             <textarea id="ckeditor" name="content"></textarea>
@@ -143,7 +155,7 @@ if(session.getAttribute(Constant.CURRENT_USER)==null){
             </form>
         </div>
         <script type="text/template" id="tp1">
-            <h4 ><@= infoTitle @> </h4>
+            <h2 style="text-align:center;"><@= infoTitle @> </h2>
             <div style="width: 160px; margin:auto;">
                 <@= insertTime @> 
             </div>
@@ -157,8 +169,6 @@ if(session.getAttribute(Constant.CURRENT_USER)==null){
             </p>
         </script>
         <div id="btns_view">
-            <a class="easyui-linkbutton" onclick="javascript:flag='view'; dlg2.dialog('open');  " data-options="iconCls:'icon-save'">查看地图</a>
-            <a class="easyui-linkbutton" onclick="doprint('dlg3'); " data-options="iconCls:'icon-save'">打印</a>
             <a class="easyui-linkbutton" onclick="javascript:dlg3.dialog('close'); " data-options="iconCls:'icon-cancel'">关闭</a>
         </div>
         <script src="../resources/util.js" type="text/javascript" charset="utf-8"></script>

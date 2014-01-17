@@ -1,7 +1,7 @@
 K 25
 svn:wc:ra_dav:version-url
 V 59
-/svn/twzg/!svn/ver/1472/trunk/fw/WebRoot/resources/ckeditor
+/svn/twzg/!svn/ver/1614/trunk/fw/WebRoot/resources/ckeditor
 END
 CHANGES.md
 K 25
@@ -25,7 +25,7 @@ config.js
 K 25
 svn:wc:ra_dav:version-url
 V 69
-/svn/twzg/!svn/ver/1471/trunk/fw/WebRoot/resources/ckeditor/config.js
+/svn/twzg/!svn/ver/1614/trunk/fw/WebRoot/resources/ckeditor/config.js
 END
 styles.js
 K 25

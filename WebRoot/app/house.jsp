@@ -26,7 +26,9 @@ if(session.getAttribute(Constant.CURRENT_USER)==null){
         <script type="text/javascript" src="../resources/jquery.easyui.min.js"></script>
         <script src="../resources/locale/easyui-lang-zh_CN.js" type="text/javascript" charset="utf-8"></script>
         <script src="../resources/underscore-min.js"></script>
-
+		<script>
+		        var userLevel = <%=(user!=null?user.getUserRight():"0")%>
+        </script>
         <style type="text/css" media="all">
         	#main .datagrid-wrap { border: 0px; }
             .easyui-validatebox,.easyui-numberbox { width: 180px; }
@@ -35,11 +37,10 @@ if(session.getAttribute(Constant.CURRENT_USER)==null){
             #dlg1 td { padding: 2px 4px; }
             #dlg1 .easyui-validatebox,#dlg1 .easyui-numberbox { width: 145px; }
             #fs_container input[type='checkbox'] { margin:4px 4px 4px 4px; }
-            .nav {width: 90px; margin:auto; text-align:center;}
-            .nav img {display:block;width:50px;margin:auto;}
-            .nav li {padding:15px 0px; list-style-type: none;}
-            .nav a {text-decoration: none; padding:5px 0px; display:block;border-radius: 10px; background:#eee; text-align:center;}
-            .nav a:hover, .nav a.active { color: #fff; background-color: #0E2D5F; }
+            .nav-item img {display:block;width:80px;margin:auto;}
+            a.nav-item  {color:#000;text-decoration: none; display:block;border-radius: 2px; text-align:center;width:100px; margin:5px auto; padding: 5px;border: 1px #ffffff solid;}
+            a.nav-item:hover {color:#000;background:url(../resources/images/tab-bg.gif) repeat-x;border: 1px #8FB1DB solid; }
+            a.active {color:#000;background:url(../resources/images/tree-over-bg.gif) repeat-x;border: 1px #8FB1DB solid; }
             #dlg_info table { width: 100%;}
             #dlg_info td:nth-child(even) {width: 110px;}
         </style>
@@ -47,93 +48,113 @@ if(session.getAttribute(Constant.CURRENT_USER)==null){
     <body class="easyui-layout">
         <div data-options="region:'north',border:false" class="" style="width: 50px; ">
             <div class="ui-layout-head">
-                <div class="ui-layout-nav">
-                    <div class="ui-layout-nav-contain">
-                        <ul class="ui-layout-nav-tab">
-                            <li ><a href="parcel.jsp" >土地交易案例</a></li>
-                            <li><a href="house.jsp" class="ui-layout-nav-active">房产交易案例</a></li>
-                            <li><a href="database.jsp">资料库</a></li>
-                            <li><a href="system.jsp">系统管理</a></li>
-                            <li><a href="../logout.do">退出系统</a></li>
-                        </ul>
-                    </div>
+            	<div class="ui-layout-logo"></div>
+                <h1>房地产信息管理系统</h1>
+                <div class="ui-layout-menu">
+	                <div class="ui-layout-nav">
+	            		<span class="ui-layout-nav-prev"></span>
+	                    <div class="ui-layout-nav-contain">
+	                        <ul class="ui-layout-nav-tab">
+	                            <li class="ui-layout-nav-frist">
+									<a href="index.jsp">首页</a>
+								</li>
+	                            <li><a href="parcel.jsp" >土地交易案例</a></li>
+	                            <li><a href="house.jsp" class="ui-layout-nav-active">房产交易案例</a></li>
+	                            <li><a href="law2.jsp">政策法规</a></li>
+	                            <li><a href="market2.jsp">市场分析</a></li>
+	                            <li><a href="stand2.jsp">标准化模板</a></li>
+	                            <li><a href="javascript:alert('正在建设中')">统计分析</a></li>
+	                            <li><a href="system.jsp">系统管理</a></li>
+	                            <li class="ui-layout-nav-last">
+									<a href="../logout.do">退出系统</a>
+							    </li>
+	                        </ul>
+	                    </div>
+	                    <span class="ui-layout-nav-next"></span>
+	                  </div>
                 </div>
             </div>
         </div>
 
-        <div data-options="region:'west',split:true" title="案例类型"
-            style="width: 200px;">
-            <ul class='nav'>
-                <li>
-                    <a href="javascript:void(0)" class="active" data-houseType="1" data-dealType="1">
-                        <img src="../resources/images/shop.png" alt="shop" />
+        <div data-options="region:'west',split:true" title="案例类型" style="width: 180px;overflow:hidden;">
+            <div  class="easyui-accordion" data-options ='border:false,fit:true'>
+                <div title="商铺"  style="">
+                    <a href="storeforsale.jsp" class="nav-item active" data-houseType="1" data-dealType="1">
+                        <img src="../resources/images/shop.png" alt="shop" border="0"/>
                         商铺交易案例
                     </a>
-                </li>
-                <li>
-                    <a href="javascript:void(0)" data-houseType="1" data-dealType="2">
-                        <img src="../resources/images/shop.png" alt="shop" /> 商铺租凭案例</a>
-                </li>
-                <li>
-                    <a href="javascript:void(0)" data-houseType="2" data-dealType="1">
-                        <img src="../resources/images/house.png" alt="shop" />
+                    <a href="javascript:void(0)" class="nav-item" data-houseType="1" data-dealType="2">
+                        <img src="../resources/images/shop.png" alt="shop" border="0"/> 商铺租赁案例</a>
+                </div>
+                <div title="住宅"  style="">
+                    <a href="javascript:void(0)" class="nav-item" data-houseType="2" data-dealType="1">
+                        <img src="../resources/images/house.png" alt="shop" border="0"/>
                         住宅交易案例
                     </a>
-                </li>
-                <li>
-                    <a href="javascript:void(0)" data-houseType="2" data-dealType="2">
-                        <img src="../resources/images/house.png" alt="shop" />
+                    <a href="javascript:void(0)" class="nav-item" data-houseType="2" data-dealType="2">
+                        <img src="../resources/images/house.png" alt="shop" border="0"/>
                         住宅租赁案例</a>
-                </li>
-                <li>
-                    <a href="javascript:void(0)" data-houseType="3" data-dealType="1">
-                        <img src="../resources/images/office.png" alt="shop" />
+                </div>
+                <div title="办公">
+                    <a href="javascript:void(0)" class="nav-item" data-houseType="3" data-dealType="1">
+                        <img src="../resources/images/office.png" alt="shop" border="0"/>
                         办公交易案例</a>
-                </li>
-                <li>
-                    <a href="javascript:void(0)" data-houseType="3" data-dealType="2">
-                        <img src="../resources/images/office.png" alt="shop" />
+                    <a href="javascript:void(0)" class="nav-item" data-houseType="3" data-dealType="2">
+                        <img src="../resources/images/office.png" alt="shop" border="0"/>
                         办公租赁案例</a>
-                </li>
-                <li>
-                    <a href="javascript:void(0)" data-houseType="4" data-dealType="1">
-                        <img src="../resources/images/factory.png" alt="shop" />
+                </div>
+                <div title="工业">
+                    <a href="javascript:void(0)" class="nav-item" data-houseType="4" data-dealType="1">
+                        <img src="../resources/images/factory.png" alt="shop" border="0"/>
                         工业交易案例</a>
-                </li>
-                <li>
-                    <a href="javascript:void(0)" data-houseType="4" data-dealType="2">
-                        <img src="../resources/images/factory.png" alt="shop" />
+                    <a href="javascript:void(0)" class="nav-item" data-houseType="4" data-dealType="2">
+                        <img src="../resources/images/factory.png" alt="shop" border="0"/>
                         工业租赁案例</a>
-                </li>
-            </ul>
+                </div>
+            </div>
         </div>
         <div id="main" data-options="region:'center'" style="width: 100%;">
             <div class="easyui-layout" data-options="fit:true">
-                <div data-options="region:'north',split:true,border:false" title="查询条件" style="height: 190px; padding: 2px">
+                <div data-options="region:'north',split:true,border:false" title="查询条件" style="height: 140px; overflow: hidden;">
                     <form class="sf" method="post" id="form2">
-                        <table class="sf-tb" width="100%">
+                        <table border="0" cellspacing="0" cellpadding="0" class="ui-form-table" width="100%">
                             <tr>
-                                <td nowrap="nowrap">行政区域：</td>
-                                <td> <input class="easyui-combotree" name="cityNo" data-options="url:'../resources/data/city.json',onLoadSuccess:makeCityKeys,method:'get', lines:true" style="width: 186px;">
-                                <input type="hidden" name="houseType" value="" />
-                                <input type="hidden" name="dealType" value="" />
+                                <td nowrap="nowrap" class="ui-form-table-dt">行政区域：</td>
+                                <td class="ui-form-table-dd"> <input class="easyui-combotree" name="cityNo" data-options="url:'getCityList.do',onClick:_changeLatlng,onLoadSuccess:makeCityKeys,method:'get', lines:true" style="width: 188px;">
+                                    <input type="hidden" name="houseType" value="1" />
+                                    <input type="hidden" name="dealType" value="1" />
                                 </td>
-                                <td nowrap="nowrap">房屋位置：</td>
-                                <td><input class="easyui-validatebox" name="locate" data-options=""></input></td>
-                                <td nowrap="nowrap">房屋结构：</td>
-                                <td>
+                                <td nowrap="nowrap" class="ui-form-table-dt">房屋位置：</td>
+                                <td class="ui-form-table-dd"><input class="easyui-validatebox" name="locate" data-options="" style="width: 190px;"></input></td>
+                                <td nowrap="nowrap" class="ui-form-table-dt">房屋结构：</td>
+                                <td nowrap="nowrap" class="ui-form-table-dd">
                                     <select class="easyui-combobox"  name="structure"
                                         style="width: 184px;" data-options="">
-                                        <option value="1">其它</option>
-                                        <option value="2">框架</option>
-                                        <option value="3">剪力</option>
-                                        <option value="4">钢混</option>
-                                        <option value="5">木混</option>
-                                        <option value="6">砖木</option>
+                                        <option value="全部">全部</option>
+                                        <option value="框架">框架</option>
+                                        <option value="剪力">剪力</option>
+                                        <option value="钢混">钢混</option>
+                                        <option value="木混">木混</option>
+                                        <option value="砖木">砖木</option>
+                                        <option value="其它">其它</option>
                                     </select>
                                 </td>
-                                <td nowrap="nowrap">建筑面积：</td>
-                                <td>
+                            </tr>
+                            <tr>
+                                <td nowrap="nowrap" class="ui-form-table-dt">建筑年代：</td>
+                                <td nowrap="nowrap" class="ui-form-table-dd">
+	                                <select name="operator3" style="width: 60px;">
+	                                        <option value="&gt; ">&gt;</option>
+	                                        <option value="&lt; ">&lt;</option>
+	                                        <option value="=">=</option>
+	                                        <option value="&lt;= ">&lt;=</option>
+	                                        <option value="&gt;= ">&gt;=</option>
+	                                </select>
+                                    <select class="easyui-combobox" name="buildingDate" style="width: 125px;" data-options="valueField:'id',textField:'text', url:'../resources/data/year.json'">
+                                    </select>
+                                </td>
+								<td nowrap="nowrap" class="ui-form-table-dt">建筑面积：</td>
+                                <td nowrap="nowrap" class="ui-form-table-dd">
                                     <select name="operator1" style="width: 60px;">
                                         <option value="&gt; ">&gt;</option>
                                         <option value="&lt; ">&lt;</option>
@@ -141,42 +162,42 @@ if(session.getAttribute(Constant.CURRENT_USER)==null){
                                         <option value="&lt;= ">&lt;=</option>
                                         <option value="&gt;= ">&gt;=</option>
                                     </select>
-                                    <input class="easyui-numberbox" type="text" name="constructionArea" style="width: 115px;" data-options="precision:2,groupSeparator:','">
-                                    </input>
+                                    <input class="easyui-numberbox" type="text" name="constructionArea" style="width: 125px;" data-options="precision:2,groupSeparator:','">
+                                    </input> m2
                                 </td>
-                            </tr>
-                            <tr>
-                                <td nowrap="nowrap">建筑年代：</td>
-                                <td>
-                                    <select class="easyui-combobox" name="buildingDate" style="width: 184px;" data-options="valueField:'id',textField:'text', url:'../resources/data/year.json'">
-                                    </select>
-                                </td>
-
-                                <td nowrap="nowrap">成交单价：</td>
-                                <td><select name="operator2" style="width: 60px;">
-                                        <option value="&gt; ">&gt;</option>
-                                        <option value="&lt; ">&lt;</option>
-                                        <option value="=">=</option>
-                                        <option value="&lt;= ">&lt;=</option>
-                                        <option value="&gt;= ">&gt;=</option>
-                                    </select> <input class="easyui-numberbox" data-options="precision:2,groupSeparator:','" type="text" name="unitPrice" style="width: 115px;"></input></td>
-                                <td nowrap="nowrap">土地使用权类型：</td>
-                                <td>
+                                <td nowrap="nowrap" class="ui-form-table-dt">土地使用权类型：</td>
+                                <td nowrap="nowrap" class="ui-form-table-dd">
                                     <select class="easyui-combobox"  name="landUseRight"
                                         style="width: 184px;" data-options="">
-                                        <option value="1">出让</option>
+                                        <option value="全部">全部</option>
+                                        <option value="出让">出让</option>
+                                    	<option value="划拔">划拔</option>
                                     </select>
                                 </td>
-                                <td nowrap="nowrap">成交时间：</td>
-                                <td><input name="startDate" type="text"
-                                    class="easyui-datebox" style="width: 90px">到<input
-                                    name="endDate" type="text" class="easyui-datebox"
-                                    style="width: 90px"></td>
+                                
                             </tr>
                             <tr>
-                                <td colspan="8">
-                                    <a class="easyui-linkbutton" onclick="javascript:search_house(); ">查询</a>
-                                    <a class="easyui-linkbutton" id="btn_view" data-mode="table" onclick="javascript:graphInfo.call(this); ">切换到地图模式</a>
+                                <td nowrap="nowrap" class="ui-form-table-dt">成交单价：</td>
+                                <td nowrap="nowrap" class="ui-form-table-dd">
+	                                <select name="operator2" style="width: 60px;">
+	                                        <option value="&gt; ">&gt;</option>
+	                                        <option value="&lt; ">&lt;</option>
+	                                        <option value="=">=</option>
+	                                        <option value="&lt;= ">&lt;=</option>
+	                                        <option value="&gt;= ">&gt;=</option>
+	                                </select> 
+	                                <input class="easyui-numberbox" data-options="precision:2,groupSeparator:','" type="text" name="unitPrice" style="width: 120px;"></input> 元/m2
+	                            </td>
+	                            <td nowrap="nowrap" class="ui-form-table-dt">成交时间：</td>
+                                <td nowrap="nowrap" class="ui-form-table-dd">
+	                                <input name="startDate" type="text"
+	                                    class="easyui-datebox" style="width: 90px"> 至 <input
+	                                    name="endDate" type="text" class="easyui-datebox"
+	                                    style="width: 90px">
+	                            </td>
+                                <td colspan="2" class="ui-form-table-dd">
+                                    <a class="easyui-linkbutton" onclick="javascript:search_house(); " data-options="iconCls:'icon-search'" >查询</a>
+                                    <a class="easyui-linkbutton" id="btn_view" data-options="iconCls:'icon-map'" data-mode="table" onclick="javascript:graphInfo.call(this); ">切换到地图模式</a>
                                 </td>
                             </tr>
                         </table>
@@ -189,8 +210,7 @@ if(session.getAttribute(Constant.CURRENT_USER)==null){
             </div>
         </div>
 
-        <div data-options="region:'south',border:false"
-            style="height: 25px; background: #E0ECFF; padding: 5px;">当前登录用户：<%=username%></div>
+        <%@include file="footer.jsp" %>
 
         <div class="easyui-dialog" id="dlg2"
             data-options="iconCls:'icon-save', buttons:'#btns2', closed:true,modal:true,  inline:true,onOpen:show_gp "
@@ -200,7 +220,7 @@ if(session.getAttribute(Constant.CURRENT_USER)==null){
 
         <div class="easyui-dialog" id="dlg3"
             data-options="iconCls:'icon-save', onOpen:adjustButton,  closed:true,modal:true,buttons:'#btns_view', inline:true"
-            title="查看房产案例" style="width: 800px; height: 620px;;">
+            title="查看房产案例" style="width: 800px; height: 670px;;">
             <div id="dlg_info" style="width: 98%; padding:1%; "></div>
         </div>
         <div id="btns2">
@@ -209,133 +229,133 @@ if(session.getAttribute(Constant.CURRENT_USER)==null){
         </div>
 
         <div id="dlg1" class="easyui-dialog" data-options="iconCls:'icon-save', closed:true, buttons:'#btns', modal:true,  inline:true,title:'新增房产案例'"
-            style="width: 900px; height: 660px; padding: 2px;">
+            style="width: 980px; height: 680px; padding: 2px;">
             <form id="form1">
                 <fieldset style="border:1px solid #95B8E7; padding:5px;">
                     <legend>基本信息</legend>
-                    <table cellspacing="0">
+                    <table border="0" cellspacing="0" cellpadding="0" class="ui-form-table">
                         <tr>
-                            <td>区县：</td>
-                            <td>
-                                <input class="easyui-combotree" name="cityNo" data-options="url:'../resources/data/city.json',method:'get', lines:true,onChange:show_buildings" style="width: 149px;"> 
+                            <td class="ui-form-table-dt">区县：</td>
+                            <td class="ui-form-table-dd">
+                                <input class="easyui-combotree" name="cityNo" data-options="url:'getCityList.do',method:'get',onClick:changeLatlng,lines:true,onChange:show_buildings" style="width: 149px;" required="true"> 
                             </td>
-                            <td>小区楼盘：</td>
-                            <td>
+                            <td class="ui-form-table-dt">小区楼盘：</td>
+                            <td class="ui-form-table-dd">
                                 <select class="easyui-combobox" id="s_building" name="houseName"
-                                    style="width: 149px;" data-options=""></select>
+                                    style="width: 149px;" data-options="textField:'buildingsName',valueField:'buildingsName'" required="true"></select>
                             </td>
-                            <td>栋号及房号：</td>
-                            <td>
-                                <input class="easyui-validatebox" type="text" name="houseNo" data-options=""></input>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>楼层：</td>
-                            <td>
-                                <input name="floor" class="easyui-numberspinner" style="width:149px;" data-options="min:2,max:200">
-                            </td>
-                            <td>总楼层：</td>
-                            <td>
-                                <input name="totalFloor" class="easyui-numberspinner" style="width:149px;" data-options="min:2,max:200">
-                            </td>
-                            <td>层高：</td>
-                            <td>
-                                <input class="easyui-numberbox" data-options="precision:2,groupSeparator:','" type="text" name="floorHeight"> m</input>
+                            <td class="ui-form-table-dt">栋号及房号：</td>
+                            <td class="ui-form-table-dd">
+                                <input class="easyui-validatebox" type="text" name="houseNo" data-options="" required="true"></input>
                             </td>
                         </tr>
                         <tr>
-                            <td>房屋位置：</td>
-                            <td>
+                            <td class="ui-form-table-dt">所在楼层：</td>
+                            <td class="ui-form-table-dd">
+                                <input name="floor" class="easyui-numberspinner" style="width:149px;" data-options="min:1,max:200" required="true">
+                            </td>
+                            <td class="ui-form-table-dt">总楼层：</td>
+                            <td class="ui-form-table-dd">
+                                <input name="totalFloor" class="easyui-numberspinner" style="width:149px;" data-options="min:1,max:200" required="true">
+                            </td>
+                            <td class="ui-form-table-dt">层高：</td>
+                            <td class="ui-form-table-dd">
+                                <input class="easyui-numberbox" data-options="precision:2,groupSeparator:','" type="text" name="floorHeight" required="true"> m</input>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="ui-form-table-dt">房屋位置：</td>
+                            <td class="ui-form-table-dd">
                                 <input class="easyui-validatebox" type="text" name="locate"></input>
                             </td>
-                            <td>建筑年代：</td>
-                            <td>
-                                <select class="easyui-combobox" name="buildingDate" style="width: 149px;" data-options="valueField:'id',textField:'text', url:'../resources/data/year.json'">
+                            <td class="ui-form-table-dt">建筑年代：</td>
+                            <td class="ui-form-table-dd">
+                                <select class="easyui-combobox" name="buildingDate" style="width: 149px;" data-options="valueField:'id',textField:'text', url:'../resources/data/year.json'" required="true">
                                 </select>
                             </td>
-                            <td>建筑面积：</td>
-                            <td>
-                                <input class="easyui-numberbox" data-options="precision:2,groupSeparator:','" type="text" name="constructionArea"> m2</input>
+                            <td class="ui-form-table-dt">建筑面积：</td>
+                            <td class="ui-form-table-dd">
+                                <input class="easyui-numberbox" data-options="precision:2,groupSeparator:','" type="text" name="constructionArea" required="true"> m2</input>
                             </td>
                         </tr>
                         <tr>
-                            <td>公推面积：</td>
-                            <td>
+                            <td class="ui-form-table-dt">公摊面积：</td>
+                            <td class="ui-form-table-dd">
                                 <input class="easyui-numberbox" data-options="precision:2,groupSeparator:','" type="text" name="poolArea"> m2</input>
                             </td>
-                            <td>房屋结构：</td>
-                            <td>
-                                <select class="easyui-combobox"  name="structure" style="width:149px;" data-options="">
-                                    <option value="1">其它</option>
-                                    <option value="2">框架</option>
-                                    <option value="3">剪力</option>
-                                    <option value="4">钢混</option>
-                                    <option value="5">木混</option>
-                                    <option value="6">砖木</option>
+                            <td class="ui-form-table-dt">房屋结构：</td>
+                            <td class="ui-form-table-dd">
+                                <select class="easyui-combobox"  name="structure" style="width:149px;" data-options="" required="true">
+                                    <option value="框架" selected>框架</option>
+                                    <option value="剪力">剪力</option>
+                                    <option value="钢混">钢混</option>
+                                    <option value="木混">木混</option>
+                                    <option value="砖木">砖木</option>
+                                    <option value="其它">其它</option>
                                 </select>
                             </td>
-                            <td>土地使用权类型：</td>
-                            <td>
-                                <select class="easyui-combobox"  name="landUseRight" style="width:149px;" data-options="">
-                                    <option value="1">出让</option>
-                                    <option value="2">划拔</option>
+                            <td class="ui-form-table-dt">土地使用权类型：</td>
+                            <td class="ui-form-table-dd">
+                                <select class="easyui-combobox"  name="landUseRight" style="width:149px;" data-options="" required="true">
+                                    <option value="出让">出让</option>
+                                    <option value="划拔">划拔</option>
                                 </select>
                             </td>
                         </tr>
                         <tr>
-                            <td>土地终止日期：</td>
-                            <td>
-                                <input name="landExpiredDate" type="text" class="easyui-datebox" style="width: 149px">
+                            <td class="ui-form-table-dt">土地终止日期：</td>
+                            <td class="ui-form-table-dd">
+                                <input name="landExpiredDate" type="text" class="easyui-datebox" style="width: 149px" required="true">
                             </td>
-                            <td>临街状况：</td>
-                            <td><input class="easyui-validatebox" data-options="" type="text" name="streetSide"></input></td>
-                            <td>临街长度：</td>
-                            <td><input class="easyui-numberbox" data-options="precision:2,groupSeparator:','" type="text" name="streetLength"></input> m</td>
+                            <td class="ui-form-table-dt">临街状况：</td>
+                            <td class="ui-form-table-dd"><input class="easyui-validatebox" data-options="" type="text" name="streetSide"></input></td>
+                            <td class="ui-form-table-dt">临街长度：</td>
+                            <td class="ui-form-table-dd"><input class="easyui-numberbox" data-options="precision:2,groupSeparator:','" type="text" name="streetLength"></input> m</td>
                         </tr>
                         <tr>
-                            <td>进深：</td>
-                            <td><input class="easyui-numberbox" data-options="precision:2,groupSeparator:','" type="text" name="depth"></input> m</td>
-                            <td>装修情况：</td>
-                            <td>
+                            <td class="ui-form-table-dt">进深：</td>
+                            <td class="ui-form-table-dd"><input class="easyui-numberbox" data-options="precision:2,groupSeparator:','" type="text" name="depth"></input> m</td>
+                            <td class="ui-form-table-dt">装修情况：</td>
+                            <td class="ui-form-table-dd">
                                 <select class="easyui-combobox" id="level" name="decorateSituation" style="width:149px;" data-options="">
-                                    <option value="1">毛坯</option>
-                                    <option value="2">简单装修</option>
-                                    <option value="3">中等装修</option>
-                                    <option value="4">精装修</option>
-                                    <option value="5">豪华装修</option>
+                                    <option value="毛坯">毛坯</option>
+                                    <option value="简单装修">简单装修</option>
+                                    <option value="中等装修">中等装修</option>
+                                    <option value="精装修">精装修</option>
+                                    <option value="豪华装修">豪华装修</option>
                                 </select>
                             </td>
-                            <td>成新状况：</td>
-                            <td><input class="easyui-validatebox" data-options="" type="text" name="newSituation"></input></td>
+                            <td class="ui-form-table-dt">成新状况：</td>
+                            <td class="ui-form-table-dd"><input class="easyui-validatebox" data-options="" type="text" name="newSituation"></input></td>
                         </tr>
                         <tr>
-                            <td>办公配套：</td>
-                            <td><input class="easyui-validatebox" data-options="" type="text" name="officeFacilities"></input></td>
-                            <td>停车配套：</td>
-                            <td>
+                            <td class="ui-form-table-dt">办公配套：</td>
+                            <td class="ui-form-table-dd"><input class="easyui-validatebox" data-options="" type="text" name="officeFacilities"></input></td>
+                            <td class="ui-form-table-dt">停车配套：</td>
+                            <td class="ui-form-table-dd">
                                 <select class="easyui-combobox"  name="parkingFacilities" style="width:149px;" data-options="">
-                                    <option value="1">地上</option>
-                                    <option value="2">地下</option>
+                                    <option value="地上">地上</option>
+                                    <option value="地下">地下</option>
                                 </select>
                             </td>
-                            <td>柱距：</td>
-                            <td><input class="easyui-numberbox" data-options="precision:2,groupSeparator:','" type="text" name="pilespacing"></input> m</td>
+                            <td class="ui-form-table-dt">柱距：</td>
+                            <td class="ui-form-table-dd"><input class="easyui-numberbox" data-options="precision:2,groupSeparator:','" type="text" name="pilespacing"></input> m</td>
                         </tr>
                         <tr>
-                            <td>行车梁：</td>
-                            <td>
+                            <td class="ui-form-table-dt">行车梁：</td>
+                            <td class="ui-form-table-dd">
                                 <select class="easyui-combobox"  name="craneBeam" style="width:149px;" data-options="">
-                                    <option value="1">有行车梁</option>
-                                    <option value="0">无行车梁</option>
+                                    <option value="有行车梁">有行车梁</option>
+                                    <option value="无行车梁">无行车梁</option>
                                 </select>
                             </td>
-                            <td>跨度：</td>
-                            <td>
+                            <td class="ui-form-table-dt">跨度：</td>
+                            <td class="ui-form-table-dd">
                                 <input class="easyui-numberbox" data-options="precision:2,groupSeparator:','" type="text" name="span"></input> m
                             </td>
-                            <td></td>
-                            <td>
-                                <a class="easyui-linkbutton" onclick="javascript:dlg2.dialog('open');">标注地图</a>
+                            <td class="ui-form-table-dt">标注地图：</td>
+                            <td class="ui-form-table-dd">
+                                <a class="easyui-linkbutton" onclick="javascript:dlg2.dialog('open');" data-options="iconCls:'icon-locate'">标注地图</a>
                                 <input type="hidden" name="lat" value="" />
                                 <input type="hidden" name="lng" value="" />
                                 <input type="hidden" name="houseType" value="" />
@@ -354,79 +374,87 @@ if(session.getAttribute(Constant.CURRENT_USER)==null){
                 </fieldset>
                 <fieldset style="border:1px solid #95B8E7; padding:5px; margin-top:5px;">
                     <legend>业务信息</legend>
-                    <table cellspacing="0">
+                    <table border="0" cellspacing="0" cellpadding="0" class="ui-form-table">
                         <tr>
-                            <td>成交时间：</td>
-                            <td>
-                                <input name="dealTime" type="text" class="easyui-datebox" style="width: 149px">
+                            <td class="ui-form-table-dt">成交时间：</td>
+                            <td class="ui-form-table-dd">
+                                <input name="dealTime" type="text" class="easyui-datebox" style="width: 149px" required="true">
                             </td>
-                            <td>成交总价：</td>
-                            <td>
-                                <input class="easyui-numberbox" data-options="precision:2,groupSeparator:','" type="text" name="totalPrice"> 万元</input>
+                            <td class="ui-form-table-dt">成交总价：</td>
+                            <td class="ui-form-table-dd">
+                                <input class="easyui-numberbox" data-options="precision:2,groupSeparator:','" type="text" name="totalPrice" required="true"> 万元</input>
                             </td>
-                            <td>成交单价：</td>
-                            <td>
-                                <input class="easyui-numberbox" data-options="precision:2,groupSeparator:','" type="text" name="unitPrice"> 元/m2</input>
+                            <td class="ui-form-table-dt">成交单价：</td>
+                            <td class="ui-form-table-dd">
+                                <input class="easyui-numberbox" data-options="precision:2,groupSeparator:','" type="text" name="unitPrice" required="true"> 元/m2</input>
                             </td>
                         </tr>
                         <tr>
-                            <td>实际用途：</td>
-                            <td>
+                            <td class="ui-form-table-dt">实际用途：</td>
+                            <td class="ui-form-table-dd">
                                 <input class="easyui-validatebox" data-options="" type="text" name="realUse"></input>
                             </td>
-                            <td>经营业态：</td>
-                            <td>
+                            <td class="ui-form-table-dt">经营业态：</td>
+                            <td class="ui-form-table-dd">
                                 <input class="easyui-validatebox" data-options="" type="text" name="businessState"></input>
                             </td>
-                            <td>物业管理费：</td>
-                            <td>
+                            <td class="ui-form-table-dt">物业管理费：</td>
+                            <td class="ui-form-table-dd">
                                 <input class="easyui-numberbox" data-options="precision:2,groupSeparator:','" type="text" name="propertyManagementFee"> 元</input>
                             </td>
                         </tr>
                         <tr>
-                            <td>租赁情况：</td>
-                            <td>
+                            <td class="ui-form-table-dt">租赁情况：</td>
+                            <td class="ui-form-table-dd">
                                 <input class="easyui-validatebox" data-options="" type="text" name="hireState"></input>
                             </td>
-                            <td>租赁价格：</td>
-                            <td>
+                            <td class="ui-form-table-dt">租金总价：</td>
+                            <td class="ui-form-table-dd">
                                 <input class="easyui-numberbox" data-options="precision:2,groupSeparator:','" type="text" name="hirePrice"></input> 元/月
                             </td>
-                            <td>租赁单价：</td>
-                            <td>
+                            <td class="ui-form-table-dt">租金单价：</td>
+                            <td class="ui-form-table-dd">
                                 <input class="easyui-numberbox" data-options="precision:2,groupSeparator:','" type="text" name="hireUnitPrice"></input>
                                 元/m2
                             </td>
                         </tr>
                         <tr>
-                            <td>租赁期限：</td>
-                            <td>
-                                <input class="easyui-numberbox" data-options="precision:2,groupSeparator:','" type="text" name="hireExpiredDate"></input>
+                            <td class="ui-form-table-dt">租赁期限：</td>
+                            <td class="ui-form-table-dd">
+                                <input class="easyui-validatebox" type="text" name="hireExpiredDate" ></input>
                             </td>
-                            <td>转让费：</td>
-                            <td>
+                            <td class="ui-form-table-dt">转让费：</td>
+                            <td class="ui-form-table-dd">
                                 <input class="easyui-numberbox" data-options="precision:2,groupSeparator:','" type="text" name="transferFee"></input>
                                 元
                             </td>
-                            <td>押金：</td>
-                            <td>
+                            <td class="ui-form-table-dt">押金：</td>
+                            <td class="ui-form-table-dd">
                                 <input class="easyui-numberbox" data-options="precision:2,groupSeparator:','" type="text" name="deposit"></input>
                                 元
                             </td>
                         </tr>
                         <tr>
-                            <td>联系电话：</td>
-                            <td>
+                            <td class="ui-form-table-dt">联系电话：</td>
+                            <td class="ui-form-table-dd">
                                 <input class="easyui-validatebox" data-options="" type="text" name="contactTel"></input>
                             </td>
-                            <td>备注：</td>
-                            <td>
+                            <td class="ui-form-table-dt">备注：</td>
+                            <td class="ui-form-table-dd">
                                 <input class="easyui-validatebox" data-options="" type="text" name="remark"></input>
                             </td>
-                            <td>案例收集人：</td>
-                            <td>
+                            <td class="ui-form-table-dt">案例收集人：</td>
+                            <td class="ui-form-table-dd">
                                 <input class="easyui-validatebox" data-options="" type="text" name="collecter"></input>
                             </td>
+                        </tr>
+                    </table>
+                    <table border="0" cellspacing="0" cellpadding="0" class="ui-form-table">
+                        <tr>
+                            <td class="ui-form-table-dt" >成交合同：</td>
+                            <td class="ui-form-table-dd" ><input class="easyui-validatebox" type="text" disabled name="contract" data-options=""></input> <a href="#" class="easyui-linkbutton upload" data-options="iconCls:'icon-upload'">上传</a></td>
+                            <td class="ui-form-table-dt" >实物照片：</td>
+                            <td class="ui-form-table-dd" ><input class="easyui-validatebox" type="text" disabled name="img" data-options=""></input> <a href="#" class="easyui-linkbutton upload" data-options="iconCls:'icon-upload'">上传</a></td>
                         </tr>
                     </table>
                 </fieldset>
@@ -439,7 +467,7 @@ if(session.getAttribute(Constant.CURRENT_USER)==null){
         <script type="text/template" id="house_tp">
             <fieldset style="border:1px solid #95B8E7; padding:5px;">
                 <legend>基本信息</legend>
-                <table cellspacing="0" border='1'>
+                <table cellspacing="0" >
                     <tr>
                         <td>区县：</td>
                         <td><@= cityName @> </td>
@@ -449,7 +477,7 @@ if(session.getAttribute(Constant.CURRENT_USER)==null){
                         <td><@= houseNo @> </td>
                     </tr>
                     <tr>
-                        <td>楼层：</td>
+                        <td>所在楼层：</td>
                         <td><@= floor @> </td>
                         <td>总楼层：</td>
                         <td><@= totalFloor @> </td>
@@ -465,12 +493,12 @@ if(session.getAttribute(Constant.CURRENT_USER)==null){
                         <td><@= constructionArea @> m2 </td>
                     </tr>
                     <tr>
-                        <td>公推面积：</td>
+                        <td>公摊面积：</td>
                         <td><@= poolArea @> </td>
                         <td>房屋结构：</td>
-                        <td><@=['其它','框架','剪力','钢混','木混','砖木'][ structure ] @> </td>
+                        <td><@= structure @> </td>
                         <td>土地使用权类型：</td>
-                        <td><@= landUseRight == 1 ? '出让' : '划拔' @> </td>
+                        <td><@= landUseRight @> </td>
                     </tr>
                     <tr>
                         <td>土地终止日期：</td>
@@ -484,7 +512,7 @@ if(session.getAttribute(Constant.CURRENT_USER)==null){
                         <td>进深：</td>
                         <td><@= depth @> </td>
                         <td>装修情况：</td>
-                        <td><@= ['毛坯','简单装修','中等装修','精装修','豪华装修'][decorateSituation] @> </td>
+                        <td><@= decorateSituation @> </td>
                         <td>成新状况：</td>
                         <td><@= newSituation @> </td>
                     </tr>
@@ -492,17 +520,16 @@ if(session.getAttribute(Constant.CURRENT_USER)==null){
                         <td>办公配套：</td>
                         <td><@= officeFacilities @> </td>
                         <td>停车配套：</td>
-                        <td><@= parkingFacilities == 1 ? "地上" : "地下" @> </td>
+                        <td><@= parkingFacilities @> </td>
                         <td>柱距：</td>
                         <td><@= pilespacing @> </td>
                     </tr>
                     <tr>
                         <td>行车梁：</td>
-                        <td><@= craneBeam == 1 ? '有行车梁' : '无行车梁' @> </td>
+                        <td><@= craneBeam @> </td>
                         <td>跨度：</td>
-                        <td><@= span @> </td>
-                        <td></td>
-                        <td></td>
+                        <td colspan="3"><@= span @> </td>
+                        
                     </tr>
                     <tr>
                         <td colspan=6>
@@ -515,7 +542,7 @@ if(session.getAttribute(Constant.CURRENT_USER)==null){
             </fieldset>
             <fieldset style="border:1px solid #95B8E7; padding:5px; margin-top:5px;">
                 <legend>业务信息</legend>
-                <table cellspacing="0" border=1>
+                <table cellspacing="0">
                     <tr>
                         <td>成交时间：</td>
                         <td><@= dealTime @> </td>
@@ -535,9 +562,9 @@ if(session.getAttribute(Constant.CURRENT_USER)==null){
                     <tr>
                         <td>租赁情况：</td>
                         <td><@= hireState @> </td>
-                        <td>租赁价格：</td>
+                        <td>租金总价：</td>
                         <td><@= hirePrice @> </td>
-                        <td>租赁单价：</td>
+                        <td>租金单价：</td>
                         <td><@= hireUnitPrice @> 元/m2</td>
                     </tr>
                     <tr>
@@ -556,12 +583,28 @@ if(session.getAttribute(Constant.CURRENT_USER)==null){
                         <td>案例收集人：</td>
                         <td><@= collecter @> </td>
                     </tr>
+                    <tr>
+                        <td colspan=1 nowrap="nowrap">成交合同:</td>
+                        <td colspan=5>
+                            <a href="../uploadfile/<@= contract @>">
+                                <@= contract @>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan=1 nowrap="nowrap">实物照片:</td>
+                        <td colspan=5>
+                            <a href="../uploadfile/<@= img @>" target="_blank">
+                                <@= img @>
+                            </a>
+                        </td>
+                    </tr>
                 </table>
             </fieldset>
         </script>
         <div id="btns_view">
-            <a class="easyui-linkbutton" id="view_graph" onclick="javascript:flag='view'; dlg2.dialog('open');  " data-options="iconCls:'icon-save'">查看地图</a>
-            <a class="easyui-linkbutton" onclick="doprint('dlg3'); " data-options="iconCls:'icon-save'">打印</a>
+            <a class="easyui-linkbutton" id="view_graph" onclick="javascript:flag='view'; dlg2.dialog('open');  " data-options="iconCls:'icon-map'">查看地图</a>
+            <a class="easyui-linkbutton" onclick="doprint('dlg3'); " data-options="iconCls:'icon-print'">打印</a>
             <a class="easyui-linkbutton" onclick="javascript:dlg3.dialog('close'); " data-options="iconCls:'icon-cancel'">关闭</a>
         </div>
         <script src="../resources/util.js" type="text/javascript" charset="utf-8"></script>

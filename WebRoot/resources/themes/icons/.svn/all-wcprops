@@ -1,7 +1,13 @@
 K 25
 svn:wc:ra_dav:version-url
 V 63
-/svn/twzg/!svn/ver/1353/trunk/fw/WebRoot/resources/themes/icons
+/svn/twzg/!svn/ver/1571/trunk/fw/WebRoot/resources/themes/icons
+END
+import.png
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/twzg/!svn/ver/1571/trunk/fw/WebRoot/resources/themes/icons/import.png
 END
 back.png
 K 25
@@ -51,6 +57,12 @@ svn:wc:ra_dav:version-url
 V 77
 /svn/twzg/!svn/ver/1353/trunk/fw/WebRoot/resources/themes/icons/mini_edit.png
 END
+locate.png
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/twzg/!svn/ver/1571/trunk/fw/WebRoot/resources/themes/icons/locate.png
+END
 mini_refresh.png
 K 25
 svn:wc:ra_dav:version-url
@@ -99,6 +111,12 @@ svn:wc:ra_dav:version-url
 V 70
 /svn/twzg/!svn/ver/1353/trunk/fw/WebRoot/resources/themes/icons/ok.png
 END
+map.png
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/twzg/!svn/ver/1571/trunk/fw/WebRoot/resources/themes/icons/map.png
+END
 redo.png
 K 25
 svn:wc:ra_dav:version-url
@@ -116,6 +134,12 @@ K 25
 svn:wc:ra_dav:version-url
 V 72
 /svn/twzg/!svn/ver/1353/trunk/fw/WebRoot/resources/themes/icons/help.png
+END
+upload.png
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/twzg/!svn/ver/1571/trunk/fw/WebRoot/resources/themes/icons/upload.png
 END
 cut.png
 K 25

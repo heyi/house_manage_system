@@ -52,7 +52,7 @@ public class AccountController {
 			Account account = accountService.getAccountByUsername(username);
 			if (account != null && password.equals(account.getPassword()) && account.getIsValid().equals("1")) {
 				session.setAttribute(Constant.CURRENT_USER, account);
-				return "redirect:/app/parcel.jsp";
+				return "redirect:/app/index.jsp";
 			}else{
 				return "redirect:/app/login.jsp?error_code=1";
 			}

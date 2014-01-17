@@ -22,31 +22,32 @@
 		resultType="Infomation">
 		<![CDATA[
 		  SELECT
-		       info_id              as infoId,
-			   info_title           as infoTitle,
-			   catagory_id          as catagoryId,
-			   content              as content,
-			   attachment           as attachment,
-			   insert_time          as insertTime,
-			   user_id              as userId
-			FROM tb_information_library
-			where 1=1
+		       a.info_id              as infoId,
+			   a.info_title           as infoTitle,
+			   a.catagory_id          as catagoryId,
+			   a.content              as content,
+			   a.attachment           as attachment,
+			   a.insert_time          as insertTime,
+			   a.user_id              as userId,
+               b.catagory_name        as catagoryName
+			FROM tb_information_library a inner join tb_information_catagory b on a.catagory_id=b.catagory_id
+			where 1=1 
 			]]>
 		
 		<if test="infoTitle != null and infoTitle != ''">
 		    <![CDATA[
-		    and info_title like '%${infoTitle}%'
+		    and a.info_title like '%${infoTitle}%'
 		     ]]>
 		</if>
 		
 		<if test="catagoryId != null and catagoryId != ''"> 
 		    <![CDATA[
-		    and catagory_id = #{catagoryId}
+		    and a.catagory_id like '${catagoryId}%'
 		     ]]>
 		</if>
 		
 		<![CDATA[
-			order by info_id desc limit #{start},#{rows}
+			order by a.info_id desc limit #{start},#{rows}
          ]]>
 	</select>
 	<select id="getInfomationCountForSearch" parameterType="map"
@@ -54,24 +55,24 @@
 		<![CDATA[
 		  SELECT
 			count(1)
-			FROM tb_information_library
+			FROM tb_information_library a inner join tb_information_catagory b on a.catagory_id=b.catagory_id
 			where 1=1 
 		]]>
 		
 		<if test="infoTitle != null and infoTitle != ''">
 		    <![CDATA[
-		    and info_title like '%${infoTitle}%'
+		    and a.info_title like '%${infoTitle}%'
 		     ]]>
 		</if>
 		
 		<if test="catagoryId != null and catagoryId != ''"> 
 		    <![CDATA[
-		    and catagory_id = #{catagoryId}
+		    and a.catagory_id like '${catagoryId}%'
 		     ]]>
 		</if>
 		
         <![CDATA[
-			order by info_id desc
+			order by a.info_id desc
          ]]>
 	</select>
 	

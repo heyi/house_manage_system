@@ -1,13 +1,25 @@
 var w_rs = $("#w_rs"), w_gp = $("#w_gp"),table1 = $("#tb_rs"),dlg_info = $("#dlg_info");  
 var flag = "add", form1, $lat, $lng, r_view = {},form2 = $("#form2"); 
 var action_url = "insertLand.do";
-var map, geo,marker, point,  lat = 28.19, lng = 119;
+var map, geo,marker, point,  _lat = lat = 28.19580849444327, _lng = lng = 112.95644760131836;
 var bmap, mode;
 var dfd_datagrid = $.Deferred();
 
+function importfile() {
+	var o = {
+			"excelType":"land",//房地产是house，土地交易是land
+			"houseType":"",
+			"dealType":""
+	};
+    var rs = window .showModalDialog( "importExcel.jsp", o, "dialogWidth=300px;dialogHeight=100px;resizable=false;status=no;scroll=no;location=no;toolbar=no;menubar=no");
+    if (rs === "ok") {
+        table1.datagrid("reload"); 
+    }
+};
+
 var gp = $("#_graph"), marker_trash=[];  
 function mClickEvent (r){
-    var ds = r ; 
+    var ds = r 
     return function () {
         r["cityName"] = cityKeys[r.city]; 
         r["useNoName"] = landKeys[r.useNo]; 
@@ -76,7 +88,15 @@ function parcel_search() {
 function search_parcel(node) {
     form2.find("[name=city]").val(node.id);  
     form2.find("#city").val(node.text);  
+    lat = node.attributes.lat || lat;
+    lng = node.attributes.lng || lng;
     parcel_search(); 
+};
+
+function changeLatlng(node) {
+    _lat = node.attributes.lat || _lat;
+    _lng = node.attributes.lng || _lng;
+    init_graph(_lat,_lng);
 };
 
 function makeLevelKeys(){
@@ -94,7 +114,6 @@ function makeCityKeys(node, rs) {
 function makeLandKeys(node, rs) {
     setKeys(rs, landKeys); 
     dfd_datagrid.resolve(); 
-    $("#ctree1").combotree("setValue",1);
 };
 
 function setKeys(rs, keys) {
@@ -123,6 +142,9 @@ var toolbar = [{
         flag = "update";
         var r = table1.datagrid("getSelected"); 
         if (r) {
+            for(var o in r ) {
+                if(r[o] ==  '&nbsp;') r[o] = '';
+            }
             form1.form("load", r); 
             w_rs.dialog("open").dialog('setTitle','修改土地交易案例');
         }else {
@@ -137,25 +159,39 @@ var toolbar = [{
     handler: function() {
         var r = table1.datagrid("getSelected"); 
         if (r) {
-            $.ajax({url:"deleteLand.do?id=" + r.landId}).success(function (result) {
-                if (result == "yes") {
-                    table1.datagrid("reload"); 
-                    $.messager.alert("系统信息","删除成功！","info"); 
-                }else{
-                    $.messager.alert("系统信息","删除失败！","error"); 
-                }
-            });
+        	$.messager.confirm('提示','确实要删除吗？',function(m){
+        		if(m){
+		            $.ajax({url:"deleteLand.do?id=" + r.landId}).success(function (result) {
+		                if (result == "yes") {
+		                    table1.datagrid("reload"); 
+		                }else{
+		                    $.messager.alert("系统信息","删除失败！","error"); 
+		                }
+		            });
+        		}
+        	});
         }else {
             $.messager.alert("警告","请选择要删除的行","warning"); 
         }
     }
-}];
+},
+'-',{
+    text: '导入',
+    iconCls: "icon-import",
+    handler: function() {
+        importfile();
+    } }
+];
+
+if (userLevel!=1&&userLevel!=2) {
+   toolbar = []; 
+}
 
 var parcel_tp =_.template($("#parcel_tp").html());
-function init_graph(lat, lng) {
+function init_graph() {
     map = new BMap.Map("graph");
     geo = new BMap.Geocoder();
-    point = new BMap.Point(lng, lat);
+    point = new BMap.Point(_lng, _lat);
     map.centerAndZoom(point, 11);
     map.addControl(new BMap.NavigationControl());
     map.addControl(new BMap.NavigationControl());
@@ -164,27 +200,32 @@ function init_graph(lat, lng) {
     map.addControl(new BMap.MapTypeControl());
 };
 
-dfd_datagrid.done(function () {
+//dfd_datagrid.done(function () {
     table1.datagrid({
         fit: true,
         url: "searchLand.do", 
         pagination: true, 
-        rownumbers:false, 
-        fitColumns:true, 
+        rownumbers:true, 
+        fitColumns:false, 
         singleSelect:true, 
         toolbar:toolbar,
+        frozenColumns:[[  
+                        {width:80, field:'ck', checkbox:true},  
+						{width:150, field:'caseNo', title:"案例编号"}, 
+						{width:150, field:'listNo', title:"挂牌号"},   
+                    ]],
         columns:[[
-            {width:80, field:'ck', checkbox:true}, 
-            {width:80, field:'landId', title:"序号"}, 
-            {width:80, field:'listNo', title:"挂牌号"}, 
             {width:80, field:'dealTime', title:"成交时间"}, 
-            {width:80, field:'locate', title:"位置"}, 
-            {width:80, field:'level',title:'级别', width:80, formatter: function(v, r, i){ return levelKeys[v]}}, 
-            {width:80, field:'useNo',title:'用途', width:80, formatter: function(v, r, i){ return landKeys[v]}}, 
-            {width:80, field:'acreage', title:"面积"}, 
+            {width:250, field:'locate', title:"位置"}, 
+            {width:50, field:'level',title:'级别'}, 
+            {width:80, field:'useNo',title:'用途'}, 
+            {width:80, field:'useScale',title:'用途比例'}, 
+            {width:80, field:'acreage', title:"面积(m2)"}, 
             {width:80, field:'areaRatio', title:"容积率"}, 
-            {width:80, field:'totalPrice', title:"成交总价"}, 
-            {width:80, field:'unitPrice1', title:"成交单价"} 
+            {width:110, field:'totalPrice', title:"成交总价(万元)"}, 
+            {width:110, field:'unitPrice1', title:"成交单价(元/m2)"}, 
+            {width:110, field:'unitPrice2', title:"成交单价(万元/亩)"}, 
+            {width:110, field:'floorPrice', title:"楼面地价(元/m2)"}
         ]], 
         onLoadSuccess: function (data) {
             var mode = $("#btn_view").data("mode");
@@ -194,14 +235,15 @@ dfd_datagrid.done(function () {
         },
         onDblClickRow: function (i, r) {
             r["cityName"] = cityKeys[r.city]; 
-            r["useNoName"] = landKeys[r.useNo]; 
-            r["levelName"] = levelKeys[r.level]; 
-            r_view = r; 
+            r_view = $.extend({},r); 
+            for(var o in r ) {
+                if(!r[o]) r[o] = '&nbsp;'
+            }
             dlg_info.html(parcel_tp(r)); 
             $("#dlg").dialog("open");
         }
     });
-}); 
+//}); 
 function uploadfile(el) {
     var rs = window.showModalDialog("uploadFile.jsp", null, "dialogWidth=300px;dialogHeight=100px;resizable=false;status=no;scroll=no;location=no;toolbar=no;menubar=no");
     if (rs) {
@@ -242,7 +284,8 @@ $(function() {
 
     $(".upload").on("click", function(e) {
         e.preventDefault();
-        uploadfile($(this).prev());
+        var el = $(this).parents('td').find("input");
+        uploadfile(el);
     });
     form1 = $("#parcel_form");
     $lat = form1.find("[name=lat]");
@@ -251,6 +294,10 @@ $(function() {
     form1.submit(function(e) {
         e.preventDefault();
         e.stopImmediatePropagation();
+
+        var isValid = form1.form("validate");
+        if (!isValid) { return; }
+
         var rs = form1.serializeJson();
         if (flag === "update") {
             action_url = "updateLand.do";
@@ -272,5 +319,6 @@ $(function() {
             }
         });
     });
+    form1.form("clear");
 });
 

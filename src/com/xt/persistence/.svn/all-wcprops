@@ -1,19 +1,19 @@
 K 25
 svn:wc:ra_dav:version-url
 V 55
-/svn/twzg/!svn/ver/1499/trunk/fw/src/com/xt/persistence
+/svn/twzg/!svn/ver/1623/trunk/fw/src/com/xt/persistence
 END
 DictMapper.xml
 K 25
 svn:wc:ra_dav:version-url
 V 70
-/svn/twzg/!svn/ver/1439/trunk/fw/src/com/xt/persistence/DictMapper.xml
+/svn/twzg/!svn/ver/1609/trunk/fw/src/com/xt/persistence/DictMapper.xml
 END
 InfomationMapper.xml
 K 25
 svn:wc:ra_dav:version-url
 V 76
-/svn/twzg/!svn/ver/1484/trunk/fw/src/com/xt/persistence/InfomationMapper.xml
+/svn/twzg/!svn/ver/1538/trunk/fw/src/com/xt/persistence/InfomationMapper.xml
 END
 AccountMapper.java
 K 25
@@ -37,7 +37,7 @@ BuildingsMapper.xml
 K 25
 svn:wc:ra_dav:version-url
 V 75
-/svn/twzg/!svn/ver/1499/trunk/fw/src/com/xt/persistence/BuildingsMapper.xml
+/svn/twzg/!svn/ver/1562/trunk/fw/src/com/xt/persistence/BuildingsMapper.xml
 END
 SectorMapper.java
 K 25
@@ -49,7 +49,7 @@ HouseMapper.xml
 K 25
 svn:wc:ra_dav:version-url
 V 71
-/svn/twzg/!svn/ver/1470/trunk/fw/src/com/xt/persistence/HouseMapper.xml
+/svn/twzg/!svn/ver/1620/trunk/fw/src/com/xt/persistence/HouseMapper.xml
 END
 HouseMapper.java
 K 25
@@ -67,13 +67,13 @@ SectorMapper.xml
 K 25
 svn:wc:ra_dav:version-url
 V 72
-/svn/twzg/!svn/ver/1499/trunk/fw/src/com/xt/persistence/SectorMapper.xml
+/svn/twzg/!svn/ver/1562/trunk/fw/src/com/xt/persistence/SectorMapper.xml
 END
 LandMapper.xml
 K 25
 svn:wc:ra_dav:version-url
 V 70
-/svn/twzg/!svn/ver/1410/trunk/fw/src/com/xt/persistence/LandMapper.xml
+/svn/twzg/!svn/ver/1623/trunk/fw/src/com/xt/persistence/LandMapper.xml
 END
 CatagoryMapper.java
 K 25
@@ -85,13 +85,13 @@ AccountMapper.xml
 K 25
 svn:wc:ra_dav:version-url
 V 73
-/svn/twzg/!svn/ver/1498/trunk/fw/src/com/xt/persistence/AccountMapper.xml
+/svn/twzg/!svn/ver/1546/trunk/fw/src/com/xt/persistence/AccountMapper.xml
 END
 DictMapper.java
 K 25
 svn:wc:ra_dav:version-url
 V 71
-/svn/twzg/!svn/ver/1439/trunk/fw/src/com/xt/persistence/DictMapper.java
+/svn/twzg/!svn/ver/1609/trunk/fw/src/com/xt/persistence/DictMapper.java
 END
 InfomationMapper.java
 K 25

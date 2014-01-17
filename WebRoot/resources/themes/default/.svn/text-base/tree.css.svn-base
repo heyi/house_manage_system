@@ -152,6 +152,9 @@
   color: #000000;
 }
 .tree-node-selected {
-  background: #FBEC88;
-  color: #000000;
+ 	background: url(images/tree-over-bg.gif) repeat-x;
+	_background-image: none;
+	_background-color: #DAE5FD;
+	border: 1px #8FB1DB solid;
+	padding: 0 !important
 }

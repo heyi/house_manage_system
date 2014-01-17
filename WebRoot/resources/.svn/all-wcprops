@@ -1,7 +1,7 @@
 K 25
 svn:wc:ra_dav:version-url
 V 50
-/svn/twzg/!svn/ver/1529/trunk/fw/WebRoot/resources
+/svn/twzg/!svn/ver/1623/trunk/fw/WebRoot/resources
 END
 jquery.min.js
 K 25
@@ -13,7 +13,7 @@ util.js
 K 25
 svn:wc:ra_dav:version-url
 V 58
-/svn/twzg/!svn/ver/1457/trunk/fw/WebRoot/resources/util.js
+/svn/twzg/!svn/ver/1609/trunk/fw/WebRoot/resources/util.js
 END
 underscore-min.js
 K 25

@@ -9,22 +9,26 @@
 	    SELECT
 		 buildings_id         as buildingsId,
    		 buildings_name       as buildingsName,
-         city_no              as cityNo,
-         sector_id            as sectorId,
+         a.city_no            as cityNo,
+         b.city_name		  as cityName,
+         a.sector_id          as sectorId,
+         c.dict_name		  as sectorName,
          pinyin               as pinyin,
          pinyin_letter        as pinyinLetter,
          building_address     as buildingsAddress
-		FROM tb_building_dict 
+		FROM tb_building_dict a 
+		inner join tb_city_info b on a.city_no=b.city_no
+		left outer join tb_sector_dict c on a.sector_id=c.dict_id
 		where 1=1
 		]]>
 		<if test="buildingsName != null and buildingsName != ''">
 		    <![CDATA[
-		    and buildings_name = #{buildingsName}
+		    and buildings_name like '%${buildingsName}%'
 		    ]]>
 		</if>
 		<if test="cityNo != null and cityNo != ''">
 		    <![CDATA[
-		    and city_no = #{cityNo}
+		    and a.city_no like '${cityNo}%'
 		    ]]>
 		</if>
 		 <![CDATA[
@@ -35,17 +39,19 @@
 		<![CDATA[
 	    SELECT
 		 count(1)
-		FROM tb_building_dict 
+		FROM tb_building_dict a 
+		inner join tb_city_info b on a.city_no=b.city_no
+		left outer join tb_sector_dict c on a.sector_id=c.dict_id
 		where 1=1
 		]]>
 		<if test="buildingsName != null and buildingsName != ''">
 		    <![CDATA[
-		    and buildings_name = #{buildingsName}
+		    and buildings_name like '%${buildingsName}%'
 		    ]]>
 		</if>
 		<if test="cityNo != null and cityNo != ''">
 		    <![CDATA[
-		    and city_no = #{cityNo}
+		    and a.city_no like '${cityNo}%'
 		    ]]>
 		</if>
 		 <![CDATA[

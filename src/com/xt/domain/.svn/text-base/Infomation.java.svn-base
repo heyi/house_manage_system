@@ -10,6 +10,7 @@ public class Infomation implements Serializable {
 	private int infoId;
 	private String infoTitle;
 	private int catagoryId;
+	private String catagoryName;
 	private String content;
 	private String attachment;
 	private Date insertTime;
@@ -32,6 +33,13 @@ public class Infomation implements Serializable {
 	}
 	public void setCatagoryId(int catagoryId) {
 		this.catagoryId = catagoryId;
+	}
+	
+	public String getCatagoryName() {
+		return catagoryName;
+	}
+	public void setCatagoryName(String catagoryName) {
+		this.catagoryName = catagoryName;
 	}
 	public String getContent() {
 		return content;

@@ -6,8 +6,8 @@ var form4 = $("#form4"),form5 = $("#form5"),dlg4 = $("#dlg4");
 
 var key, objs = {
     1 : {form:form1,sform:sform1,flag:"add",dlg:dlg1, search_url:"showUsers.do", save_url: "saveUser.do",update_url:"updateUser.do",action_url:"",table:table1,id:"userId",delete_url:"deleteUser.do?userId="},
-    2 : {form:form2,sform:sform1,flag:"add",dlg:dlg2, search_url:"searchSector.do",save_url: "insertSector.do", update_url:"updateSector.do",action_url:"",table:table2,id:"sectorId",delete_url:"deleteSector.do?id="}, 
-    3 : {form:form3,sform:sform1,flag:"add",dlg:dlg3, search_url:"searchBuildings.do",save_url: "insertBuildings.do",update_url:"updateBuildings.do",action_url:"",table:table3,id:"buildingsId",delete_url:"deleteBuildings.do?id="}
+    2 : {form:form2,sform:sform2,flag:"add",dlg:dlg2, search_url:"searchSector.do",save_url: "insertSector.do", update_url:"updateSector.do",action_url:"",table:table2,id:"sectorId",delete_url:"deleteSector.do?id="}, 
+    3 : {form:form3,sform:sform3,flag:"add",dlg:dlg3, search_url:"searchBuildings.do",save_url: "insertBuildings.do",update_url:"updateBuildings.do",action_url:"",table:table3,id:"buildingsId",delete_url:"deleteBuildings.do?id="}
 }
 
 function uploadfile() {
@@ -24,12 +24,15 @@ function search_sectorid(newValue,oldValue) {
    });
 };
 
-var toolbar = [{
+var toolbar =  [{
     text: '添加',
     iconCls: 'icon-add',
     handler: function() {
         var o = objs[key];
         o["flag"] = "add";
+        if (o["form"] == form1) {
+            $("#username1").removeAttr("disabled"); 
+        }
         o["dlg"].dialog("open");
         o["form"].form("clear");
     }
@@ -43,6 +46,14 @@ var toolbar = [{
         var r = o["table"].datagrid("getSelected"); 
         if (r) {
             o["form"].form("load", r); 
+            if (o["form"] == form1) {
+                $("#username1").attr("disabled", "disabled"); 
+            }else if (o["form"] == form3) {
+                $.ajax({url:"getSectorListByCityNo.do?cityNo=" + r["cityNo"]}).done( function (rs) {
+                    $("#sectorId").combobox("loadData",rs);
+                    $("#sectorId").combobox("setValue",r["sectorId"]);   
+                });
+            }
             o["dlg"].dialog("open", r); 
         }else {
             $.messager.alert("警告","请选择要修改的行","warning"); 
@@ -57,19 +68,29 @@ var toolbar = [{
         var o = objs[key];
         var r = o.table.datagrid("getSelected"); 
         if (r) {
-            $.ajax({url:o["delete_url"] + r[o["id"]]}).success(function (result) {
-                if (result == "yes") {
-                    o.table.datagrid("reload"); 
-                    $.messager.alert("系统信息","删除成功！","info"); 
-                }else{
-                    $.messager.alert("系统信息","删除失败！","error"); 
-                }
-            });
+        	$.messager.confirm('提示','确实要删除吗？',function(m){
+        		if(m){
+		            $.ajax({url:o["delete_url"] + r[o["id"]]}).success(function (result) {
+		                if (result == "yes") {
+		                    o.table.datagrid("reload"); 
+		                }else{
+		                    $.messager.alert("系统信息","删除失败！","error"); 
+		                }
+		            });
+        		}
+        	});
         }else {
             $.messager.alert("警告","请选择要删除的行","warning"); 
         }
     }
 }];
+
+var _toolbar = $.extend(true,[],toolbar);
+if (userLevel!=1&&userLevel!=2) {
+    toolbar = []; 
+}
+if (userLevel!=1) { _toolbar = []; }
+
 
 $.ajax({url:"getUserinfo.do"}).done(function (rs) {
     form4.form("load",rs);
@@ -90,22 +111,23 @@ $(".sf").find("a.easyui-linkbutton").on("click",function (e) {
     search();
 });
 
+var role = { 1: "系统管理员", 2:"信息录入员", 3: "普通用户" };
+
 table1.datagrid({
     fit: true,
     url: "showUsers.do", 
     pagination: true, 
-    rownumbers:false, 
+    rownumbers:true, 
     fitColumns:true, 
     singleSelect:true, 
-    toolbar:toolbar,
+    toolbar:_toolbar,
     columns:[[
         {width:80, field:'ck', checkbox:true}, 
-        {width:80, field:'userId', title:"序号"}, 
         {width:80, field:'username', title:"用户名"}, 
-        {width:80, field:'userRight', title:"角色"}, 
+        {width:80, field:'userRight', title:"角色",formatter: function(v, r, i){ return role[v]}}, 
         {width:80, field:'trueName', title:"姓名"}, 
         {width:80, field:'idcard', title:"头衔"}, 
-        {width:80, field:'photo', title:"手机"}, 
+        {width:80, field:'mobile', title:"手机"}, 
         {width:80, field:'qq', title:"QQ"} 
     ]] , 
     onDblClickRow: function (i, r) {
@@ -116,14 +138,13 @@ table2.datagrid({
     fit: true,
     url: "searchSector.do", 
     pagination: true, 
-    rownumbers:false, 
+    rownumbers:true, 
     fitColumns:true, 
     singleSelect:true, 
     toolbar:toolbar,
     columns:[[
         {width:80, field:'ck', checkbox:true}, 
-        {width:80, field:'sectorId', title:"序号"}, 
-        {width:80, field:'cityNo', title:"所属区县"}, 
+        {width:80, field:'cityName', title:"所属区县"}, 
         {width:80, field:'sectorName', title:"板块名称"} 
     ]] , 
     onDblClickRow: function (i, r) {
@@ -134,16 +155,15 @@ table3.datagrid({
     fit: true,
     url: "searchBuildings.do", 
     pagination: true, 
-    rownumbers:false, 
+    rownumbers:true, 
     fitColumns:true, 
     singleSelect:true, 
     toolbar:toolbar,
     columns:[[
         {width:80, field:'ck', checkbox:true}, 
-        {width:80, field:'buildingsId', title:"序号"}, 
         {width:80, field:'buildingsName', title:"楼盘名称"}, 
         {width:80, field:'buildingsAddress', title:"楼盘地址"},  
-        {width:80, field:'cityNo', title:"所在区县"}, 
+        {width:80, field:'cityName', title:"所在区县"}, 
         {width:80, field:'sectorName', title:"所在板块"},  
         {width:80, field:'pinyin', title:"楼盘拼音"}
     ]] , 
@@ -159,6 +179,9 @@ function search_sector(node) {
 form4.submit(function (e) {
     e.preventDefault();
     e.stopImmediatePropagation();
+
+    var isValid = form4.form("validate");
+    if (!isValid) { return; }
     var rs = form4.serializeJson();
     $.ajax({
         url: "updateUser.do",
@@ -177,6 +200,8 @@ form4.submit(function (e) {
 form5.submit(function (e) {
     e.preventDefault();
     e.stopImmediatePropagation();
+    var isValid = form5.form("validate");
+    if (!isValid) { return; }
     var rs = form5.serializeJson();
     if (rs["newPassword"] !== rs["confirmPassword"]) {
         $.messager.alert("错误","两次密码不一致！","error"); 
@@ -199,6 +224,9 @@ form5.submit(function (e) {
 $("#form1,#form2, #form3").submit(function (e) {
     e.preventDefault();
     e.stopImmediatePropagation();
+    var isValid = $(this).form("validate");
+    if (!isValid) { return; }
+
     var o = objs[key];
     var rs = o.form.serializeJson();
     if (o.flag === "update") {
@@ -240,18 +268,39 @@ setTimeout(function () {
     $(navs[0]).trigger("click");
 },10);
 
-$("#username").on("change", function (e) {
-   var self = this; 
+function checkUsername(username) {
    $.ajax({
        url:"checkUserName.do", 
-       data: {username:this.value}
+       data: {username:username}
    }).done(function (rs) {
        if (rs  === "yes") {
-           $.messager.alert("警告","用户名已存在","warning"); 
+           $.messager.alert("警告","该用户名已经存在","warning"); 
            self.focus();
            self.blur(); 
            $(self).val(""); 
        }
    });
+}
+
+$("#username1").on("focusout",function (e) {
+    if (!this.value) {
+    	$.messager.alert("警告","用户名不能为空","error"); 
+        return false;
+    }
+    var opt ={ 
+        url : "checkUserName.do",
+        data:{ 
+            username : this.value,
+            nb: new Date().getTime()
+        },
+        success: function (rs) {
+            if (rs == "yes") {
+            	$.messager.alert("警告","该用户名已经存在","error"); 
+                $("#username1").val("");
+            }  
+        }
+    };
+    $.ajax(opt);
+    return false;
 });
 

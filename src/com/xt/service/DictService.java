@@ -1,10 +1,14 @@
 package com.xt.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.xt.domain.City;
 import com.xt.domain.Dict;
 import com.xt.persistence.DictMapper;
 
@@ -13,35 +17,97 @@ public class DictService {
 
 	@Autowired
 	private DictMapper dictMapper;
+	
+	public String getLandUseTree(){
+		StringBuffer sb = new StringBuffer();
+		sb.append("[");
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("parentId", "0");
+		List<Dict> parent = this.getLandUseDict(map);
+		int i=0;
+		for (Dict landUse : parent) {
+			sb.append("{\"id\":\"" + landUse.getDictId() + "\",\"state\":\"closed\",\"text\":\"" + landUse.getDictName() + "\"");
+			map = new HashMap<String,Object>();
+			map.put("parentId", landUse.getDictId());
+			List<Dict> children = this.getLandUseDict(map);
+			if(children.size()>0){
+				sb.append(",\"children\":[");
+				int j = 0;
+				for (Dict landUse2 : children) {
+					sb.append("{\"id\":\"" + landUse2.getDictId() + "\",\"text\":\"" + landUse2.getDictName() + "\"}");
+					j++;
+					if(j<children.size()){
+						sb.append(",");
+					}
+				}
+				sb.append("]"); 
+			}
+			sb.append("}");
+			i++;
+			if(i<parent.size()){
+				sb.append(",");
+			}
+		}
+		sb.append("]");
+		return sb.toString();
+	}
+	
+	public List<Dict> getLandUseDict(Map<String,Object> map){
+		return dictMapper.getLandUseDict(map);
+	}
 
+	public List<City> getCityList(Map<String,Object> map){
+		return dictMapper.getCityList(map);
+	}
+	
+	public String getCityTree(){
+		StringBuffer sb = new StringBuffer();
+		sb.append("[");
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("parentNo", "43");
+		List<City> parent = this.getCityList(map);
+		int i=0;
+		for (City city : parent) {
+			sb.append("{\"id\":\"" + city.getCityNo() + "\",\"state\":\"closed\",\"text\":\"" + city.getCityName() + "\",\"attributes\":{\"lat\":\""+city.getLat()+"\",\"lng\":\""+city.getLng()+"\"},\"children\":[");
+			map = new HashMap<String,Object>();
+			map.put("parentNo", city.getCityNo());
+			List<City> children = this.getCityList(map);
+			int j = 0;
+			for (City city2 : children) {
+				sb.append("{\"id\":\"" + city2.getCityNo() + "\",\"text\":\"" + city2.getCityName() + "\",\"attributes\":{\"lat\":\""+city2.getLat()+"\",\"lng\":\""+city2.getLng()+"\"}}");
+				j++;
+				if(j<children.size()){
+					sb.append(",");
+				}
+			}
+			sb.append("]}"); 
+			i++;
+			if(i<parent.size()){
+				sb.append(",");
+			}
+		}
+		sb.append("]");
+		return sb.toString();
+	}
+	
 	/**
-	 * eg.dictService.getDictByName(Dict.DEVICE),入参为枚举类型
-	 * @param dictType 枚举类型
+	 * 批处理excel导入
+	 * @param list
 	 * @return
 	 */
-	public List<Dict> getDictByName(int dictType) {
-		switch (dictType) {
-		case Dict.DEVICE://设备类型
-			return dictMapper.getDeviceType();
-		case Dict.SENSOR://传感器类型
-			return dictMapper.getSensorType();
-		case Dict.HOIST://闸门启闭类型
-			return dictMapper.getHoistType();
-		case Dict.POWER://电源类型
-			return dictMapper.getPowerType();
-		case Dict.SLUICE://闸门类型
-			return dictMapper.getSluiceType();
-		case Dict.UNIT://单位类型
-			return dictMapper.getSensorUnit();
-		case Dict.DEVICE_STATUS://设备状态
-			return dictMapper.getDeviceStatus();
-		case Dict.VIDEO_PROVIDER://视频监控供应商类型
-			return dictMapper.getVideoProvider();
-		case Dict.PROTOCAL_TYPE://协议类型
-			return dictMapper.getProtocalType();
-		case Dict.COMM_TYPE://通讯方式，GPRS/电台等
-			return dictMapper.getCommType();
+	@Transactional
+	public int insertCityBatch(List<City> list) {
+		int result = 0;
+		for (City city : list) {
+			result = dictMapper.insertCity(city);
+			if(result==0){
+				break;
+			}
 		}
-		return null;
+		return result;
+	}
+	
+	public String getSystemTime(){
+		return dictMapper.getSystemTime();
 	}
 }

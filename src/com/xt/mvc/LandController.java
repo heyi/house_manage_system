@@ -2,6 +2,8 @@ package com.xt.mvc;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -29,12 +31,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
 import com.xt.domain.Buildings;
+import com.xt.domain.City;
 import com.xt.domain.House;
 import com.xt.domain.Land;
 import com.xt.service.BuildingsService;
+import com.xt.service.DictService;
 import com.xt.service.HouseService;
 import com.xt.service.LandService;
 import com.xt.utils.DataGrid;
+import com.xt.utils.DateUtil;
 
 
 @Controller
@@ -43,6 +48,8 @@ public class LandController {
 	private LandService landService;
 	@Autowired
 	private HouseService houseService;
+	@Autowired
+	private DictService dictService;
 	
 	@RequestMapping(value = "/app/insertLand", method = RequestMethod.GET)
 	public @ResponseBody
@@ -123,6 +130,8 @@ public class LandController {
 	@RequestMapping(value = "/app/importExcel", method = RequestMethod.POST)
 	public 	String importExcel(HttpServletRequest request,ModelMap model) {
 		String excelType = request.getParameter("excelType");
+		String houseType = request.getParameter("houseType");
+		String dealType = request.getParameter("dealType");
 		int rs = 0;
 		
 		try {
@@ -167,31 +176,156 @@ public class LandController {
 			            Sheet sheet = book.getSheet(0);
 			            //取得行数
 			            int rows = sheet.getRows();
-			            
+			            System.out.println("rows:" + rows);
 			            if("land".equalsIgnoreCase(excelType)){
 				            List<Land> list = new ArrayList<Land>();
 				    		Land land = null;
 				            for(int i = 1; i < rows; i++) {//去除第一行表头
+				            	if(sheet.getCell(4, i).getContents().equalsIgnoreCase("") || sheet.getCell(4, i).getContents() == null){
+				            		break;
+				            	}
 				            	land = new Land();
 			                    //getCell(列，行)
 				            	land.setListNo(sheet.getCell(1, i).getContents());
+				            	String dd = sheet.getCell(3, i).getContents().trim();
+				            	System.out.println(dd);
+				            	land.setDealTime(convertDate(dd));
+				            	land.setCity(sheet.getCell(4, i).getContents());
+				            	land.setLocate(sheet.getCell(5, i).getContents());
+				            	land.setLevel(sheet.getCell(6, i).getContents());
+				            	land.setUseNo(sheet.getCell(7, i).getContents());
+				            	land.setUseScale(sheet.getCell(8, i).getContents());
+				            	land.setAcreage(convertFloat(sheet.getCell(9, i).getContents()));
+				            	land.setAreaRatio(sheet.getCell(10, i).getContents());
+				            	land.setAgeLimit(sheet.getCell(11, i).getContents());
+				            	land.setStartingPrice(convertFloat(sheet.getCell(12, i).getContents()));
+				            	land.setTotalPrice(convertFloat(sheet.getCell(13, i).getContents()));
+				            	land.setUnitPrice1(convertFloat(sheet.getCell(14, i).getContents()));
+				            	land.setUnitPrice2(convertFloat(sheet.getCell(15, i).getContents()));
+				            	land.setFloorPrice(convertFloat(sheet.getCell(16, i).getContents()));
+				            	land.setBidTimes(convertInteger(sheet.getCell(17, i).getContents()));
+				            	land.setDealUnit(sheet.getCell(18, i).getContents());
+				            	land.setRemark(sheet.getCell(19, i).getContents());
 			                    list.add(land);
 				            }
 				            //关闭文件
 				            book.close();
 				            rs = landService.insertLandBatch(list);
-			            }else{
+			            }else if("house".equalsIgnoreCase(excelType)){
 			            	List<House> list = new ArrayList<House>();
 			            	House house = null;
 				            for(int i = 1; i < rows; i++) {//去除第一行表头
+				            	if(sheet.getCell(1, i).getContents().equalsIgnoreCase("") || sheet.getCell(1, i).getContents() == null){
+				            		break;
+				            	}
 				            	house = new House();
+				            	house.setHouseType(houseType);
+				            	house.setDealType(dealType);
 			                    //getCell(列，行)
 				            	house.setHouseName(sheet.getCell(1, i).getContents());
+				            	house.setHouseNo(sheet.getCell(2, i).getContents());
+				            	house.setDealTime(convertDate(sheet.getCell(3, i).getContents()));
+				            	house.setCityNo(sheet.getCell(4, i).getContents());
+				            	house.setLocate(sheet.getCell(5, i).getContents());
+				            	house.setRealUse(sheet.getCell(6, i).getContents());
+				            	house.setStructure(sheet.getCell(7, i).getContents());
+				            	house.setConstructionArea(convertFloat(sheet.getCell(8, i).getContents()));
+				            	house.setPoolArea(convertFloat(sheet.getCell(9, i).getContents()));
+				            	house.setBuildingDate(sheet.getCell(10, i).getContents());
+				            	house.setNewSituation(sheet.getCell(11, i).getContents());
+				            	house.setTotalFloor(convertInteger(sheet.getCell(12, i).getContents()));
+				            	house.setFloor(convertInteger(sheet.getCell(13, i).getContents()));
+				            	house.setFloorHeight(convertFloat(sheet.getCell(14, i).getContents()));
+				            	house.setDecorateSituation(sheet.getCell(15, i).getContents());
+				            	house.setLandUseRight(sheet.getCell(16, i).getContents());
+				            	house.setLandExpiredDate(convertDate(sheet.getCell(17, i).getContents()));
+				            	house.setHirePrice(convertFloat(sheet.getCell(18, i).getContents()));
+				            	house.setContactTel(sheet.getCell(19, i).getContents());
+				            	house.setCollecter(sheet.getCell(20, i).getContents());
+				            	house.setRemark(sheet.getCell(21, i).getContents());
+				            	if("1".equalsIgnoreCase(houseType) && "1".equalsIgnoreCase(dealType)){
+					            	house.setCaseNo(sheet.getCell(22, i).getContents());
+					            	house.setBusinessState(sheet.getCell(23, i).getContents());
+					            	house.setStreetSide(sheet.getCell(24, i).getContents());
+					            	house.setStreetLength(sheet.getCell(25, i).getContents());
+					            	house.setDepth(sheet.getCell(26, i).getContents());
+					            	house.setTotalPrice(convertFloat(sheet.getCell(27, i).getContents()));
+					            	house.setUnitPrice(convertFloat(sheet.getCell(28, i).getContents()));
+					            	house.setHireState(sheet.getCell(29, i).getContents());
+					            	house.setSupportingFacilities(sheet.getCell(30, i).getContents());
+				            	}else if("1".equalsIgnoreCase(houseType) && "2".equalsIgnoreCase(dealType)){
+					            	house.setCaseNo(sheet.getCell(22, i).getContents());
+					            	house.setBusinessState(sheet.getCell(23, i).getContents());
+					            	house.setStreetSide(sheet.getCell(24, i).getContents());
+					            	house.setStreetLength(sheet.getCell(25, i).getContents());
+					            	house.setDepth(sheet.getCell(26, i).getContents());
+					            	house.setHireExpiredDate(sheet.getCell(27, i).getContents());
+					            	house.setHireUnitPrice(convertFloat(sheet.getCell(28, i).getContents()));
+					            	house.setTransferFee(convertFloat(sheet.getCell(29, i).getContents()));
+					            	house.setPropertyManagementFee(convertFloat(sheet.getCell(30, i).getContents()));
+				            	}else if("2".equalsIgnoreCase(houseType) && "1".equalsIgnoreCase(dealType)){
+					            	house.setCaseNo(sheet.getCell(22, i).getContents());
+					            	house.setSupportingFacilities(sheet.getCell(23, i).getContents());
+					            	house.setTotalPrice(convertFloat(sheet.getCell(24, i).getContents()));
+					            	house.setUnitPrice(convertFloat(sheet.getCell(25, i).getContents()));
+					            	house.setHireState(sheet.getCell(26, i).getContents());
+					            	house.setApartment(sheet.getCell(27, i).getContents());
+				            	}else if("2".equalsIgnoreCase(houseType) && "2".equalsIgnoreCase(dealType)){
+					            	house.setCaseNo(sheet.getCell(22, i).getContents());
+					            	house.setSupportingFacilities(sheet.getCell(23, i).getContents());
+					            	house.setHireExpiredDate(sheet.getCell(24, i).getContents());
+					            	house.setHireUnitPrice(convertFloat(sheet.getCell(25, i).getContents()));
+					            	house.setDeposit(convertFloat(sheet.getCell(26, i).getContents()));
+				            	}else if("3".equalsIgnoreCase(houseType) && "1".equalsIgnoreCase(dealType)){
+					            	house.setStreetSide(sheet.getCell(22, i).getContents());
+					            	house.setOfficeFacilities(sheet.getCell(23, i).getContents());
+					            	house.setParkingFacilities(sheet.getCell(24, i).getContents());
+					            	house.setUnitPrice(convertFloat(sheet.getCell(25, i).getContents()));
+					            	house.setTotalPrice(convertFloat(sheet.getCell(26, i).getContents()));
+					            	house.setHireState(sheet.getCell(27, i).getContents());
+				            	}else if("3".equalsIgnoreCase(houseType) && "2".equalsIgnoreCase(dealType)){
+				            		house.setStreetSide(sheet.getCell(22, i).getContents());
+					            	house.setOfficeFacilities(sheet.getCell(23, i).getContents());
+					            	house.setParkingFacilities(sheet.getCell(24, i).getContents());
+					            	house.setHireExpiredDate(sheet.getCell(25, i).getContents());
+					            	house.setDeposit(convertFloat(sheet.getCell(26, i).getContents()));
+				            	}else if("4".equalsIgnoreCase(houseType) && "1".equalsIgnoreCase(dealType)){
+					            	house.setStreetSide(sheet.getCell(22, i).getContents());
+					            	house.setPilespacing(convertFloat(sheet.getCell(23, i).getContents()));
+					            	house.setSpan(convertFloat(sheet.getCell(24, i).getContents()));
+					            	house.setCraneBeam(sheet.getCell(25, i).getContents());
+					            	house.setUnitPrice(convertFloat(sheet.getCell(26, i).getContents()));
+					            	house.setTotalPrice(convertFloat(sheet.getCell(27, i).getContents()));
+					            	house.setHireState(sheet.getCell(28, i).getContents());
+				            	}else if("4".equalsIgnoreCase(houseType) && "2".equalsIgnoreCase(dealType)){
+				            		house.setStreetSide(sheet.getCell(22, i).getContents());
+					            	house.setPilespacing(convertFloat(sheet.getCell(23, i).getContents()));
+					            	house.setSpan(convertFloat(sheet.getCell(24, i).getContents()));
+					            	house.setCraneBeam(sheet.getCell(25, i).getContents());
+					            	house.setHireExpiredDate(sheet.getCell(26, i).getContents());
+					            	house.setDeposit(convertFloat(sheet.getCell(27, i).getContents()));
+				            	}
+				            	
 			                    list.add(house);
 				            }
 				            //关闭文件
 				            book.close();
 				            rs = houseService.insertHouseBatch(list);
+			            }else if("city".equalsIgnoreCase(excelType)){
+				            List<City> list = new ArrayList<City>();
+				    		City city = null;
+				            for(int i = 0; i < rows; i++) {//去除第一行表头
+				            	city = new City();
+				            	String nn = sheet.getCell(0, i).getContents();
+			                    //getCell(列，行)
+				            	city.setCityNo(!nn.endsWith("00")?nn:(!nn.endsWith("0000")?nn.substring(0,4):nn.substring(0,2)));
+				            	city.setCityName(sheet.getCell(1, i).getContents());
+				            	city.setParentNo(!nn.endsWith("00")?nn.substring(0, 4):(!nn.endsWith("0000")?nn.substring(0,2):"00"));
+			                    list.add(city);
+				            }
+				            //关闭文件
+				            book.close();
+				            rs = dictService.insertCityBatch(list);
 			            }
 			            
 			        } catch (BiffException e) {
@@ -212,6 +346,17 @@ public class LandController {
 		}
 		model.addAttribute("msg", result);
 		return "import_result";
+	}
+	
+	private Float convertFloat(String str){
+		return str == null || str.length() == 0 ? null : Float.parseFloat(str);
+	}
+	
+	private Integer convertInteger(String str){
+		return str == null || str.length() == 0 ? null : Integer.parseInt(str);
+	}
+	private Date convertDate(String str){
+		return str!=null&&!str.equals("")?(new Date(DateUtil.convertDate(str.trim(), "yyyy-MM-dd").getTime())):null;
 	}
 
 }

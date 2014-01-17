@@ -3,14 +3,69 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.xt.persistence.DictMapper">
-
-	<select id="getCommType" resultType="Dict">
+    
+    <select id="getLandUseDict" resultType="Dict" parameterType="map">
 		SELECT
-		commTypeID as id,
-		commTypeName as name
-		FROM ZG_C_CommType 
-		ORDER BY commTypeID ASC
+		dict_id as dictId,
+		dict_name as dictName,
+		parent_id as parentId
+		FROM tb_land_use_dict 
+		where 1=1
+		<if test="dictId != null and dictId != ''"> 
+		    <![CDATA[
+		    and dict_id = #{dictId}
+		     ]]>
+		</if>
+		<if test="parentId != null and parentId != ''"> 
+		    <![CDATA[
+		    and parent_id = #{parentId}
+		     ]]>
+		</if>
+		<if test="dictName != null and dictName != ''"> 
+		    <![CDATA[
+		    and dict_name = #{dictName}
+		     ]]>
+		</if>
+		ORDER BY dict_id
+	</select>
+
+	<select id="getCityList" resultType="City" parameterType="map">
+		SELECT
+		city_no as cityNo,
+		city_name as cityName,
+		parent_no as parentNo,
+		lat,
+		lng
+		FROM tb_city_info 
+		where 1=1
+		<if test="cityNo != null and cityNo != ''"> 
+		    <![CDATA[
+		    and city_no = #{cityNo}
+		     ]]>
+		</if>
+		<if test="parentNo != null and parentNo != ''"> 
+		    <![CDATA[
+		    and parent_no = #{parentNo}
+		     ]]>
+		</if>
+		ORDER BY city_no
 	</select>
 	
+	<insert id="insertCity" parameterType="City">
+		INSERT INTO
+		tb_city_info (
+			   city_no,
+			   city_name,
+			   parent_no,
+			   lat,
+			   lng
+		)
+		VALUES (
+			#{cityNo},#{cityName},#{parentNo},#{lat},#{lng}
+		)
+	</insert>
 	
+	<select id="getSystemTime" resultType="String">
+		select now() as sysCurTime
+	</select>
 </mapper>

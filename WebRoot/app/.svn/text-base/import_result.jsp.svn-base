@@ -5,7 +5,7 @@
 	if (request.getAttribute("msg") != null) {
 		String msg = (String) request.getAttribute("msg");
 		if (msg.equals("yes")) {
-			out.println("<script>alert('保存成功！');parent.close();</script>");
+			out.println("<script>alert('保存成功！');parent.returnValue='ok';parent.close();</script>");
 		} else {
 			out.println("<script>alert('保存失败！')</script>");
 		}

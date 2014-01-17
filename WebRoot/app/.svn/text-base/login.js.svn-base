@@ -7,7 +7,8 @@ var m = (function(){
     return M;
 })();
 
+/*
 if(m[0] !== 'msie' && m[1] < 8){
     alert("本系统只能在ie8以上的浏览器中运行!");
-}
+}*/
 

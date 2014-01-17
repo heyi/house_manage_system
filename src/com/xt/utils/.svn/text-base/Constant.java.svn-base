@@ -8,5 +8,5 @@ public class Constant {
 	public static final String CURRENT_USER = "currentUser";
 	//验证码session变量名称
 	public static final String VALIDATE_KEY = "validateKey";
-	public static final String EXPIRED_TIME = "2013-12-10 15:30:22";
+	public static final String EXPIRED_TIME = "2014-2-23 15:30:22";
 }

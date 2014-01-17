@@ -8,12 +8,18 @@
 </head>
 <script>
 	function uploadfile() {
-		window
-				.showModalDialog(
+		var o = {
+				"excelType":"city",//房地产是house，土地交易是land
+				"houseType":"",
+				"dealType":""
+		};
+		var returnValue = window.showModalDialog(
 						"importExcel.jsp",
-						null,
+						o,
 						"dialogWidth=300px;dialogHeight=100px;resizable=false;status=no;scroll=no;location=no;toolbar=no;menubar=no");
-		
+		if(returnValue){
+			alert(returnValue);//返回ok字符串代表成功
+		}
 	}
 </script>
 <body>

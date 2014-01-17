@@ -1,7 +1,7 @@
 K 25
 svn:wc:ra_dav:version-url
 V 48
-/svn/twzg/!svn/ver/1398/trunk/fw/WebRoot/WEB-INF
+/svn/twzg/!svn/ver/1609/trunk/fw/WebRoot/WEB-INF
 END
 action-servlet.xml
 K 25
@@ -13,5 +13,5 @@ web.xml
 K 25
 svn:wc:ra_dav:version-url
 V 56
-/svn/twzg/!svn/ver/1394/trunk/fw/WebRoot/WEB-INF/web.xml
+/svn/twzg/!svn/ver/1609/trunk/fw/WebRoot/WEB-INF/web.xml
 END

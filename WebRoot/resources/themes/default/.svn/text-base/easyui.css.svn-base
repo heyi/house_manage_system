@@ -103,13 +103,7 @@
   border-color: #95B8E7;
 }
 .panel-header {
-  background-color: #E0ECFF;
-  background: -webkit-linear-gradient(top,#EFF5FF 0,#E0ECFF 100%);
-  background: -moz-linear-gradient(top,#EFF5FF 0,#E0ECFF 100%);
-  background: -o-linear-gradient(top,#EFF5FF 0,#E0ECFF 100%);
-  background: linear-gradient(to bottom,#EFF5FF 0,#E0ECFF 100%);
-  background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#EFF5FF,endColorstr=#E0ECFF,GradientType=0);
+  background: url(images/nav-title-bg.gif) repeat-x
 }
 .panel-body {
   background-color: #ffffff;
@@ -118,7 +112,6 @@
 }
 .panel-title {
   font-size: 12px;
-  font-weight: bold;
   color: #0E2D5F;
   height: 16px;
   line-height: 16px;
@@ -155,11 +148,10 @@
   border-color: #95B8E7;
 }
 .accordion .accordion-header {
-  background: #E0ECFF;
-  filter: none;
+  background: url(images/nav-title-bg.gif) repeat-x
 }
 .accordion .accordion-header-selected {
-  background: #FBEC88;
+  background: url(images/nav-seleted-title-bg.gif) repeat-x
 }
 .accordion .accordion-header-selected .panel-title {
   color: #000000;
@@ -445,10 +437,10 @@
   border-right: 5px solid #E6EEF8;
 }
 .layout-expand {
-  background-color: #E0ECFF;
+  background: url(images/nav-title-bg.gif) repeat-x
 }
 .layout-expand-over {
-  background-color: #E0ECFF;
+  background: url(images/nav-over-title-bg.gif) repeat-x
 }
 .tabs-container {
   overflow: hidden;
@@ -1131,13 +1123,7 @@ a:hover.l-btn-plain-selected {
 }
 .datagrid-header,
 .datagrid-td-rownumber {
-  background-color: #efefef;
-  background: -webkit-linear-gradient(top,#F9F9F9 0,#efefef 100%);
-  background: -moz-linear-gradient(top,#F9F9F9 0,#efefef 100%);
-  background: -o-linear-gradient(top,#F9F9F9 0,#efefef 100%);
-  background: linear-gradient(to bottom,#F9F9F9 0,#efefef 100%);
-  background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#F9F9F9,endColorstr=#efefef,GradientType=0);
+  background: url(images/datagrid-bg.gif) repeat-x
 }
 .datagrid-cell-rownumber {
   color: #000000;
@@ -1153,7 +1139,7 @@ a:hover.l-btn-plain-selected {
 }
 .datagrid-toolbar,
 .datagrid-pager {
-  background: #F4F4F4;
+  background: url(images/nav-title-bg.gif) repeat-x
 }
 .datagrid-header,
 .datagrid-toolbar,
@@ -1181,7 +1167,7 @@ a:hover.l-btn-plain-selected {
   cursor: default;
 }
 .datagrid-row-selected {
-  background: #FBEC88;
+  background: url(images/toolbar-title-bg.gif) repeat-x;
   color: #000000;
 }
 .datagrid-body .datagrid-editable .datagrid-editable-input {
@@ -2147,12 +2133,18 @@ a.s-btn-plain-active {
   border-color: #95B8E7;
 }
 .tree-node-hover {
-  background: #eaf2ff;
-  color: #000000;
+  background: url(images/tree-over-bg.gif) repeat-x;
+	_background-image: none;
+	_background-color: #DAE5FD;
+	border: 1px #8FB1DB solid;
+	padding: 0 !important
 }
 .tree-node-selected {
-  background: #FBEC88;
-  color: #000000;
+  	background: url(images/tree-over-bg.gif) repeat-x;
+	_background-image: none;
+	_background-color: #DAE5FD;
+	border: 1px #8FB1DB solid;
+	padding: 0 !important
 }
 .validatebox-invalid {
   background-image: url('images/validatebox_warning.png');

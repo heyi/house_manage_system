@@ -8,17 +8,18 @@ public class Land implements Serializable {
 
 	private static final long serialVersionUID = -6201319489343504331L;
 	private Integer landId;//序号
+	private String caseNo;//案例编号
 	private String listNo;//挂牌号
 	private Date dealTime;//成交时间
 	private String city;//市编码
 	private String county;//县编码
 	private String locate;//土地坐落
-	private Integer level;//级别
-	private Integer useNo;//土地用途编码
+	private String level;//级别
+	private String useNo;//土地用途
 	private String useScale;//用途比例
 	private Float acreage;//面积
-	private Float areaRatio;//容积率
-	private Integer ageLimit;//使用年限
+	private String areaRatio;//容积率
+	private String ageLimit;//使用年限
 	private Float startingPrice;//起始价格
 	private Float totalPrice;//成交总价
 	private Float unitPrice1;//成交单价（元/平方米）
@@ -33,11 +34,22 @@ public class Land implements Serializable {
 	private Double lng;//经度
 	private Double lat;//纬度
 	private String remark;//备注
+	private String grantNotice;//出让须知
+	private String transferNotice;//出让公告
+	private String img;//实物照片
+	
+	
 	public Integer getLandId() {
 		return landId;
 	}
 	public void setLandId(Integer landId) {
 		this.landId = landId;
+	}
+	public String getCaseNo() {
+		return caseNo;
+	}
+	public void setCaseNo(String caseNo) {
+		this.caseNo = caseNo;
 	}
 	public String getListNo() {
 		return listNo;
@@ -68,17 +80,17 @@ public class Land implements Serializable {
 	}
 	public void setLocate(String locate) {
 		this.locate = locate;
-	}
-	public Integer getLevel() {
+	}	
+	public String getLevel() {
 		return level;
 	}
-	public void setLevel(Integer level) {
+	public void setLevel(String level) {
 		this.level = level;
 	}
-	public Integer getUseNo() {
+	public String getUseNo() {
 		return useNo;
 	}
-	public void setUseNo(Integer useNo) {
+	public void setUseNo(String useNo) {
 		this.useNo = useNo;
 	}
 	public String getUseScale() {
@@ -93,16 +105,17 @@ public class Land implements Serializable {
 	public void setAcreage(Float acreage) {
 		this.acreage = acreage;
 	}
-	public Float getAreaRatio() {
+	
+	public String getAreaRatio() {
 		return areaRatio;
 	}
-	public void setAreaRatio(Float areaRatio) {
+	public void setAreaRatio(String areaRatio) {
 		this.areaRatio = areaRatio;
 	}
-	public Integer getAgeLimit() {
+	public String getAgeLimit() {
 		return ageLimit;
 	}
-	public void setAgeLimit(Integer ageLimit) {
+	public void setAgeLimit(String ageLimit) {
 		this.ageLimit = ageLimit;
 	}
 	public Float getStartingPrice() {
@@ -192,6 +205,25 @@ public class Land implements Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+	public String getGrantNotice() {
+		return grantNotice;
+	}
+	public void setGrantNotice(String grantNotice) {
+		this.grantNotice = grantNotice;
+	}
+	public String getTransferNotice() {
+		return transferNotice;
+	}
+	public void setTransferNotice(String transferNotice) {
+		this.transferNotice = transferNotice;
+	}
+	public String getImg() {
+		return img;
+	}
+	public void setImg(String img) {
+		this.img = img;
+	}
+	
 	
 
 }

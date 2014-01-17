@@ -60,3 +60,13 @@ function doprint(id_str){
         catch(e){}
     }, 10 );
 }
+
+$(document).ajaxComplete(function(event, xhr, settings) {
+	if(xhr.getResponseHeader("sessionstatus")=="timeOut"){
+		if(xhr.getResponseHeader("loginPath")){
+			window.location.replace(xhr.getResponseHeader("loginPath"));
+		}else{
+			alert("会话超时，请重新登录!");
+		}
+	}
+}); 

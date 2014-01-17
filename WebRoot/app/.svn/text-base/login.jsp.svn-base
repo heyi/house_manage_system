@@ -112,15 +112,16 @@ if(session.getAttribute(Constant.CURRENT_USER) != null){
             cursor: pointer;
             }
 
-            .footer {
-            font-size: 16px;
+             .footer {
+            font-size: 12px;
             color: #fff;
             text-align: left;
             width: 280px;
             line-height: 160%;
             margin: auto;
-            padding: 0px 0 0 60px;
+            padding: 30px 0 0 20px;
             height: 50px;
+            white-space:nowrap
             }
         </style>
         <script>
@@ -165,12 +166,12 @@ if(session.getAttribute(Constant.CURRENT_USER) != null){
                         <form action="<c:url value="/login.do"/>" method="post" id="loginForm" name="loginForm" onsubmit="return false;">
                             <tr>
                                 <th>帐&nbsp;&nbsp;&nbsp;号</th>
-                                <td><input type="text" id="username" name="username" value="wlz" /></td>
+                                <td><input type="text" id="username" name="username" value="" /></td>
                             </tr>
                             <tr>
                                 <th>密&nbsp;&nbsp;&nbsp;码</th>
                                 <td><input type="password" id="password" name="password"
-                                    value="wlz_1226"></td>
+                                    value=""></td>
                             </tr>
                             <tr>
                                 <th>验证码</th>
@@ -208,11 +209,13 @@ if(session.getAttribute(Constant.CURRENT_USER) != null){
 					</span>
                 </div>
             </div>
-            <!-- 
             <div class="footer">
+            温馨提示：为了您拥有更好的用户体验，请使用谷歌浏览器[<a href="chrome.zip" style="color:#ffffff">点击下载</a>]
+               <!-- 
                 <img src="<c:url value="/resources/css/images/copyright.png"/>" width="304" height="58">
+                -->
             </div>
-             -->
+             
         </div>
 
     </body>

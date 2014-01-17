@@ -10,13 +10,14 @@ public class House implements Serializable {
 	private String houseType;
 	private String dealType;
 	
+	private String caseNo;//案例编号
 	private Integer houseId;//序号
 	private String houseName;//小区名称
 	private String houseNo;//栋号及房号
 	private Date dealTime;//成交时间
 	private String cityNo;//所在区县代码
+	private String cityName;
 	private String locate;//房屋位置
-	private String areaNo;//区域代码
 	private String realUse;//实际用途
 	private String businessState;//经营状态
 	private String structure;//房屋结构
@@ -30,8 +31,8 @@ public class House implements Serializable {
 	private Integer totalFloor;//总层数
 	private Integer floor;//所在楼层
 	private Float floorHeight;//层高
-	private int decorateSituation;//装修情况
-	private int landUseRight;//土地使用权类型
+	private String decorateSituation;//装修情况
+	private String landUseRight;//土地使用权类型
 	private Date landExpiredDate;//土地终止日期
 	private Float totalPrice;//成交总价
 	private Float unitPrice;//成交单价
@@ -48,7 +49,7 @@ public class House implements Serializable {
 	
 	private String img;//实物照片
 	private String contract;//成交合同
-	private Date hireExpiredDate;//租赁期限
+	private String hireExpiredDate;//租赁期限
 	private Float hireUnitPrice;//租赁单价
 	private Float transferFee;//转让费
 	private Float deposit;//押金
@@ -56,8 +57,17 @@ public class House implements Serializable {
 	private String officeFacilities;//办公配套
 	private String parkingFacilities;//停车配套
 	private Float pilespacing;//柱距
-	private int craneBeam;//有无行车梁
+	private String craneBeam;//有无行车梁
 	private Float span;//跨度
+	private String apartment;//户型
+	
+	
+	public String getApartment() {
+		return apartment;
+	}
+	public void setApartment(String apartment) {
+		this.apartment = apartment;
+	}
 	public String getHouseType() {
 		return houseType;
 	}
@@ -100,17 +110,24 @@ public class House implements Serializable {
 	public void setCityNo(String cityNo) {
 		this.cityNo = cityNo;
 	}
+	public String getCityName() {
+		return cityName;
+	}
+	public void setCityName(String cityName) {
+		this.cityName = cityName;
+	}
 	public String getLocate() {
 		return locate;
 	}
 	public void setLocate(String locate) {
 		this.locate = locate;
 	}
-	public String getAreaNo() {
-		return areaNo;
+	
+	public String getCaseNo() {
+		return caseNo;
 	}
-	public void setAreaNo(String areaNo) {
-		this.areaNo = areaNo;
+	public void setCaseNo(String caseNo) {
+		this.caseNo = caseNo;
 	}
 	public String getRealUse() {
 		return realUse;
@@ -190,16 +207,17 @@ public class House implements Serializable {
 	public void setFloorHeight(Float floorHeight) {
 		this.floorHeight = floorHeight;
 	}
-	public int getDecorateSituation() {
+	
+	public String getDecorateSituation() {
 		return decorateSituation;
 	}
-	public void setDecorateSituation(int decorateSituation) {
+	public void setDecorateSituation(String decorateSituation) {
 		this.decorateSituation = decorateSituation;
 	}
-	public int getLandUseRight() {
+	public String getLandUseRight() {
 		return landUseRight;
 	}
-	public void setLandUseRight(int landUseRight) {
+	public void setLandUseRight(String landUseRight) {
 		this.landUseRight = landUseRight;
 	}
 	public Date getLandExpiredDate() {
@@ -292,11 +310,10 @@ public class House implements Serializable {
 	public void setContract(String contract) {
 		this.contract = contract;
 	}
-	
-	public Date getHireExpiredDate() {
+	public String getHireExpiredDate() {
 		return hireExpiredDate;
 	}
-	public void setHireExpiredDate(Date hireExpiredDate) {
+	public void setHireExpiredDate(String hireExpiredDate) {
 		this.hireExpiredDate = hireExpiredDate;
 	}
 	public Float getHireUnitPrice() {
@@ -341,10 +358,11 @@ public class House implements Serializable {
 	public void setPilespacing(Float pilespacing) {
 		this.pilespacing = pilespacing;
 	}
-	public int getCraneBeam() {
+	
+	public String getCraneBeam() {
 		return craneBeam;
 	}
-	public void setCraneBeam(int craneBeam) {
+	public void setCraneBeam(String craneBeam) {
 		this.craneBeam = craneBeam;
 	}
 	public Float getSpan() {

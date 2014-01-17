@@ -7,6 +7,14 @@ public class Sector implements Serializable {
 	private int sectorId;
 	private String sectorName;
 	private String cityNo;
+	private String cityName;
+	
+	public String getCityName() {
+		return cityName;
+	}
+	public void setCityName(String cityName) {
+		this.cityName = cityName;
+	}
 	public int getSectorId() {
 		return sectorId;
 	}
